@@ -1,0 +1,121 @@
+/* Font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+	font-family: "Inter", sans-serif;
+}
+
+/* Modular Scale */
+
+:root {
+	--ratio: 1.25;
+	--s-6: calc(var(--s-5) / var(--ratio));
+	--s-5: calc(var(--s-4) / var(--ratio));
+	--s-4: calc(var(--s-3) / var(--ratio));
+	--s-3: calc(var(--s-2) / var(--ratio));
+	--s-2: calc(var(--s-1) / var(--ratio));
+	--s-1: calc(var(--s0) / var(--ratio));
+	--s0: 1rem;
+	--s1: calc(var(--s0) * var(--ratio));
+	--s2: calc(var(--s1) * var(--ratio));
+	--s3: calc(var(--s2) * var(--ratio));
+	--s4: calc(var(--s3) * var(--ratio));
+	--s5: calc(var(--s4) * var(--ratio));
+	--s6: calc(var(--s5) * var(--ratio));
+}
+
+/* Typography */
+
+/* Basic Layout */
+
+.grid {
+	display: grid;
+	gap: var(--gap, 0.75rem);
+	--minimum: 20ch;
+}
+
+@supports (width: min(var(--minimum), 100%)) {
+	.grid {
+		grid-template-columns: repeat(auto-fit, minmax(min(var(--minimum), 100%), 1fr));
+	}
+}
+
+.box {
+	padding: var(--padding, var(--s0));
+	border: 1px solid var(--border, var(--clr-bg-border));
+	border-radius: var(--radius, var(--border-radius));
+
+	outline: var(--border-thin) transparent;
+	outline-offset: calc(var(--border-thin) * -1);
+	color: var(--text-main);
+	background-color: var(--bg, var(--clr-bg-accent));
+}
+
+.box * {
+	color: inherit;
+}
+
+.box.invert {
+	background-color: var(--bg-invert, var(--clr-bg-invert));
+}
+
+.center {
+	/* ↓ Remove padding from the width calculation */
+	box-sizing: content-box;
+	/* ↓ The maximum width is the maximum measure */
+	max-inline-size: 60ch;
+	/* ↓ Only affect horizontal margins */
+	margin-inline: auto;
+	/* ↓ Apply the minimum horizontal space */
+	padding-inline-start: var(--s1);
+	padding-inline-end: var(--s1);
+}
+
+.icon {
+	height: 0.75em;
+	/* ↓ Override the em value with `1cap`
+    where `cap` is supported */
+	height: 1cap;
+	width: 0.75em;
+	width: 1cap;
+}
+.with-icon {
+	/* ↓ Set the `inline-flex` context,
+    which eliminates the word space */
+	display: inline-flex;
+	align-items: baseline;
+}
+.with-icon .icon {
+	/* ↓ Use the logical margin property
+    and a --space variable with a fallback */
+	margin-inline-end: var(--space, 0.5em);
+}
+
+.repel {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: var(--repel-vertical-alignment, center);
+	gap: var(--gutter, var(--space-s-l));
+}
+
+.repel[data-nowrap] {
+	flex-wrap: nowrap;
+}
+
+.with-sidebar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--gutter, var(--s1));
+}
+
+.with-sidebar > :first-child {
+	flex-basis: 9rem;
+	flex-grow: 1;
+}
+
+.with-sidebar > :last-child {
+	flex-basis: 0;
+	flex-grow: 999;
+	min-inline-size: 65%;
+}

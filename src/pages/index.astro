@@ -1,0 +1,126 @@
+---
+import Stack from "@blocks/Stack.astro";
+import JobExperience from "@blocks/WorkExperience.astro";
+import MainLayout from "@layout/MainLayout.astro";
+
+const jobs = [
+	{
+		title: "Software Engineer Intern",
+		company: "Lightbulb.ai",
+		companyUrl: "https://lightbulb.ai",
+		startDate: "May 2023",
+		endDate: "Present",
+		location: "Remote",
+		languages: [
+			{
+				url: "https://www.typescriptlang.org/",
+				name: "TypeScript",
+			},
+			{
+				url: "reactjs.org",
+				name: "React",
+			},
+		],
+		description:
+			"lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl.",
+	},
+	{
+		title: "Software Engineer Intern",
+		company: "Lightbulb.ai",
+		companyUrl: "https://lightbulb.ai",
+		startDate: "May 2023",
+		endDate: "Present",
+		location: "Remote",
+		languages: [
+			{
+				url: "https://www.typescriptlang.org/",
+				name: "TypeScript",
+			},
+			{
+				url: "reactjs.org",
+				name: "React",
+			},
+		],
+		description:
+			"lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl.",
+	},
+	{
+		title: "Software Engineer Intern",
+		company: "Lightbulb.ai",
+		companyUrl: "https://lightbulb.ai",
+		startDate: "May 2023",
+		endDate: "Present",
+		location: "Remote",
+		languages: [
+			{
+				url: "https://www.typescriptlang.org/",
+				name: "TypeScript",
+			},
+			{
+				url: "reactjs.org",
+				name: "React",
+			},
+		],
+		description:
+			"lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl.",
+	},
+];
+---
+
+<MainLayout title="Alexis Vielma">
+	<Stack space="0.5rem">
+		<h2>SWE Intern @ <a href="https://lightbulb.ai">Lightbulb.ai</a></h2>
+		<p>I design and build accessible and inclusive experiences for the web.</p>
+	</Stack>
+	<Stack>
+		<Stack as="section" space="var(--s2)">
+			<h3>About</h3>
+			<p>
+				I am an aspiring Software/Production Engineer who enjoys tackling technical challenges: be it <strong
+					>code optimization</strong
+				>, service management, or being able to interact with people outside of the industry. I have <strong
+					>ever-growing technical skills</strong
+				> and an <strong>on-going academic background</strong> in <abbr title="">Computer Science</abbr>, <abbr
+					title="">Linguistics</abbr
+				>, and <abbr title="">Korean</abbr>.
+			</p>
+			<p>
+				My passion lies in being able to create fun and easy-to-use software that has the potential of reaching
+				and helping many people while focusing on ease-of-use comes strong emphasis on <strong>UI/UX</strong>, <strong
+					>HCI</strong
+				>, and <strong>Continuous Development</strong>.
+			</p>
+			<p>
+				I'm <strong>graduating in May 2025</strong> – Interested in Internship and Fellowship opportunities to further
+				guide me in my career.
+			</p>
+		</Stack>
+		<Stack as="section" space="var(--s2)">
+			<h3>Experience</h3>
+			<Stack>
+				{jobs.map((job) => <JobExperience {...job} />)}
+			</Stack>
+		</Stack>
+	</Stack>
+</MainLayout>
+
+<style>
+	h3 {
+		text-transform: uppercase;
+		font-size: 0.95rem;
+	}
+
+	h3::before {
+		content: "";
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 1rem;
+		width: 3rem;
+		height: 0.075rem;
+		background-color: black;
+	}
+
+	section p {
+		margin: 0.5rem 0;
+	}
+</style>

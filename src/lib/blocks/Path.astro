@@ -1,0 +1,10 @@
+---
+import Cluster from "./Cluster.astro";
+
+const path = Astro.url.pathname;
+---
+
+<Cluster>
+	{path !== "/" && <a href="/">back</a>}
+	{path === "/" && <a href="/">{path}</a>}
+</Cluster>
