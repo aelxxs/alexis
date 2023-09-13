@@ -72,9 +72,9 @@ const jobs = [
 		<h2>SWE Intern @ <a href="https://lightbulb.ai">Lightbulb.ai</a></h2>
 		<p>I design and build accessible and inclusive experiences for the web.</p>
 	</Stack>
-	<Stack>
+	<Stack space="var(--s4)">
 		<Stack as="section" space="var(--s2)">
-			<h3>About</h3>
+			<h3>About Me</h3>
 			<p>
 				I am an aspiring Software/Production Engineer who enjoys tackling technical challenges: be it <strong
 					>code optimization</strong
@@ -97,17 +97,24 @@ const jobs = [
 		</Stack>
 		<Stack as="section" space="var(--s2)">
 			<h3>Experience</h3>
-			<Stack>
+			<Stack space="var(--s3)">
 				{jobs.map((job) => <JobExperience {...job} />)}
 			</Stack>
+		</Stack>
+		<Stack as="section" space="var(--s2)">
+			<h3>Projects</h3>
 		</Stack>
 	</Stack>
 </MainLayout>
 
 <style>
+	h2 {
+		font-size: 1.25rem;
+	}
+
 	h3 {
 		text-transform: uppercase;
-		font-size: 0.95rem;
+		font-size: 0.85rem;
 	}
 
 	h3::before {
