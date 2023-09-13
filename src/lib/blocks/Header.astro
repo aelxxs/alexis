@@ -1,0 +1,59 @@
+---
+import Cluster from "./Cluster.astro";
+
+const links = [
+	{ label: "now", url: "/now" },
+	{ label: "blog", url: "/blog" },
+	{ label: "resume", url: "/resume" },
+];
+---
+
+<header role="banner">
+	<div class="repel">
+		<Cluster space="1em">
+			<a class="brand" href="/" aria-label="Alexis Vielma">
+				<svg viewBox="0 0 80 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M25.015 9.985C27.6988 7.30125 32.2155 7.29654 33.6679 10.803C34.5473 12.9262 35 15.2019 35 17.5C35 19.7981 34.5473 22.0738 33.6679 24.197C32.2154 27.7035 27.6987 27.6988 25.015 25.015L23.6872 23.6872C20.2701 20.2701 20.2701 14.7299 23.6872 11.3128L25.015 9.985Z"
+						fill="#3E3E3E"></path>
+					<path
+						d="M17.5 25C17.5 30.5228 12.6807 35.2066 8.03521 32.2197C6.99233 31.5492 6.01595 30.7647 5.12563 29.8744C1.84375 26.5925 9.77458e-07 22.1413 0 17.5C-9.77457e-07 12.8587 1.84374 8.40752 5.12563 5.12564C6.01595 4.23531 6.99233 3.45083 8.03521 2.78029C12.6807 -0.206618 17.5 4.47715 17.5 10L17.5 17.5V25Z"
+						fill="#1E1E1E"></path>
+					<path
+						d="M59.98 22.02H54.74L53.9 24.5H50.32L55.4 10.46H59.36L64.44 24.5H60.82L59.98 22.02ZM59.1 19.38L57.36 14.24L55.64 19.38H59.1ZM79.1661 10.46L74.1861 24.5H69.9061L64.9261 10.46H68.5661L72.0461 21.06L75.5461 10.46H79.1661Z"
+						fill="#3E3E3E"></path>
+				</svg>
+			</a>
+			<span>–</span>
+			<nav aria-label="primary">
+				<Cluster as="ul" role="list" space="1.5em">
+					{
+						links.map(({ label, url }) => (
+							<li>
+								<a href={url}>{label}</a>
+							</li>
+						))
+					}
+				</Cluster>
+			</nav>
+		</Cluster>
+		<Cluster space="1em" />
+	</div>
+</header>
+
+<style>
+	.brand {
+		display: inline-block;
+		width: 5rem;
+		padding-top: 0.65rem;
+	}
+
+	nav li a {
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	nav li a:hover {
+		text-decoration: underline;
+	}
+</style>

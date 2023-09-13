@@ -1,0 +1,11 @@
+{
+	"name": "alexis.lol",
+	"scripts": {
+		"start": "astro dev",
+		"build": "astro build"
+	},
+	"dependencies": {
+		"@astrojs/vercel": "^3.5.1",
+		"astro": "^2.7.1"
+	}
+}
