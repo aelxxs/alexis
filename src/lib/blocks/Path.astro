@@ -5,6 +5,16 @@ const path = Astro.url.pathname;
 ---
 
 <Cluster>
-	{path !== "/" && <a href="/">back</a>}
-	{path === "/" && <a href="/">{path}</a>}
+	<p>
+		{path !== "/" && <a href="/">← back</a>}
+		{path === "/" && <a href="/">{path === "/" ? "./" : path}</a>}
+	</p>
 </Cluster>
+
+<style>
+	a {
+		font-family: "Inconsolata", monospace;
+		font-weight: 700;
+		color: #3e3e3e;
+	}
+</style>
