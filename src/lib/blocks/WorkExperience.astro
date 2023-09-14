@@ -12,17 +12,19 @@ type Props = {
 		url: string;
 		name: string;
 	}[];
-	description: string;
+	description: string | string[];
 };
 
 const { title, company, companyUrl, location, startDate, endDate, languages, description } = Astro.props;
 ---
 
 <div class="with-sidebar">
-	<small>{startDate} – {endDate}</small>
+	<Stack>
+		<small>{startDate} – {endDate}</small>
+	</Stack>
 	<Stack>
 		<h4>{title}, {company}</h4>
-		<p>{description}</p>
+		<p>{Array.isArray(description) ? description.map((paragraph) => <p>{paragraph}</p>) : description}</p>
 		<Cluster justify="flex-start">
 			{languages.map((language) => <a href={language.url}>{language.name}</a>)}
 		</Cluster>
@@ -31,6 +33,6 @@ const { title, company, companyUrl, location, startDate, endDate, languages, des
 
 <style>
 	p {
-		max-width: 55ch;
+		max-width: 55ch !important;
 	}
 </style>

@@ -15,7 +15,7 @@ type Props<Tag extends HTMLTag> = Polymorphic<{
 const { as: Tag = "div", space = "var(--s0)", class: className, ...props } = Astro.props;
 ---
 
-<!-- <Tag
+<Tag
 	{...props}
 	class={`stack ${className ?? ""}`}
 	style={{
@@ -23,68 +23,9 @@ const { as: Tag = "div", space = "var(--s0)", class: className, ...props } = Ast
 	}}
 >
 	<slot />
-</Tag> -->
-<div>
-	<stack-l space={space}>
-		<slot />
-	</stack-l>
-</div>
+</Tag>
 
-<script>
-	class Stack extends HTMLElement {
-		public i: string = "";
-
-		public constructor() {
-			super();
-		}
-
-		get space() {
-			return this.getAttribute("space") || "var(--s1)";
-		}
-
-		set space(val) {
-			this.setAttribute("space", val);
-		}
-
-		static get observedAttributes() {
-			return ["space"];
-		}
-
-		public render() {
-			this.i = `Stack-${[this.space].join("")}`;
-
-			this.dataset.i = this.i;
-			if (!document.getElementById(this.i)) {
-				let styleEl = document.createElement("style");
-				styleEl.id = this.i;
-
-				styleEl.innerHTML = `
-					[data-i="${this.i}"] > * + * {
-						margin-block-start: ${this.space};
-					}
-				`
-					.replace(/\s\s+/g, " ")
-					.trim();
-
-				document.head.appendChild(styleEl);
-			}
-		}
-
-		public connectedCallback() {
-			this.render();
-		}
-
-		public attributeChangedCallback() {
-			this.render();
-		}
-	}
-
-	if ("customElements" in window) {
-		customElements.define("stack-l", Stack);
-	}
-</script>
-
-<style>
+<style lang="scss" is:global>
 	.stack {
 		display: flex;
 		flex-direction: column;

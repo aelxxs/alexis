@@ -1,16 +1,17 @@
 ---
+import Project from "@blocks/Project.astro";
 import Stack from "@blocks/Stack.astro";
 import JobExperience from "@blocks/WorkExperience.astro";
 import MainLayout from "@layout/MainLayout.astro";
 
 const jobs = [
 	{
-		title: "Software Engineer Intern",
+		title: "Technology Director",
 		company: "Lightbulb.ai",
 		companyUrl: "https://lightbulb.ai",
 		startDate: "May 2023",
 		endDate: "Present",
-		location: "Remote",
+		location: "Hyrbrid – Lawrence, KS",
 		languages: [
 			{
 				url: "https://www.typescriptlang.org/",
@@ -22,7 +23,7 @@ const jobs = [
 			},
 		],
 		description:
-			"lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl.",
+			"Led tech systems development, improving websites, apps, and dashboards. Fixed WordPress plugin bugs for faster loading. Created an API gateway with TypeScript and Express.js for Radio Console System integration. Revamped mobile app with React Native and TypeScript. Enhanced tech support and documentation at the radio station.",
 	},
 	{
 		title: "Software Engineer Intern",
@@ -68,13 +69,15 @@ const jobs = [
 ---
 
 <MainLayout title="Alexis Vielma">
-	<Stack space="0.5rem">
-		<h2>SWE Intern @ <a href="https://lightbulb.ai">Lightbulb.ai</a></h2>
-		<p>I design and build accessible and inclusive experiences for the web.</p>
+	<Stack slot="title" space="0.75rem">
+		<h2 class="fs:md">
+			<abbr title="Software Engineering">SWE</abbr> Intern @ <a href="https://lightbulb.ai">Lightbulb.ai</a>
+		</h2>
+		<p class="about">I design and build accessible and inclusive experiences for the web.</p>
 	</Stack>
 	<Stack space="var(--s4)">
 		<Stack as="section" space="var(--s2)">
-			<h3>About Me</h3>
+			<h3 class="fs:xs">About Me</h3>
 			<p>
 				I am an aspiring Software/Production Engineer who enjoys tackling technical challenges: be it <strong
 					>code optimization</strong
@@ -96,25 +99,34 @@ const jobs = [
 			</p>
 		</Stack>
 		<Stack as="section" space="var(--s2)">
-			<h3>Experience</h3>
+			<h3 class="fs:xs">Experience</h3>
 			<Stack space="var(--s3)">
 				{jobs.map((job) => <JobExperience {...job} />)}
 			</Stack>
+			<div class="repel">
+				<div></div>
+				<a href="/resume" class="btn">View Resume</a>
+			</div>
 		</Stack>
 		<Stack as="section" space="var(--s2)">
-			<h3>Projects</h3>
+			<h3 class="fs:xs">Projects</h3>
+			<div class="grid">
+				<Project />
+				<Project />
+				<Project />
+				<Project />
+			</div>
 		</Stack>
 	</Stack>
 </MainLayout>
 
 <style>
-	h2 {
-		font-size: 1.25rem;
+	.about {
+		max-width: 35ch;
 	}
 
 	h3 {
 		text-transform: uppercase;
-		font-size: 0.85rem;
 	}
 
 	h3::before {
@@ -129,5 +141,6 @@ const jobs = [
 
 	section p {
 		margin: 0.5rem 0;
+		font-size: 1rem;
 	}
 </style>
