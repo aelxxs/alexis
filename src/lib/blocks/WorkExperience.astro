@@ -16,19 +16,46 @@ type Props = {
 const { title, company, companyUrl, location, startDate, endDate, languages, description } = Astro.props;
 ---
 
-<div class="sidebar">
-	<small style="padding-top: 0.15rem">{startDate} – {endDate}</small>
-	<div class="stack gap:1">
+<article class="sidebar">
+	<small style="padding-top: 0.15rem;">
+		<strong>{startDate} – {endDate}</strong>
+	</small>
+	<div class="stack gap:0">
 		<h5>{title}, {company}</h5>
 		<p>{Array.isArray(description) ? description.map((paragraph) => <p>{paragraph}</p>) : description}</p>
 		<div class="cluster" data-justify="flex-start">
 			{languages.map((language) => <a href={language.url}>{language.name}</a>)}
 		</div>
 	</div>
-</div>
+</article>
 
 <style>
 	p {
 		max-width: 55ch !important;
+	}
+
+	article {
+		padding: 1rem;
+		transition-property: all;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		transition-duration: 0.2s;
+		border: 1px solid transparent;
+		border-radius: 0.75rem;
+	}
+
+	article:hover {
+		background-color: hsla(229, 27%, 08%, 0.35);
+		/* box-shadow: 0 8px 32px 0 hsla(186, 100%, 24%, 0.35); */
+		backdrop-filter: blur(1rem);
+		border-radius: 0.75rem;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	strong {
+		color: var(--txt-2);
+	}
+
+	h5 {
+		color: var(--txt-1);
 	}
 </style>

@@ -1,14 +1,20 @@
-<div class="box stack">
+<div class="box stack" style="--space: 0.75rem;">
 	<div class="repel">
 		<p><strong>project name</strong></p>
 		<p>icon url</p>
 	</div>
-	<p>
-		description of the project Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni incidunt quia repellat
-		omnis ex.
-	</p>
-	<div class="cluster">
+	<p>description of the project Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+	<div class="cluster" data-justify="flex-start">
 		<span class="language"></span>
-		<p>Language</p>
+		<small>TypeScript</small>
 	</div>
 </div>
+
+<style>
+	.language {
+		width: 0.55rem;
+		height: 0.55rem;
+		background-color: red;
+		border-radius: 50%;
+	}
+</style>
