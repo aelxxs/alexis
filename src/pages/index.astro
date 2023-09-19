@@ -1,6 +1,5 @@
 ---
 import Project from "@blocks/Project.astro";
-import Stack from "@blocks/Stack.astro";
 import JobExperience from "@blocks/WorkExperience.astro";
 import MainLayout from "@layout/MainLayout.astro";
 
@@ -69,64 +68,50 @@ const jobs = [
 ---
 
 <MainLayout title="Alexis Vielma">
-	<Stack slot="title" space="0.75rem">
-		<h2 class="fs:md">
+	<div slot="title" class="stack">
+		<p class="fs:md txt:mute">
 			<abbr title="Software Engineering">SWE</abbr> Intern @ <a href="https://lightbulb.ai">Lightbulb.ai</a>
-		</h2>
-		<p class="about">I design and build accessible and inclusive experiences for the web.</p>
-	</Stack>
-	<Stack space="var(--s4)">
-		<Stack as="section" space="var(--s2)">
-			<h3 class="fs:xs">About Me</h3>
-			<p>
-				I am an aspiring Software/Production Engineer who enjoys tackling technical challenges: be it <strong
-					>code optimization</strong
-				>, service management, or being able to interact with people outside of the industry. I have <strong
-					>ever-growing technical skills</strong
-				> and an <strong>on-going academic background</strong> in <abbr title="">Computer Science</abbr>, <abbr
-					title="">Linguistics</abbr
-				>, and <abbr title="">Korean</abbr>.
-			</p>
-			<p>
-				My passion lies in being able to create fun and easy-to-use software that has the potential of reaching
-				and helping many people while focusing on ease-of-use comes strong emphasis on <strong>UI/UX</strong>, <strong
-					>HCI</strong
-				>, and <strong>Continuous Development</strong>.
-			</p>
-			<p>
-				I'm <strong>graduating in May 2025</strong> – Interested in Internship and Fellowship opportunities to further
-				guide me in my career.
-			</p>
-		</Stack>
-		<Stack as="section" space="var(--s2)">
-			<h3 class="fs:xs">Experience</h3>
-			<Stack space="var(--s3)">
-				{jobs.map((job) => <JobExperience {...job} />)}
-			</Stack>
-			<div class="repel">
-				<div></div>
-				<a href="/resume" class="btn">View Resume</a>
-			</div>
-		</Stack>
-		<Stack as="section" space="var(--s2)">
-			<h3 class="fs:xs">Projects</h3>
-			<div class="grid">
-				<Project />
-				<Project />
-				<Project />
-				<Project />
-			</div>
-		</Stack>
-	</Stack>
+		</p>
+		<p style="max-width: 40ch;">I design and build accessible and inclusive experiences for the web.</p>
+	</div>
+	<h3 class="fs:xs">About Me</h3>
+	<p>
+		I am an aspiring Software/Production Engineer who enjoys tackling technical challenges: be it <strong
+			>code optimization</strong
+		>, service management, or being able to interact with people outside of the industry. I have <strong
+			>ever-growing technical skills</strong
+		> and an <strong>on-going academic background</strong> in <abbr title="">Computer Science</abbr>, <abbr title=""
+			>Linguistics</abbr
+		>, and <abbr title="">Korean</abbr>.
+	</p>
+	<p>
+		My passion lies in being able to create fun and easy-to-use software that has the potential of reaching and
+		helping many people while focusing on ease-of-use comes strong emphasis on <strong>UI/UX</strong>, <strong
+			>HCI</strong
+		>, and <strong>Continuous Development</strong>.
+	</p>
+	<p>
+		I'm <strong>graduating in May 2025</strong> – Interested in Internship and Fellowship opportunities to further
+		guide me in my career.
+	</p>
+	<h3 class="fs:xs">Experience</h3>
+	<div class="stack gap:3">
+		{jobs.map((job) => <JobExperience {...job} />)}
+	</div>
+	<a href="/resume" style="text-align: right;">view resume</a>
+	<h3 class="fs:xs">Projects</h3>
+	<div class="grid">
+		<Project />
+		<Project />
+		<Project />
+		<Project />
+	</div>
 </MainLayout>
 
 <style>
-	.about {
-		max-width: 35ch;
-	}
-
 	h3 {
 		text-transform: uppercase;
+		letter-spacing: 0.35ch;
 	}
 
 	h3::before {
@@ -135,8 +120,9 @@ const jobs = [
 		vertical-align: middle;
 		margin-right: 1rem;
 		width: 3rem;
-		height: 0.075rem;
-		background-color: black;
+		height: 1.75px;
+		border-radius: 1rem;
+		background: linear-gradient(to right, rgba(0, 0, 0, 0), #006e7b);
 	}
 
 	section p {
