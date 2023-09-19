@@ -1,6 +1,5 @@
 /* Font */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;4000;900&display=swap");
 
 * {
 	font-family: "Inter", sans-serif;
@@ -9,20 +8,42 @@
 /* Theme */
 
 :root {
-	--txt1: hsla(0, 0%, 24%, 1);
-	--txt2: hsla(0, 0%, 24%, 0.9);
-	--txt3: hsla(0, 0%, 24%, 0.75);
+	color-scheme: light;
+
+	--bg-main: hsl(0, 0%, 98%);
+	--bg-mute: hsl(0, 0%, 96%);
+
+	--txt-1: hsl(0, 15%, 15%);
+	--txt-2: hsl(0, 10%, 35%);
+
+	--clr-400: hsla(0, 0%, 48%, 1);
+	--clr-500: hsla(0, 0%, 64%, 1);
+	--clr-600: hsla(0, 0%, 80%, 1);
+}
+
+:root[data-theme="dark"] {
+	color-scheme: dark;
+
+	--bg-main: hsl(229, 27%, 08%);
+	--bg-mute: hsl(229, 45%, 12%);
+
+	--txt-1: hsl(229, 15%, 85%);
+	--txt-2: hsl(229, 10%, 65%);
+
+	--clr-400: hsla(0, 0%, 80%, 1);
+	--clr-500: hsla(0, 0%, 64%, 1);
+	--clr-600: hsla(0, 0%, 48%, 1);
+}
+
+body {
+	background-color: var(--bg-main);
+	transition: background-color 0.25s ease-in-out;
 }
 
 /* Modular Scale */
 
 :root {
-	--ratio: 1.275;
-	--s-6: calc(var(--s-5) / var(--ratio));
-	--s-5: calc(var(--s-4) / var(--ratio));
-	--s-4: calc(var(--s-3) / var(--ratio));
-	--s-3: calc(var(--s-2) / var(--ratio));
-	--s-2: calc(var(--s-1) / var(--ratio));
+	--ratio: 1.25;
 	--s-1: calc(var(--s0) / var(--ratio));
 	--s0: 1rem;
 	--s1: calc(var(--s0) * var(--ratio));
@@ -33,13 +54,10 @@
 	--s6: calc(var(--s5) * var(--ratio));
 }
 
-:root {
-	--step--1: clamp(0.89rem, calc(0.87rem + 0.08vw), 0.94rem);
-	--step-0: clamp(1rem, calc(0.96rem + 0.22vw), 1.13rem);
-	--step-1: clamp(1.13rem, calc(1.05rem + 0.39vw), 1.35rem);
-	--step-2: clamp(1.27rem, calc(1.14rem + 0.62vw), 1.62rem);
-	--step-3: clamp(1.42rem, calc(1.24rem + 0.9vw), 1.94rem);
-	--step-4: clamp(1.6rem, calc(1.35rem + 1.27vw), 2.33rem);
+/* Utility classes for Modular Scale */
+
+.s\:sm {
+	font-size: var(--s-1);
 }
 
 /* Typography */
@@ -68,6 +86,7 @@ h5,
 p,
 .fs\:sm {
 	font-size: var(--s0);
+	color: var(--txt-2);
 }
 
 small,
@@ -76,9 +95,16 @@ small,
 }
 
 * {
-	color: var(--txt1);
+	color: var(--txt-1);
 }
 
+.txt\:main {
+	color: var(--txt-1);
+}
+
+.txt\:mute {
+	color: var(--txt-2);
+}
 /* Basic Layout */
 
 .box {
@@ -96,43 +122,6 @@ small,
 	color: inherit;
 }
 
-.box.invert {
-	color: var(--color-light);
-	background-color: var(--color-dark);
-}
-
-.center {
-	/* ↓ Remove padding from the width calculation */
-	box-sizing: content-box;
-	/* ↓ The maximum width is the maximum measure */
-	max-inline-size: 60ch;
-	/* ↓ Only affect horizontal margins */
-	margin-inline: auto;
-	/* ↓ Apply the minimum horizontal space */
-	padding-inline-start: var(--s1);
-	padding-inline-end: var(--s1);
-}
-
-.icon {
-	height: 0.75em;
-	/* ↓ Override the em value with `1cap`
-    where `cap` is supported */
-	height: 1cap;
-	width: 0.75em;
-	width: 1cap;
-}
-.with-icon {
-	/* ↓ Set the `inline-flex` context,
-    which eliminates the word space */
-	display: inline-flex;
-	align-items: baseline;
-}
-.with-icon .icon {
-	/* ↓ Use the logical margin property
-    and a --space variable with a fallback */
-	margin-inline-end: var(--space, 0.5em);
-}
-
 .repel {
 	display: flex;
 	flex-wrap: wrap;
@@ -145,16 +134,16 @@ small,
 	flex-wrap: nowrap;
 }
 
-.with-sidebar {
+.sidebar {
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--gutter, var(--s1));
 }
-.with-sidebar > :first-child {
+.sidebar > :first-child {
 	flex-basis: 9rem;
 	flex-grow: 1;
 }
-.with-sidebar > :last-child {
+.sidebar > :last-child {
 	flex-basis: 0;
 	flex-grow: 999;
 	min-inline-size: 65%;
@@ -168,10 +157,67 @@ small,
 
 @supports (width: min(var(--minimum), 100%)) {
 	.grid {
-		grid-template-columns: repeat(auto-fit, minmax(min(var(--minimum), 100%), 1fr));
+		grid-template-columns: repeat(
+			auto-fit,
+			minmax(min(var(--minimum), 100%), 1fr)
+		);
 	}
 }
 
 p {
 	max-width: 72ch;
+}
+
+.cluster {
+	display: flex;
+	flex-wrap: var(--wrap, wrap);
+	justify-content: var(--justify, space-between);
+	align-items: var(--align, center);
+	gap: var(--space, var(--s1));
+}
+
+[data-justify="flex-start"] {
+	--justify: flex-start;
+}
+
+.stack {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.stack > * {
+	margin-block: 0;
+}
+
+.stack > * + * {
+	margin-block-start: var(--space, var(--s1));
+}
+
+.gap\:0 {
+	--space: 0;
+}
+
+.gap\:1 {
+	--space: var(--s1);
+}
+
+.gap\:2 {
+	--space: var(--s2);
+}
+
+.gap\:3 {
+	--space: var(--s3);
+}
+
+.gap\:4 {
+	--space: var(--s4);
+}
+
+.gap\:5 {
+	--space: var(--s5);
+}
+
+.gap\:6 {
+	--space: var(--s6);
 }

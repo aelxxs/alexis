@@ -1,6 +1,4 @@
 ---
-import Cluster from "./Cluster.astro";
-import Stack from "./Stack.astro";
 type Props = {
 	title: string;
 	company: string;
@@ -18,17 +16,15 @@ type Props = {
 const { title, company, companyUrl, location, startDate, endDate, languages, description } = Astro.props;
 ---
 
-<div class="with-sidebar">
-	<Stack>
-		<small>{startDate} – {endDate}</small>
-	</Stack>
-	<Stack>
-		<h4>{title}, {company}</h4>
+<div class="sidebar">
+	<small style="padding-top: 0.15rem">{startDate} – {endDate}</small>
+	<div class="stack gap:1">
+		<h5>{title}, {company}</h5>
 		<p>{Array.isArray(description) ? description.map((paragraph) => <p>{paragraph}</p>) : description}</p>
-		<Cluster justify="flex-start">
+		<div class="cluster" data-justify="flex-start">
 			{languages.map((language) => <a href={language.url}>{language.name}</a>)}
-		</Cluster>
-	</Stack>
+		</div>
+	</div>
 </div>
 
 <style>
