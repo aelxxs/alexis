@@ -11,6 +11,7 @@
 	color-scheme: light;
 
 	--bg-main: hsl(0, 0%, 98%);
+	--bg-main-hover: hsl(0, 0%, 98%, 0.35);
 	--bg-mute: hsl(0, 0%, 96%);
 
 	--txt-1: hsl(0, 15%, 15%);
@@ -25,6 +26,7 @@
 	color-scheme: dark;
 
 	--bg-main: hsl(229, 27%, 08%);
+	--bg-main-hover: hsl(229, 27%, 08%, 0.35);
 	--bg-mute: hsl(229, 45%, 12%);
 
 	--txt-1: hsl(229, 15%, 85%);
@@ -51,10 +53,7 @@ body {
 	--s3: calc(var(--s2) * var(--ratio));
 	--s4: calc(var(--s3) * var(--ratio));
 	--s5: calc(var(--s4) * var(--ratio));
-	--s6: calc(var(--s5) * var(--ratio));
 }
-
-/* Utility classes for Modular Scale */
 
 .s\:sm {
 	font-size: var(--s-1);
@@ -64,7 +63,7 @@ body {
 
 h1,
 .fs\:xxl {
-	font-size: var(--s3);
+	font-size: var(--s5);
 }
 
 h2,
@@ -109,17 +108,25 @@ small,
 
 .box {
 	padding: var(--s1);
-	border: var(--border-thin) solid;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 0.75rem;
 	outline: var(--border-thin) transparent;
 	outline-offset: calc(var(--border-thin) * -1);
-	--color-light: #ddd;
-	--color-dark: #000;
 	color: var(--color-dark);
 	background-color: var(--color-light);
+	transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .box * {
 	color: inherit;
+}
+
+.box:hover {
+	background-color: var(--bg-main-hover);
+	backdrop-filter: blur(1rem);
+	border-radius: 0.75rem;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	transform: translateY(-0.25rem) scale(1.015);
 }
 
 .repel {
@@ -195,7 +202,7 @@ p {
 }
 
 .gap\:0 {
-	--space: 0;
+	--space: var(--s0);
 }
 
 .gap\:1 {
