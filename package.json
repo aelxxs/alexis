@@ -1,5 +1,6 @@
 {
 	"name": "alexis.lol",
+	"type": "module",
 	"scripts": {
 		"start": "astro dev",
 		"build": "astro build"

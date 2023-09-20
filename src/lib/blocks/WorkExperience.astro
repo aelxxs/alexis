@@ -24,7 +24,13 @@ const { title, company, companyUrl, location, startDate, endDate, languages, des
 		<h5>{title}, {company}</h5>
 		<p>{Array.isArray(description) ? description.map((paragraph) => <p>{paragraph}</p>) : description}</p>
 		<div class="cluster" data-justify="flex-start">
-			{languages.map((language) => <a href={language.url}>{language.name}</a>)}
+			{
+				languages.map((language) => (
+					<a href={language.url} target="_blank">
+						{language.name}
+					</a>
+				))
+			}
 		</div>
 	</div>
 </article>
