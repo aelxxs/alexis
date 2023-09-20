@@ -3,7 +3,7 @@
 
 	async function fetchData() {
 		try {
-			const res = await fetch("http://localhost:4321/api/status");
+			const res = await fetch("/api/status");
 			if (!res.ok) {
 				throw new Error("Network response was not ok");
 			}
