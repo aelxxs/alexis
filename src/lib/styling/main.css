@@ -129,7 +129,9 @@ small,
 	outline-offset: calc(var(--border-thin) * -1);
 	color: var(--color-dark);
 	background-color: var(--color-light);
-	transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+		transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	backdrop-filter: blur(1rem);
 }
 
 .box * {
@@ -138,7 +140,6 @@ small,
 
 .box:hover {
 	background-color: var(--bg-main-hover);
-	backdrop-filter: blur(1rem);
 	border-radius: 0.75rem;
 	border: 1px solid rgba(255, 255, 255, 0.08);
 	transform: translateY(-0.25rem) scale(1.015);

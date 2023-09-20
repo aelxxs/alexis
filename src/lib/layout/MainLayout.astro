@@ -111,12 +111,12 @@ const { title } = Astro.props;
 	}
 
 	.circle::before {
+		filter: blur(5rem);
 		content: "";
 		display: block;
 		width: 35rem;
 		height: 35rem;
 		border-radius: 50%;
-		filter: blur(10rem);
 		background: radial-gradient(circle, #006e7b, var(--bg-mute), transparent);
 		transform: translate(-50%, -50%);
 		animation: pulse 300ms ease-in-out alternate infinite;
@@ -174,7 +174,7 @@ const { title } = Astro.props;
 		alpha *= Math.pow(0.95, factor);
 		const opacity = Math.min(1, alpha);
 
-		circle.style.transform = `translate(${~~posX}px, ${~~posY}px)`;
+		circle.style.transform = `translate3d(${~~posX}px, ${~~posY}px, 0)`;
 		// circle.style.opacity = (Math.round(opacity * 255) / 255).toString();
 	});
 </script>
