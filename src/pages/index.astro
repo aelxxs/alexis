@@ -3,6 +3,8 @@ import Project from "@blocks/Project.astro";
 import JobExperience from "@blocks/WorkExperience.astro";
 import MainLayout from "@layout/MainLayout.astro";
 
+import CurrentlyPlaying from "@lib/blocks/CurrentlyPlaying.svelte";
+
 const jobs = [
 	{
 		title: "Technology Director",
@@ -74,6 +76,7 @@ const jobs = [
 		</p>
 		<p style="max-width: 40ch;">I design and build accessible and inclusive experiences for the web.</p>
 	</div>
+	<CurrentlyPlaying client:visible />
 	<br />
 	<h3 class="fs:xs">About Me</h3>
 	<p>
@@ -158,3 +161,4 @@ const jobs = [
 
 	headers.forEach((header) => observer.observe(header));
 </script>
+ ../api/status ../api/status.json./api/status
