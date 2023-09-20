@@ -36,17 +36,17 @@ const { title, company, companyUrl, location, startDate, endDate, languages, des
 
 	article {
 		padding: 1rem;
-		transition-property: all;
-		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-		transition-duration: 0.2s;
+		transition:
+			background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+			transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 		border: 1px solid transparent;
 		border-radius: 0.75rem;
 	}
 
 	article:hover {
 		background-color: hsla(229, 27%, 08%, 0.35);
-		/* box-shadow: 0 8px 32px 0 hsla(186, 100%, 24%, 0.35); */
 		backdrop-filter: blur(1rem);
+		/* box-shadow: 0 8px 32px 0 hsla(186, 100%, 24%, 0.35); */
 		border-radius: 0.75rem;
 		border: 1px solid rgba(255, 255, 255, 0.08);
 	}
