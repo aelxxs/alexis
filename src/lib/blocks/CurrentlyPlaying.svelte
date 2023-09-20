@@ -50,11 +50,83 @@
 			>
 		</p>
 	{:else}
-		<p>Nothing is playing</p>
+		<div class="box" style="--padding: 0.5rem;">
+			<div class="cluster" style="--space: 0.75rem;">
+				<div class="shimmer img-skeleton" />
+				<div class="stack" style="--space: 0.25rem;">
+					<div class="shimmer track-skeleton" />
+					<div class="cluster" data-justify="space-between">
+						<div class="shimmer artist-skeleton" />
+						<div class="sound-wave">
+							<span />
+							<span />
+							<span />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	{/if}
 </div>
 
 <style>
+	:root {
+		--bg-mute-2: #f5f5f5;
+	}
+
+	.shimmer {
+		animation-duration: 2.2s;
+		animation-fill-mode: forwards;
+		animation-iteration-count: infinite;
+		animation-name: shimmer;
+		animation-timing-function: linear;
+		background: var(--bg-mute);
+		background: linear-gradient(
+			to right,
+			var(--bg-mute) 8%,
+			var(--clr-400) 18%,
+			var(--bg-mute) 33%
+		);
+		background-size: 1200px 100%;
+	}
+
+	@-webkit-keyframes shimmer {
+		0% {
+			background-position: -100% 0;
+		}
+		100% {
+			background-position: 100% 0;
+		}
+	}
+
+	@keyframes shimmer {
+		0% {
+			background-position: -1200px 0;
+		}
+		100% {
+			background-position: 1200px 0;
+		}
+	}
+
+	.img-skeleton {
+		width: 03rem;
+		height: 03rem;
+		border-radius: 0.35rem;
+	}
+
+	.track-skeleton {
+		width: 10rem;
+		height: 1rem;
+		border-radius: 0.25rem;
+	}
+
+	.artist-skeleton {
+		width: 8rem;
+		height: 0.85rem;
+		margin-top: 0.25rem;
+		border-radius: 0.25rem;
+	}
+
 	.container {
 		margin-top: 1.5rem;
 	}

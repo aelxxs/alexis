@@ -38,9 +38,7 @@ const { title } = Astro.props;
 			</div> -->
 			<slot />
 		</main>
-		<footer>
-			<div class="visual-element"></div>
-		</footer>
+		<footer></footer>
 	</body>
 </html>
 
@@ -177,6 +175,6 @@ const { title } = Astro.props;
 		const opacity = Math.min(1, alpha);
 
 		circle.style.transform = `translate(${~~posX}px, ${~~posY}px)`;
-		circle.style.opacity = (Math.round(opacity * 255) / 255).toString();
+		// circle.style.opacity = (Math.round(opacity * 255) / 255).toString();
 	});
 </script>
