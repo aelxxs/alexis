@@ -141,24 +141,23 @@ const jobs = [
 </style>
 
 <script>
-	const headers = document.querySelectorAll("h3");
+	// const headers = document.querySelectorAll("h3");
 
-	const observer = new IntersectionObserver((entries) => {
-		entries.forEach((entry) => {
-			if (entry.isIntersecting) {
-				entry.target.style.setProperty("--line-width", "6rem");
+	// const observer = new IntersectionObserver((entries) => {
+	// 	entries.forEach((entry) => {
+	// 		if (entry.isIntersecting) {
+	// 			entry.target.style.setProperty("--line-width", "6rem");
 
-				headers.forEach((h) => {
-					if (h !== entry.target) {
-						h.style.setProperty("--line-width", "3rem");
-					}
-				});
-			} else {
-				entry.target.style.setProperty("--line-width", "3rem");
-			}
-		});
-	});
+	// 			headers.forEach((h) => {
+	// 				if (h !== entry.target) {
+	// 					h.style.setProperty("--line-width", "3rem");
+	// 				}
+	// 			});
+	// 		} else {
+	// 			entry.target.style.setProperty("--line-width", "3rem");
+	// 		}
+	// 	});
+	// });
 
-	headers.forEach((header) => observer.observe(header));
+	// headers.forEach((header) => observer.observe(header));
 </script>
- ../api/status ../api/status.json./api/status
