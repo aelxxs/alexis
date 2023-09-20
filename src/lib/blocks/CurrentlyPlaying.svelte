@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	export let mode: "full" | "compact" = "full"; // full | compact
 	let data = null;
 
 	async function fetchData() {
@@ -10,8 +11,12 @@
 			const json = await res.json();
 
 			data = json;
+
+			if (mode === "compact") {
+				console.log(data);
+			}
 		} catch (error) {
-			console.error("Error fetching data:", error);
+			// console.error("Error fetching data:", error);
 		}
 	}
 
@@ -19,55 +24,59 @@
 	const interval = setInterval(fetchData, 10000);
 </script>
 
-<div class="container">
-	{#if data && data.track}
-		<a
-			id="now-playing"
-			href={data.track.url}
-			target="_blank"
-			class="box"
-			style="--padding: 0.5rem;"
-		>
-			<div class="cluster" style="--space: 0.75rem;">
-				<img src={data.track.image} alt="" />
-				<div class="stack" style="--space: 0.25rem;">
-					<p style="font-weight: 600;">{data.track.name}</p>
-					<div class="cluster" data-justify="space-between">
-						<p class="txt:mute">{data.track.artist}</p>
-						<div class="sound-wave">
-							<span />
-							<span />
-							<span />
+{#if mode === "full"}
+	<div class="container">
+		{#if data && data.track}
+			<a
+				id="now-playing"
+				href={data.track.url}
+				target="_blank"
+				class="box"
+				style="--padding: 0.5rem;"
+			>
+				<div class="cluster" style="--space: 0.75rem;">
+					<img src={data.track.image} alt="" />
+					<div class="stack" style="--space: 0.25rem;">
+						<p style="font-weight: 600;">{data.track.name}</p>
+						<div class="cluster" data-justify="space-between">
+							<p class="txt:mute">{data.track.artist}</p>
+							<div class="sound-wave">
+								<span />
+								<span />
+								<span />
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		{:else if data && data.lastTrack}{:else}
+			<div class="box" style="--padding: 0.5rem;">
+				<div class="cluster" style="--space: 0.75rem;">
+					<div class="shimmer img-skeleton" />
+					<div class="stack" style="--space: 0.25rem;">
+						<div class="shimmer track-skeleton" />
+						<div class="cluster" data-justify="space-between">
+							<div class="shimmer artist-skeleton" />
+							<div class="sound-wave">
+								<span />
+								<span />
+								<span />
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</a>
-	{:else if data && data.lastTrack}
+		{/if}
+	</div>
+{:else if mode === "compact"}
+	{#if data && data.lastTrack}
 		<p>
-			Latest track from Last.FM: <a href={data?.lastTrack.url}
-				>{data?.lastTrack.name} – {data.lastTrack.artist}</a
+			Previously Played: <a href={data?.lastTrack?.url}
+				>{data?.lastTrack?.name} – {data?.lastTrack?.artist}</a
 			>
 		</p>
-	{:else}
-		<div class="box" style="--padding: 0.5rem;">
-			<div class="cluster" style="--space: 0.75rem;">
-				<div class="shimmer img-skeleton" />
-				<div class="stack" style="--space: 0.25rem;">
-					<div class="shimmer track-skeleton" />
-					<div class="cluster" data-justify="space-between">
-						<div class="shimmer artist-skeleton" />
-						<div class="sound-wave">
-							<span />
-							<span />
-							<span />
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	{/if}
-</div>
+{/if}
 
 <style>
 	:root {

@@ -1,4 +1,5 @@
 ---
+import CurrentlyPlaying from "@lib/blocks/CurrentlyPlaying.svelte";
 import "../styling/main.css";
 import "../styling/reset.css";
 
@@ -25,10 +26,6 @@ const { title } = Astro.props;
 		<Header />
 		<span class="circle"></span>
 		<main class="stack gap:3">
-			<div id="hero" class="stack" style="--space: 0.85rem">
-				<h1>{title}</h1>
-				<slot name="title" />
-			</div>
 			<!-- <div class="hero-container">
 				<img
 					class="hero-img"
@@ -36,9 +33,22 @@ const { title } = Astro.props;
 					alt=""
 				/>
 			</div> -->
+			<div id="hero" class="stack" style="--space: 0.85rem">
+				<h1>{title}</h1>
+				<slot name="title" />
+			</div>
 			<slot />
 		</main>
-		<footer></footer>
+		<footer class="cluster" data-justify="space-between">
+			<p class="fs:sm">
+				Made with <a href="https://astro.build">Astro</a> by <a href="https://github.com/aelxxs"
+					>Alexis Vielma</a
+				>
+				 – 2023
+			</p>
+			<!-- @ts-ignore -->
+			<CurrentlyPlaying mode="compact" client:load />
+		</footer>
 	</body>
 </html>
 
@@ -122,8 +132,8 @@ const { title } = Astro.props;
 		animation: pulse 300ms ease-in-out alternate infinite;
 	}
 
-	p {
-		font-size: 1.5rem;
+	footer {
+		padding-top: 1.5rem;
 	}
 </style>
 

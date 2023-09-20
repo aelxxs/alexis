@@ -8,9 +8,9 @@ import CurrentlyPlaying from "@lib/blocks/CurrentlyPlaying.svelte";
 const jobs = [
 	{
 		title: "Technology Director",
-		company: "Lightbulb.ai",
-		companyUrl: "https://lightbulb.ai",
-		startDate: "May 2023",
+		company: "KJHK 90.7 FM",
+		companyUrl: "https://kjhk.org",
+		startDate: "Mar 2023",
 		endDate: "Present",
 		location: "Hyrbrid – Lawrence, KS",
 		languages: [
@@ -20,11 +20,15 @@ const jobs = [
 			},
 			{
 				url: "reactjs.org",
-				name: "React",
+				name: "React Native",
+			},
+			{
+				url: "https://wordpress.org/",
+				name: "WordPress",
 			},
 		],
 		description:
-			"Led tech systems development, improving websites, apps, and dashboards. Fixed WordPress plugin bugs for faster loading. Created an API gateway with TypeScript and Express.js for Radio Console System integration. Revamped mobile app with React Native and TypeScript. Enhanced tech support and documentation at the radio station.",
+			"Led technology system development, fixed WordPress plugin issues for faster page loads, built an event-driven API gateway, redesigned a mobile app with React Native and TypeScript, and improved technical problem resolution and documentation at the radio station.",
 	},
 	{
 		title: "Software Engineer Intern",
@@ -44,27 +48,31 @@ const jobs = [
 			},
 		],
 		description:
-			"lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl.",
+			"Created a backend API with Nest.js and TypeScript for multiple Natural Language Processors, built an MVP web dashboard with React and Vite, and researched serverless architecture for future scalability.",
 	},
 	{
 		title: "Software Engineer Intern",
-		company: "Lightbulb.ai",
-		companyUrl: "https://lightbulb.ai",
-		startDate: "May 2023",
-		endDate: "Present",
+		company: "Major League Hacking (Meta)",
+		companyUrl: "https://mlh.io/",
+		startDate: "May 2022",
+		endDate: "Aug 2022",
 		location: "Remote",
 		languages: [
 			{
-				url: "https://www.typescriptlang.org/",
-				name: "TypeScript",
+				url: "https://flask.palletsprojects.com/",
+				name: "Flask",
 			},
 			{
-				url: "reactjs.org",
-				name: "React",
+				url: "https://python.org",
+				name: "Python",
+			},
+			{
+				url: "https://docker.com",
+				name: "Docker",
 			},
 		],
 		description:
-			"lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl.",
+			"Completed a 12-week Production Engineering curriculum, built an open-source portfolio website, automated testing and deployment with GitHub Actions, and established system monitoring with Prometheus and Grafana.",
 	},
 ];
 
@@ -84,8 +92,6 @@ type Repo = {
 const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
 	.then((res) => res.json())
 	.then((res) => res.data);
-
-console.log(repos);
 ---
 
 <MainLayout title="Alexis Vielma">
@@ -95,6 +101,7 @@ console.log(repos);
 		</p>
 		<p style="max-width: 40ch;">I design and build accessible and inclusive experiences for the web.</p>
 	</div>
+	<!-- @ts-ignore -->
 	<CurrentlyPlaying client:visible />
 	<br />
 	<h3 class="fs:xs">About Me</h3>
@@ -122,7 +129,7 @@ console.log(repos);
 	<div class="stack gap:1">
 		{jobs.map((job) => <JobExperience {...job} />)}
 	</div>
-	<a href="/files/resume" style="text-align: right;">view resume</a>
+	<a href="../../public/files/resume.pdf" style="text-align: right;">view resume</a>
 	<br />
 	<h3 class="fs:xs">Projects</h3>
 	<div class="grid">
