@@ -1,6 +1,16 @@
 <script lang="ts">
 	export let mode: "full" | "compact" = "full"; // full | compact
-	let data = null;
+
+	type Song = {
+		name: string;
+		artist: string;
+		url: string;
+		image: string;
+	};
+	let data: {
+		track: Song;
+		lastTrack: Song;
+	} | null = null;
 
 	async function fetchData() {
 		try {
@@ -11,10 +21,6 @@
 			const json = await res.json();
 
 			data = json;
-
-			if (mode === "compact") {
-				console.log(data);
-			}
 		} catch (error) {
 			// console.error("Error fetching data:", error);
 		}
@@ -25,8 +31,8 @@
 </script>
 
 {#if mode === "full"}
-	<div class="container">
-		{#if data && data.track}
+	{#if data && data.track}
+		<div class="container">
 			<a
 				id="now-playing"
 				href={data.track.url}
@@ -49,7 +55,11 @@
 					</div>
 				</div>
 			</a>
-		{:else if data && data.lastTrack}{:else}
+		</div>
+	{:else if data && data.lastTrack}
+		<span style="display: none;" />
+	{:else}
+		<div class="container">
 			<div class="box" style="--padding: 0.5rem;">
 				<div class="cluster" style="--space: 0.75rem;">
 					<div class="shimmer img-skeleton" />
@@ -66,8 +76,8 @@
 					</div>
 				</div>
 			</div>
-		{/if}
-	</div>
+		</div>
+	{/if}
 {:else if mode === "compact"}
 	{#if data && data.lastTrack}
 		<p>
