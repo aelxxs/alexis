@@ -134,10 +134,6 @@ small,
 	backdrop-filter: blur(1rem);
 }
 
-.box * {
-	color: inherit;
-}
-
 .box:hover {
 	background-color: var(--bg-main-hover);
 	border-radius: 0.75rem;

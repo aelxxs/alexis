@@ -67,6 +67,25 @@ const jobs = [
 			"lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Sed euismod, diam quis aliquam ultricies, nisl nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl.",
 	},
 ];
+
+type Repo = {
+	name: string;
+	description: string;
+	stargazerCount: number;
+	forkCount: number;
+	primaryLanguage: {
+		name: string;
+		color: string;
+	};
+	pushedAt: string;
+	url: string;
+};
+
+const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
+	.then((res) => res.json())
+	.then((res) => res.data);
+
+console.log(repos);
 ---
 
 <MainLayout title="Alexis Vielma">
@@ -103,15 +122,11 @@ const jobs = [
 	<div class="stack gap:1">
 		{jobs.map((job) => <JobExperience {...job} />)}
 	</div>
-	<a href="/resume" style="text-align: right;">view resume</a>
+	<a href="/files/resume" style="text-align: right;">view resume</a>
 	<br />
 	<h3 class="fs:xs">Projects</h3>
-	<p>A collection of my top projects</p>
 	<div class="grid">
-		<Project />
-		<Project />
-		<Project />
-		<Project />
+		{repos.map((repo) => <Project {...repo} />)}
 	</div>
 </MainLayout>
 

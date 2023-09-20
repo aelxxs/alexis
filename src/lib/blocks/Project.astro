@@ -1,20 +1,59 @@
-<div class="box stack" style="--space: 0.75rem;">
+---
+type Props = {
+	name: string;
+	description: string;
+	stargazerCount: number;
+	forkCount: number;
+	primaryLanguage: {
+		name: string;
+		color: string;
+	};
+	pushedAt: string;
+	url: string;
+};
+
+const { name, description, primaryLanguage, url } = Astro.props;
+---
+
+<a href={url} target="_blank" class="box stack" style="--space: 0.75rem;">
 	<div class="repel">
-		<p><strong>project name</strong></p>
-		<p>icon url</p>
+		<p><strong>{name}</strong></p>
+		<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"
+			><path
+				d="M384 224v184a40 40 0 01-40 40H104a40 40 0 01-40-40V168a40 40 0 0140-40h167.48M336 64h112v112M224 288L440 72"
+				fill="none"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="50"></path></svg
+		>
 	</div>
-	<p>description of the project Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+	<p id="desc txt:mute">{description}</p>
 	<div class="cluster" data-justify="flex-start">
-		<span class="language"></span>
-		<small>TypeScript</small>
+		<span
+			class="language"
+			style={{
+				"--language-color": primaryLanguage?.color,
+			}}></span>
+		<small>{primaryLanguage?.name}</small>
 	</div>
-</div>
+</a>
 
 <style>
+	a {
+		display: block;
+		text-decoration: none;
+	}
+
 	.language {
 		width: 0.55rem;
 		height: 0.55rem;
-		background-color: red;
+		background-color: var(--language-color, red);
 		border-radius: 50%;
+	}
+
+	.ionicon {
+		width: 1rem;
+		height: 1rem;
+		stroke: var(--txt-1);
 	}
 </style>
