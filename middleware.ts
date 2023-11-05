@@ -1,12 +1,11 @@
 import { rewrite } from "@vercel/edge";
 
 export const config = {
-	// Only run the middleware on the admin route
 	matcher: "/f",
 };
 
 const file =
-	"https://sf4xxnguvhaohooo.public.blob.vercel-storage.com/articles/blob-HlmeYYVfpatdJoEl2MqEHShBVrdGQl.txt";
+	"https://sf4xxnguvhaohooo.public.blob.vercel-storage.com/image-ZLBGwd30CnwzNF7O53Gli2zeL7HcHA.png";
 
 export default function middleware(request: Request): Response {
 	const url = new URL(request.url);
@@ -15,5 +14,9 @@ export default function middleware(request: Request): Response {
 		url.pathname = "/hi";
 	}
 
-	return rewrite(file);
+	return rewrite(file, {
+		headers: {
+			"Content-Disposition": "inline",
+		},
+	});
 }
