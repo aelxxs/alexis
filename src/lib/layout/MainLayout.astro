@@ -36,7 +36,7 @@ const { title, showFooter = true, showHeader = true } = Astro.props;
 		</div>
 		<div class="root">
 			{showHeader && <Header />}
-			<span class="circle"></span>
+			<!-- <span class="circle"></span> -->
 			<main class="stack gap:6">
 				<div class="hero-container">
 					<img
@@ -157,7 +157,7 @@ const { title, showFooter = true, showHeader = true } = Astro.props;
 	}
 </style>
 
-<script>
+<!-- <script>
 	let inputX = 0;
 	let inputY = 0;
 	let posX = 0;
@@ -207,4 +207,4 @@ const { title, showFooter = true, showHeader = true } = Astro.props;
 		circle.style.transform = `translate3d(${~~posX}px, ${~~posY}px, 0)`;
 		// circle.style.opacity = (Math.round(opacity * 255) / 255).toString();
 	});
-</script>
+</script> -->
