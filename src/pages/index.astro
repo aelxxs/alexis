@@ -3,7 +3,7 @@ import Project from "@blocks/Project.astro";
 import JobExperience from "@blocks/WorkExperience.astro";
 import MainLayout from "@layout/MainLayout.astro";
 
-import CurrentlyPlaying from "@lib/blocks/CurrentlyPlaying.svelte";
+import CurrentlyPlaying from "@blocks/NowPlaying.svelte";
 
 const jobs = [
 	{
@@ -101,7 +101,6 @@ const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
 		</p>
 		<p style="max-width: 40ch;">I design and build accessible and inclusive experiences for the web.</p>
 	</div>
-	<!-- @ts-ignore -->
 	<CurrentlyPlaying client:visible />
 	<br />
 	<h3 class="fs:xs">About Me</h3>
@@ -161,25 +160,3 @@ const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
 		font-size: 1rem;
 	}
 </style>
-
-<script>
-	// const headers = document.querySelectorAll("h3");
-
-	// const observer = new IntersectionObserver((entries) => {
-	// 	entries.forEach((entry) => {
-	// 		if (entry.isIntersecting) {
-	// 			entry.target.style.setProperty("--line-width", "6rem");
-
-	// 			headers.forEach((h) => {
-	// 				if (h !== entry.target) {
-	// 					h.style.setProperty("--line-width", "3rem");
-	// 				}
-	// 			});
-	// 		} else {
-	// 			entry.target.style.setProperty("--line-width", "3rem");
-	// 		}
-	// 	});
-	// });
-
-	// headers.forEach((header) => observer.observe(header));
-</script>
