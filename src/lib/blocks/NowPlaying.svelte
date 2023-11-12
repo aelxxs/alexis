@@ -42,7 +42,7 @@
 				style="--padding: 0.5rem;"
 			>
 				<div class="cluster" style="--space: 0.75rem;">
-					<img src={data.track.image} alt="" />
+					<img class="rounded:md" src={data.track.image} alt="" />
 					<div class="stack" style="--space: 0.25rem;">
 						<p style="font-weight: 600;">{data.track.name}</p>
 						<div class="cluster" data-justify="space-between">
@@ -63,7 +63,7 @@
 		<div class="container">
 			<div class="box" style="--padding: 0.5rem;">
 				<div class="cluster" style="--space: 0.75rem;">
-					<div class="shimmer img-skeleton" />
+					<div class="shimmer img-skeleton rounded:md" />
 					<div class="stack" style="--space: 0.25rem;">
 						<div class="shimmer track-skeleton" />
 						<div class="cluster" data-justify="space-between">
@@ -77,7 +77,7 @@
 {:else if mode === "compact"}
 	{#if data && data.lastTrack}
 		<p>
-			Previously played: <a href={data?.lastTrack?.url}
+			Previously Played: <a href={data?.lastTrack?.url}
 				>{data?.lastTrack?.name} – {data?.lastTrack?.artist}</a
 			>
 		</p>
@@ -126,7 +126,6 @@
 	.img-skeleton {
 		width: 03rem;
 		height: 03rem;
-		border-radius: 0.45rem;
 	}
 
 	.track-skeleton {
@@ -154,7 +153,7 @@
 	img {
 		width: 03rem;
 		height: auto;
-		border-radius: 0.45rem;
+		/* border-radius: 0.45rem; */
 	}
 
 	.box {
