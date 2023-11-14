@@ -1,0 +1,9 @@
+---
+import Template from "@layout/MainLayout.astro";
+import LinkForm from "@blocks/LinkForm.svelte";
+---
+
+<Template title="Links" showFooter={false}>
+	<p slot="title"><b>TODO</b>: Add authentication to block public access to this page.</p>
+	<LinkForm client:load />
+</Template>
