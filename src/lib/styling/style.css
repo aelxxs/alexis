@@ -27,10 +27,10 @@
 :root[data-theme="dark"] {
 	color-scheme: dark;
 
-	--bg-main: hsl(229, 27%, 08%);
+	--bg-main: hsl(229, 27%, 8%);
 	--bg-main-hover: hsl(229, 27%, 08%, 0.35);
-	--bg-mute: hsla(186, 100%, 24%, 0.329);
-	--bg-border: hsla(229, 45%, 19%, 0.5);
+	--bg-mute: hsl(229, 27%, 12%);
+	--bg-border: hsl(229, 27%, 20%);
 
 	--txt-1: hsl(229, 15%, 85%);
 	--txt-2: hsl(229, 10%, 65%);
@@ -163,6 +163,18 @@ small,
 
 .txt\:mute {
 	color: var(--txt-2) !important;
+}
+
+.fw\:bold {
+	font-weight: 700;
+}
+
+.fw\:semibold {
+	font-weight: 600;
+}
+
+.fw\:medium {
+	font-weight: 500;
 }
 
 /* Basic Layout */
