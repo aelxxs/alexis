@@ -101,7 +101,7 @@ const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
 		</p>
 		<p style="max-width: 40ch;">I design and build accessible and inclusive experiences for the web.</p>
 	</div>
-	<CurrentlyPlaying client:visible />
+	<CurrentlyPlaying client:load />
 	<br />
 	<h3 class="fs:xs">About Me</h3>
 	<p>
@@ -109,13 +109,11 @@ const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
 			>code optimization</strong
 		>, service management, or being able to interact with people outside of the industry. I have <strong
 			>ever-growing technical skills</strong
-		> and an <strong>on-going academic background</strong> in <abbr title="">Computer Science</abbr>, <abbr title=""
-			>Linguistics</abbr
-		>, and <abbr title="">Korean</abbr>.
+		> and an <strong>on-going academic background</strong> in <abbr title="">Computer Science</abbr>.
 	</p>
 	<p>
 		My passion lies in being able to create fun and easy-to-use software that has the potential of reaching and
-		helping many people while focusing on ease-of-use comes strong emphasis on <strong>UI/UX</strong>, <strong
+		helping many people. Focusing on ease-of-use comes strong emphasis on <strong>UI/UX</strong>, <strong
 			>HCI</strong
 		>, and <strong>Continuous Development</strong>.
 	</p>
@@ -128,7 +126,7 @@ const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
 	<div class="stack gap:1">
 		{jobs.map((job) => <JobExperience {...job} />)}
 	</div>
-	<a href="../../files/resume.pdf" style="text-align: right;">view resume</a>
+	<a href="../../resume.pdf" style="text-align: right;">view resume</a>
 	<br />
 	<h3 class="fs:xs">Projects</h3>
 	<div class="grid">
