@@ -11,7 +11,7 @@ export type Link = {
 };
 
 export const GET: APIRoute = async (request) => {
-	const { url, params } = request;
+	const { params } = request;
 
 	const id = params.id as string;
 	const link = await kv.hget<Link>("links", id);
@@ -30,4 +30,3 @@ export const GET: APIRoute = async (request) => {
 
 	return request.redirect(link.to);
 };
-
