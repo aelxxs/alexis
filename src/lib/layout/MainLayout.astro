@@ -4,6 +4,7 @@ import "../styling/reset.css";
 
 import Header from "@blocks/Header.astro";
 import Footer from "@blocks/Footer.astro";
+import TimeWasted from "@lib/blocks/TimeWasted.svelte";
 
 export interface Props {
 	title: string;
@@ -35,22 +36,32 @@ const { title, showFooter = true, showHeader = true } = Astro.props;
 				</p>
 			</div>
 		</div>
+		<br />
 		{showHeader && <Header />}
 		<!-- <span class="circle"></span> -->
 		<main class="stack gap:1">
 			<img class="hero-img rounded:lg" src="/hero.gif" alt="" />
-			<div class="stack">
+			<br />
+			<div class="stack gap:0">
 				<h1>{title}</h1>
 				<slot name="title" />
 			</div>
 			<slot />
 		</main>
 		{showFooter && <Footer />}
-		<img class="corner" src="/sticker.png" alt="" />
+
+		<div class="corner-container">
+			<TimeWasted client:load />
+			<img class="corner" src="/sticker.png" alt="" />
+		</div>
 		<style>
-			#hire-me {
-				margin-bottom: 2rem;
+			.corner-container {
+				position: fixed;
+				bottom: 0;
+				right: 0;
+				z-index: -1;
 			}
+
 			.corner {
 				width: 3rem;
 				position: fixed;
@@ -88,7 +99,7 @@ const { title, showFooter = true, showHeader = true } = Astro.props;
 				}
 
 				.hero-img {
-					height: 10rem;
+					height: 12rem;
 				}
 			}
 
