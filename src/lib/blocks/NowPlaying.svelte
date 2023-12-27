@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+
 	export let mode: "full" | "compact" = "full";
 
 	type Song = {
@@ -12,23 +14,23 @@
 
 	async function fetchData() {
 		try {
-			const res = await fetch("/api/status");
-
-			if (!res.ok) {
-				throw new Error("Network response was not ok");
-			}
-
-			const json = await res.json();
+			const resp = await fetch("/api/status");
+			const json = await resp.json();
 
 			data = json;
 		} catch (error) {
-			// console.error("Error fetching data:", error);
+			console.error("Error fetching data:", error);
 		}
 	}
 
-	fetchData();
+	onMount(async () => {
+		fetchData();
+		fetchData();
 
-	setInterval(fetchData, 10000);
+		fetchData();
+
+		setInterval(fetchData, 10000);
+	});
 </script>
 
 {#if mode === "full"}
@@ -57,22 +59,6 @@
 				</div>
 			</a>
 		</div>
-	{:else if data && data.lastTrack}
-		<span style="display: none;" />
-	{:else}
-		<div class="container">
-			<div class="box" style="--padding: 0.5rem;">
-				<div class="cluster" style="--space: 0.75rem;">
-					<div class="shimmer img-skeleton rounded:md" />
-					<div class="stack" style="--space: 0.25rem;">
-						<div class="shimmer track-skeleton" />
-						<div class="cluster" data-justify="space-between">
-							<div class="shimmer artist-skeleton" />
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	{/if}
 {:else if mode === "compact"}
 	{#if data && data.lastTrack}
@@ -85,62 +71,6 @@
 {/if}
 
 <style>
-	:root {
-		--bg-mute-2: #f5f5f5;
-	}
-
-	.shimmer {
-		animation-duration: 2.2s;
-		animation-fill-mode: forwards;
-		animation-iteration-count: infinite;
-		animation-name: shimmer;
-		animation-timing-function: linear;
-		background: var(--bg-mute);
-		background: linear-gradient(
-			to right,
-			var(--bg-mute) 8%,
-			var(--clr-400) 18%,
-			var(--bg-mute) 33%
-		);
-		background-size: 1200px 100%;
-	}
-
-	@-webkit-keyframes shimmer {
-		0% {
-			background-position: -100% 0;
-		}
-		100% {
-			background-position: 100% 0;
-		}
-	}
-
-	@keyframes shimmer {
-		0% {
-			background-position: -1200px 0;
-		}
-		100% {
-			background-position: 1200px 0;
-		}
-	}
-
-	.img-skeleton {
-		width: 03rem;
-		height: 03rem;
-	}
-
-	.track-skeleton {
-		width: 10rem;
-		height: 1rem;
-		border-radius: 0.25rem;
-	}
-
-	.artist-skeleton {
-		width: 8rem;
-		height: 0.85rem;
-		margin-top: 0.25rem;
-		border-radius: 0.25rem;
-	}
-
 	.container {
 		margin-top: 1.5rem;
 	}
@@ -153,7 +83,7 @@
 	img {
 		width: 03rem;
 		height: auto;
-		/* border-radius: 0.45rem; */
+		border-radius: 0.45rem;
 	}
 
 	.box {
@@ -162,23 +92,20 @@
 	}
 
 	.sound-wave {
-		margin-left: 0.5em;
-		position: relative;
 		display: flex;
 		justify-content: space-between;
+		margin-left: 0.5rem;
 		width: 13px;
 		height: 13px;
 	}
 
 	.sound-wave span {
-		width: 0.2em;
+		width: 0.2rem;
 		height: 100%;
 		background-color: var(--clr-500);
-		border-radius: 3px;
+		border-radius: 0.25rem;
 		transform-origin: bottom;
 		animation: bounce 2.2s ease infinite alternate;
-		content: "";
-		bottom: 0;
 	}
 
 	.sound-wave span:nth-of-type(2) {
