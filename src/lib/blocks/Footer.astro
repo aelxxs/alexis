@@ -3,6 +3,6 @@ import CurrentlyPlaying from "@blocks/NowPlaying.svelte";
 ---
 
 <footer class="cluster gap:3" data-justify="space-between">
-	<p>Alexis Vielma – 2023</p>
+	<p>Alexis Vielma – &copy; {new Date().getFullYear()}</p>
 	<CurrentlyPlaying client:load mode="compact" />
 </footer>
