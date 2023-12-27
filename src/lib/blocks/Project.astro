@@ -28,7 +28,7 @@ const { name, description, primaryLanguage, url } = Astro.props;
 		>
 	</div>
 	<p id="desc txt:mute">{description}</p>
-	<div class="cluster">
+	<div class="cluster" style={{ "--space": "0.5rem" }}>
 		<span
 			class="language"
 			style={{
@@ -45,8 +45,8 @@ const { name, description, primaryLanguage, url } = Astro.props;
 	}
 
 	.language {
-		width: 0.55rem;
-		height: 0.55rem;
+		width: 0.65rem;
+		height: 0.65rem;
 		background-color: var(--language-color, red);
 		border-radius: 50%;
 	}
