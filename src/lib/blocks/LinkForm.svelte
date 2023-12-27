@@ -2,7 +2,6 @@
 	import { onMount } from "svelte";
 
 	let page = 0;
-	let id: string;
 	let to = "";
 
 	interface Link {
@@ -32,8 +31,6 @@
 		if (response.ok) {
 			const link = (await response.json()) as Link & { id: string };
 
-			id = link.id;
-
 			links = [link, ...links];
 		}
 	};
@@ -43,19 +40,17 @@
 		const json = await data.json();
 
 		links = json.links;
-
-		console.log(links);
 	};
 
-	const chunk = <T>(array: T[], size: number) => {
+	const chunk = <T,>(array: T[], size: number) => {
 		const length = Math.ceil(array.length / size);
 		return Array.from({ length }, (_, i) => {
 			return array.slice(i * size, i * size + size);
 		});
 	};
 
-	onMount(() => {
-		fetchLinks();
+	onMount(async () => {
+		await fetchLinks();
 		setInterval(fetchLinks, 5000);
 	});
 
@@ -69,21 +64,27 @@
 	const back = () => {
 		page = Math.max(page - 1, 0);
 	};
+
+	$: x = page * 10 + 1;
+	$: y = page * 10 + chunks[page]?.length;
+	$: z = links.length;
 </script>
 
 <div class="stack">
 	<form on:submit={onSubmit} class="cluster gap:1">
 		<input type="url" placeholder="Enter your link..." bind:value={to} />
-		<button type="submit">Shorten</button>
+		<button type="submit" disabled={!to.length}>Shorten</button>
 	</form>
 
 	{#if links.length}
 		<div class="stack gap:1" style="margin-top: 1.75rem;">
 			<table>
 				<thead>
-					<td>From</td>
-					<td>To</td>
-					<td>Clicks</td>
+					<tr>
+						<td>ID</td>
+						<td>To</td>
+						<td>Clicks</td>
+					</tr>
 				</thead>
 				{#each chunks[page] as link}
 					<tr>
@@ -100,16 +101,14 @@
 
 			<div class="box invert" style="--padding: 0.75rem;">
 				<div class="cluster" data-justify="space-between">
-					<p>
-						{links.length} link{links.length === 1 ? "" : "s"}{" "}
-					</p>
+					<p>Showing {x} – {y} of {z}</p>
 					<div class="cluster">
 						<button
 							class="pagination-button"
 							on:click={back}
 							disabled={page === 0}
 						>
-							Back
+							&lt;
 						</button>
 						<span>{page + 1} of {chunks.length}</span>
 						<button
@@ -117,7 +116,7 @@
 							on:click={next}
 							disabled={page === chunks.length - 1}
 						>
-							Next
+							&gt;
 						</button>
 					</div>
 				</div>
@@ -130,10 +129,17 @@
 
 <style>
 	.pagination-button {
-		padding: 0.25rem 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		vertical-align: middle;
+		padding: 0.25rem;
+		width: 2rem;
+		height: 2rem;
 		border: 1px solid var(--bg-border);
 		background-color: var(--bg-main);
-		border-radius: 0.5rem;
+		border-radius: 100%;
 		transition: all 0.2s ease-in-out;
 	}
 
@@ -170,6 +176,7 @@
 		border-spacing: 0;
 		border: 1px solid var(--bg-border);
 		overflow: hidden;
+		overflow-x: auto;
 		border-radius: 0.75rem;
 		outline: var(--border-thin) transparent;
 		outline-offset: calc(var(--border-thin) * -1);
