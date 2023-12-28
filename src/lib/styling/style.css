@@ -210,7 +210,6 @@ small,
 
 .box:not(.invert):hover {
 	transform: translateY(-0.15rem) scale(1.015);
-	border: transparent;
 }
 
 .box.no-hover {
