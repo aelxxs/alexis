@@ -97,64 +97,66 @@ const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
 <MainLayout title="Alexis Vielma">
 	<div slot="title" class="stack">
 		<p class="fs:md txt:mute">
-			<abbr title="Software Engineering">SWE</abbr> Intern @ <a href="https://lightbulb.ai">Lightbulb.ai</a>
+			<abbr title="Software Engineering">SWE</abbr> @ <a href="https://lightbulb.ai">Lightbulb.ai</a>, <abbr
+				title="Bachelor of Science in Computer Science">B.Sc. CS</abbr
+			> @ <a href="https://ku.edu">KU</a>
+			<p style="max-width: 40ch;">I design and build accessible and inclusive experiences for the web.</p>
 		</p>
-		<p style="max-width: 40ch;">I design and build accessible and inclusive experiences for the web.</p>
+		<CurrentlyPlaying client:load />
+		<br />
+		<h3 class="fs:xs">About Me</h3>
+		<p>
+			I am an aspiring Software/Production Engineer who enjoys tackling technical challenges: be it <strong
+				>code optimization</strong
+			>, service management, or being able to interact with people outside of the industry. I have <strong
+				>ever-growing technical skills</strong
+			> and an <strong>on-going academic background</strong> in <abbr title="">Computer Science</abbr>.
+		</p>
+		<p>
+			My passion lies in being able to create fun and easy-to-use software that has the potential of reaching and
+			helping many people. Focusing on ease-of-use comes strong emphasis on <strong>UI/UX</strong>, <strong
+				>HCI</strong
+			>, and <strong>Continuous Development</strong>.
+		</p>
+		<p>
+			I'm <strong>graduating in May 2025</strong> – Interested in Internship and Fellowship opportunities to
+			further guide me in my career.
+		</p>
+		<br />
+		<h3 class="fs:xs">Experience</h3>
+		<div class="stack gap:1">
+			{jobs.map((job) => <JobExperience {...job} />)}
+		</div>
+		<a href="../../resume.pdf" style="text-align: right;">view resume</a>
+		<br />
+		<h3 class="fs:xs">Projects</h3>
+		<div class="grid">
+			{repos.map((repo) => <Project {...repo} />)}
+		</div>
 	</div>
-	<CurrentlyPlaying client:load />
-	<br />
-	<h3 class="fs:xs">About Me</h3>
-	<p>
-		I am an aspiring Software/Production Engineer who enjoys tackling technical challenges: be it <strong
-			>code optimization</strong
-		>, service management, or being able to interact with people outside of the industry. I have <strong
-			>ever-growing technical skills</strong
-		> and an <strong>on-going academic background</strong> in <abbr title="">Computer Science</abbr>.
-	</p>
-	<p>
-		My passion lies in being able to create fun and easy-to-use software that has the potential of reaching and
-		helping many people. Focusing on ease-of-use comes strong emphasis on <strong>UI/UX</strong>, <strong
-			>HCI</strong
-		>, and <strong>Continuous Development</strong>.
-	</p>
-	<p>
-		I'm <strong>graduating in May 2025</strong> – Interested in Internship and Fellowship opportunities to further
-		guide me in my career.
-	</p>
-	<br />
-	<h3 class="fs:xs">Experience</h3>
-	<div class="stack gap:1">
-		{jobs.map((job) => <JobExperience {...job} />)}
-	</div>
-	<a href="../../resume.pdf" style="text-align: right;">view resume</a>
-	<br />
-	<h3 class="fs:xs">Projects</h3>
-	<div class="grid">
-		{repos.map((repo) => <Project {...repo} />)}
-	</div>
+
+	<style>
+		h3 {
+			text-transform: uppercase;
+			letter-spacing: 0.35ch;
+			--line-width: 3.5rem;
+		}
+
+		h3::before {
+			content: "";
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 1rem;
+			width: var(--line-width);
+			height: 0.15rem;
+			border-radius: 1rem;
+			background: linear-gradient(to right, rgba(0, 0, 0, 0), #006e7b);
+			transition: width 0.35s ease-in-out;
+		}
+
+		section p {
+			margin: 0.5rem 0;
+			font-size: 1rem;
+		}
+	</style>
 </MainLayout>
-
-<style>
-	h3 {
-		text-transform: uppercase;
-		letter-spacing: 0.35ch;
-		--line-width: 3.5rem;
-	}
-
-	h3::before {
-		content: "";
-		display: inline-block;
-		vertical-align: middle;
-		margin-right: 1rem;
-		width: var(--line-width);
-		height: 0.15rem;
-		border-radius: 1rem;
-		background: linear-gradient(to right, rgba(0, 0, 0, 0), #006e7b);
-		transition: width 0.35s ease-in-out;
-	}
-
-	section p {
-		margin: 0.5rem 0;
-		font-size: 1rem;
-	}
-</style>
