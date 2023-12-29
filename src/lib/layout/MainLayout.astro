@@ -92,8 +92,9 @@ const { title, showFooter = true, showHeader = true } = Astro.props;
 				transition: transform 0.2s ease-in-out;
 			}
 
-			.ionicon:hover {
-				transform: scale(1.1);
+			.ionicon:hover,
+			.ionicon:focus {
+				transform: scale(1.2) rotate(5deg);
 			}
 
 			.corner-container {
