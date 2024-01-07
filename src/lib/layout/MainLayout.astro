@@ -79,10 +79,7 @@ const { title, showFooter = true, showHeader = true } = Astro.props;
 		</main>
 		{showFooter && <Footer />}
 
-		<div class="corner-container">
-			<TimeWasted client:load />
-			<img class="corner" src="/sticker.png" alt="" />
-		</div>
+		<TimeWasted client:load />
 		<style>
 			.ionicon {
 				display: block;
