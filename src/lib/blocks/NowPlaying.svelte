@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
+	import { slide } from "svelte/transition";
 
 	export let mode: "full" | "compact" = "full";
 
@@ -35,7 +36,7 @@
 
 {#if mode === "full"}
 	{#if data && data.track}
-		<div class="container">
+		<div class="container" transition:slide>
 			<a
 				id="now-playing"
 				href={data.track.url}
