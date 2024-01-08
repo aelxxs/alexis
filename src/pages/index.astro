@@ -31,7 +31,7 @@ const jobs = [
 			"Led technology system development, fixed WordPress plugin issues for faster page loads, built an event-driven API gateway, redesigned a mobile app with React Native and TypeScript, and improved technical problem resolution and documentation at the radio station.",
 	},
 	{
-		title: "Software Engineer Intern",
+		title: "Software Engineer",
 		company: "Lightbulb.ai",
 		companyUrl: "https://lightbulb.ai",
 		startDate: "May 2023",
@@ -49,30 +49,6 @@ const jobs = [
 		],
 		description:
 			"Created a backend API with Nest.js and TypeScript for multiple Natural Language Processors, built an MVP web dashboard with React and Vite, and researched serverless architecture for future scalability.",
-	},
-	{
-		title: "Software Engineer Intern",
-		company: "Major League Hacking (Meta)",
-		companyUrl: "https://mlh.io/",
-		startDate: "May 2022",
-		endDate: "Aug 2022",
-		location: "Remote",
-		languages: [
-			{
-				url: "https://flask.palletsprojects.com/",
-				name: "Flask",
-			},
-			{
-				url: "https://python.org",
-				name: "Python",
-			},
-			{
-				url: "https://docker.com",
-				name: "Docker",
-			},
-		],
-		description:
-			"Completed a 12-week Production Engineering curriculum, built an open-source portfolio website, automated testing and deployment with GitHub Actions, and established system monitoring with Prometheus and Grafana.",
 	},
 ];
 
@@ -92,66 +68,52 @@ type Repo = {
 const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
 	.then((res) => res.json())
 	.then((res) => res.data);
+
+const exactAge = new Date().getTime() - new Date("2003-01-29").getTime();
+const age = Math.floor(exactAge / 31536000000);
 ---
 
 <MainLayout title="Alexis Vielma">
-	<div slot="title" class="stack">
-		<p class="fs:md txt:mute">
-			<abbr title="Software Engineering">SWE</abbr> @ <a href="https://lightbulb.ai">Lightbulb.ai</a>, <abbr
-				title="Bachelor of Science in Computer Science">B.Sc. CS</abbr
-			> @ <a href="https://ku.edu">KU</a>
-			<p style="max-width: 40ch;">I design and build accessible and inclusive experiences for the web.</p>
-		</p>
-		<CurrentlyPlaying client:load />
-		<br />
-		<h3 class="fs:xs">About Me</h3>
-		<p>
-			I am an aspiring Software/Production Engineer who enjoys tackling technical challenges: be it <strong
-				>code optimization</strong
-			>, service management, or being able to interact with people outside of the industry. I have <strong
-				>ever-growing technical skills</strong
-			> and an <strong>on-going academic background</strong> in <abbr title="">Computer Science</abbr>.
-		</p>
-		<p>
-			My passion lies in being able to create fun and easy-to-use software that has the potential of reaching and
-			helping many people. Focusing on ease-of-use comes strong emphasis on <strong>UI/UX</strong>, <strong
-				>HCI</strong
-			>, and <strong>Continuous Development</strong>.
-		</p>
-		<p>
-			I'm <strong>graduating in May 2025</strong> – Interested in Internship and Fellowship opportunities to
-			further guide me in my career.
-		</p>
-		<br />
-		<h3 class="fs:xs">Experience</h3>
-		<div class="stack gap:1">
-			{jobs.map((job) => <JobExperience {...job} />)}
-		</div>
-		<a href="../../resume.pdf" style="text-align: right;">view resume</a>
-		<br />
-		<h3 class="fs:xs">Projects</h3>
-		<div class="grid">
-			{repos.map((repo) => <Project {...repo} />)}
-		</div>
+	<h3 class="fs:sm txt:main">About Me</h3>
+	<p>
+		Hello, I'm <strong>Alexis Vielma</strong>. I'm a <abbr title="01-29-2003">{age}y/o</abbr> Computer Science student
+		at the <a href="https://ku.edu"><strong>University of Kansas</strong></a>.
+	</p>
+	<p>
+		I design and build accessible and inclusive experiences for the web. On my free time, I enjoy collecting and
+		spinning vinyl records, learning languages, and watching k-dramas.
+	</p>
+	<p>
+		Right now, I'm working at <a href="https://kjhk.org"><strong>KJHK 90.7 FM</strong></a>, building apps,
+		dashboards, and playing around with cool analog broadcasting hardware. I'm also a Software Engineer at <a
+			href="https://lightbulb.ai"><strong>Lightbulb.ai</strong></a
+		>.
+	</p>
+	<CurrentlyPlaying client:load />
+
+	<h3 class="fs:sm txt:main">Experience</h3>
+	<div class="stack">
+		{
+			jobs.map((job, i) => (
+				<>
+					<JobExperience {...job} />
+					{i !== jobs.length - 1 && <br />}
+				</>
+			))
+		}
+	</div>
+	<a href="../../resume.pdf" style="text-align: right;">view resume</a>
+	<h3 class="fs:sm txt:main">Projects</h3>
+	<p>
+		Here are some of the projects I've worked on (from <a href="https://github.com/aelxxs">GitHub</a>)
+	</p>
+	<div class="grid">
+		{repos.map((repo) => <Project {...repo} />)}
 	</div>
 
 	<style>
 		h3 {
 			text-transform: uppercase;
-			letter-spacing: 0.35ch;
-			--line-width: 3.5rem;
-		}
-
-		h3::before {
-			content: "";
-			display: inline-block;
-			vertical-align: middle;
-			margin-right: 1rem;
-			width: var(--line-width);
-			height: 0.15rem;
-			border-radius: 1rem;
-			background: linear-gradient(to right, rgba(0, 0, 0, 0), #006e7b);
-			transition: width 0.35s ease-in-out;
 		}
 
 		section p {
