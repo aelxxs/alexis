@@ -64,7 +64,7 @@
 {:else if mode === "compact"}
 	{#if data && data.lastTrack}
 		<p>
-			Previously Played: <a href={data?.lastTrack?.url}
+			Last Track: <a href={data?.lastTrack?.url}
 				>{data?.lastTrack?.name} – {data?.lastTrack?.artist}</a
 			>
 		</p>

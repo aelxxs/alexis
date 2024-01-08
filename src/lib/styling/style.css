@@ -29,15 +29,16 @@
 :root[data-theme="dark"] {
 	color-scheme: dark;
 
-	--bg-main: hsl(229, 27%, 8%);
-	--bg-main-hover: hsl(229, 27%, 08%, 0.35);
-	--bg-mute: hsl(229, 27%, 12%);
-	--bg-border: hsl(229, 27%, 20%);
+	--bg-main: hsl(230, 10%, 15%);
+	--bg-main-hover: hsl(230, 10%, 15%, 0.55);
+	--bg-mute: hsl(230, 10%, 10%);
+	--bg-border: hsl(230, 10%, 20%);
 
-	--txt-1: hsl(229, 15%, 85%);
-	--txt-2: hsl(229, 10%, 65%);
+	--txt-1: hsl(230, 10%, 85%);
+	--txt-2: hsl(230, 10%, 75%);
 }
 
+/*
 @media (prefers-color-scheme: dark) {
 	:root {
 		color-scheme: dark;
@@ -50,7 +51,7 @@
 		--txt-1: hsl(229, 15%, 85%);
 		--txt-2: hsl(229, 10%, 65%);
 	}
-}
+} */
 
 body {
 	background-color: var(--bg-main);
@@ -65,7 +66,7 @@ body {
 :root {
 	--ratio: 1.25;
 	--s-1: calc(var(--s0) / var(--ratio));
-	--s0: 1rem;
+	--s0: 0.95rem;
 	--s1: calc(var(--s0) * var(--ratio));
 	--s2: calc(var(--s1) * var(--ratio));
 	--s3: calc(var(--s2) * var(--ratio));
@@ -92,6 +93,10 @@ body {
 }
 
 /* Spacing */
+
+.gap\:-1 {
+	--space: var(--s-1);
+}
 
 .gap\:0 {
 	--space: var(--s0);
@@ -185,6 +190,7 @@ small,
 	font-weight: 600;
 }
 
+strong,
 .fw\:medium {
 	font-weight: 500;
 }
@@ -192,7 +198,7 @@ small,
 /* Basic Layout */
 
 .box {
-	padding: var(--padding, var(--s1));
+	padding: var(--padding, var(--s-1));
 	border: 1px solid var(--bg-border);
 	border-radius: 0.75rem;
 	outline: var(--border-thin) transparent;
@@ -242,7 +248,7 @@ small,
 	gap: var(--gutter, var(--s1));
 }
 .sidebar > :first-child {
-	flex-basis: 9rem;
+	flex-basis: 8rem;
 	flex-grow: 1;
 }
 .sidebar > :last-child {
@@ -254,7 +260,7 @@ small,
 .grid {
 	display: grid;
 	grid-gap: var(--gutter, var(--s0));
-	--minimum: 40ch;
+	--minimum: 35ch;
 }
 
 @supports (width: min(var(--minimum), 100%)) {

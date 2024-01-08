@@ -15,7 +15,7 @@ type Props = {
 const { name, description, primaryLanguage, url } = Astro.props;
 ---
 
-<a href={url} target="_blank" class="box stack" style="--space: 0.75rem;">
+<a href={url} target="_blank" class="box stack" style="--space: 0.65rem;">
 	<div class="repel">
 		<p><strong>{name}</strong></p>
 		<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"
@@ -28,7 +28,7 @@ const { name, description, primaryLanguage, url } = Astro.props;
 		>
 	</div>
 	<p id="desc txt:mute">{description}</p>
-	<div class="cluster" style={{ "--space": "0.5rem" }}>
+	<div class="cluster">
 		<span
 			class="language"
 			style={{

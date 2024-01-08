@@ -20,14 +20,14 @@ const { title, company, companyUrl, location, startDate, endDate, languages, des
 	<small style="padding-top: 0.15rem;">
 		<strong>{startDate} – {endDate}</strong>
 	</small>
-	<div class="stack gap:0">
+	<div class="stack gap:-1">
 		<h5>{title}, {company}</h5>
 		<p>{Array.isArray(description) ? description.map((paragraph) => <p>{paragraph}</p>) : description}</p>
 		<div class="cluster" data-justify="flex-start">
 			{
 				languages.map((language) => (
 					<a href={language.url} target="_blank">
-						{language.name}
+						<small>{language.name}</small>
 					</a>
 				))
 			}
@@ -39,23 +39,6 @@ const { title, company, companyUrl, location, startDate, endDate, languages, des
 	p {
 		max-width: 55ch !important;
 	}
-
-	article {
-		padding: 1rem;
-		transition:
-			background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-			transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-		border: 1px solid transparent;
-		border-radius: 0.75rem;
-	}
-
-	/* article:hover {
-		background-color: hsla(229, 27%, 08%, 0.35);
-		backdrop-filter: blur(1rem);
-		border-radius: 0.75rem;
-		border: 1px solid rgba(255, 255, 255, 0.08);
-	} */
-	/* box-shadow: 0 8px 32px 0 hsla(186, 100%, 24%, 0.35); */
 
 	strong {
 		color: var(--txt-2);
