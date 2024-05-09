@@ -4,7 +4,7 @@ import CurrentlyPlaying from "@blocks/NowPlaying.svelte";
 
 <hr />
 <footer class="cluster gap:3" data-justify="space-between">
-	<div class="cluster gap:1">
+	<div class="cluster gap:0">
 		<p>Alexis Vielma</p>
 		<span>—</span>
 		<a href="https://github.com/aelxxs" target="_blank">
@@ -33,7 +33,9 @@ import CurrentlyPlaying from "@blocks/NowPlaying.svelte";
 			</svg>
 		</a>
 	</div>
-	<CurrentlyPlaying client:load mode="compact" />
+	<!-- <CurrentlyPlaying client:load mode="compact" /> -->
+
+	<p>© {new Date().getFullYear()}</p>
 </footer>
 
 <style>
@@ -43,9 +45,9 @@ import CurrentlyPlaying from "@blocks/NowPlaying.svelte";
 
 	hr {
 		margin: 0;
-		margin-top: 4rem;
+		margin-top: 1.6rem;
 		border: none;
-		border-top: 2px solid var(--bg-border);
+		border-top: 1px solid var(--bg-border);
 	}
 
 	.ionicon {

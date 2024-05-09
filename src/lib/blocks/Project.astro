@@ -55,5 +55,10 @@ const { name, description, primaryLanguage, url } = Astro.props;
 		width: 0.9rem;
 		height: 0.9rem;
 		stroke: var(--txt-1);
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.box:hover .ionicon {
+		transform: translate(0.1rem, -0.1rem);
 	}
 </style>

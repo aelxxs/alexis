@@ -5,43 +5,56 @@ import "../styling/reset.css";
 import Header from "@blocks/Header.astro";
 import Footer from "@blocks/Footer.astro";
 import TimeWasted from "@lib/blocks/TimeWasted.svelte";
+import Breadcrumbs from "@lib/blocks/Breadcrumbs.astro";
 
 export interface Props {
 	title: string;
+	showTitle?: boolean;
 	showHeader?: boolean;
 	showFooter?: boolean;
+	overwritePageTitle?: boolean;
 }
 
-const { title, showFooter = true, showHeader = true } = Astro.props;
+const { title, showTitle = true, showFooter = true, showHeader = true, overwritePageTitle = false } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>
+			{overwritePageTitle ? title : `${title} — Alexis Vielma`}
+		</title>
+		<script is:inline>
+			const theme = localStorage.getItem("theme");
+
+			document.documentElement.setAttribute("data-theme", theme ?? "dark");
+		</script>
 	</head>
 	<body>
-		<div id="hire-me" class="box" style="--padding: var(--s1)">
+		<span class="blur"></span>
+		<div class="box" style="--padding: var(--s1)">
 			<div class="cluster" data-justify="center" data-wrap="nowrap">
 				<img class="emote" src="/emote.gif" alt="" />
 				<p>
-					I'm currently open for internships for summer 2024.
+					I'm currently open for new-grad roles for fall 2025
 					<br />
-					<a href="mailto:alexis@alexis.lol">Contact me</a>.
+					– <a href="mailto:alexis@alexis.lol">contact me</a>... or don't.
 				</p>
 			</div>
 		</div>
 		<br />
 		{showHeader && <Header />}
-		<!-- <span class="circle"></span> -->
+		<span class="circle"></span>
 		<main class="stack gap:2">
+			<Breadcrumbs />
 			<img class="hero-img rounded:lg" src="/hero.gif" alt="" />
 			<br />
+			{showTitle && title && <h1 class="fs:xl">{title}</h1>}
 			<slot />
 		</main>
 		{showFooter && <Footer />}
@@ -50,6 +63,19 @@ const { title, showFooter = true, showHeader = true } = Astro.props;
 </html>
 
 <style>
+	html[data-theme="dark"] body .blur {
+		position: absolute;
+		top: 0rem;
+		width: 100%;
+		height: 100vh;
+		filter: blur(1rem);
+		background: radial-gradient(circle at 50% 0%, rgb(29 78 216 / 40%), rgba(255, 255, 255, 0) 40%);
+	}
+
+	body {
+		position: relative;
+	}
+
 	.corner-container {
 		position: fixed;
 		bottom: 0;
@@ -95,22 +121,23 @@ const { title, showFooter = true, showHeader = true } = Astro.props;
 		}
 	}
 
-	.circle {
+	html[data-theme="dark"] body .circle {
 		position: fixed;
 		inset: 0;
 		pointer-events: none;
 		z-index: -2;
 	}
 
-	.circle::before {
+	html[data-theme="dark"] body .circle::before {
 		filter: blur(5rem);
 		content: "";
 		display: block;
 		width: 35rem;
 		height: 35rem;
 		border-radius: 50%;
-		opacity: 0.5;
-		background: radial-gradient(circle, #006e7b, var(--bg-mute), transparent);
+		opacity: 0.65;
+		filter: blur(3.5rem);
+		background: radial-gradient(circle, rgb(29 78 216 / 40%), rgba(255, 255, 255, 0), transparent);
 		transform: translate(-50%, -50%);
 	}
 </style>

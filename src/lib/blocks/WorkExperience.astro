@@ -5,7 +5,7 @@ type Props = {
 	companyUrl: string;
 	location: string;
 	startDate: string;
-	endDate: string;
+	endDate?: string;
 	languages: {
 		url: string;
 		name: string;
@@ -18,16 +18,21 @@ const { title, company, companyUrl, location, startDate, endDate, languages, des
 
 <article class="sidebar">
 	<small style="padding-top: 0.15rem;">
-		<strong>{startDate} – {endDate}</strong>
+		<strong>{startDate} {endDate && `– ${endDate}`}</strong>
 	</small>
 	<div class="stack gap:-1">
-		<h5>{title}, {company}</h5>
+		<h5>
+			{title},
+			<a href={companyUrl} target="_blank">{company}</a>
+		</h5>
 		<p>{Array.isArray(description) ? description.map((paragraph) => <p>{paragraph}</p>) : description}</p>
 		<div class="cluster" data-justify="flex-start">
 			{
 				languages.map((language) => (
-					<a href={language.url} target="_blank">
-						<small>{language.name}</small>
+					<a href={language.url} target="_blank" class="box item">
+						<div class="cluster gap:0">
+							<small>{language.name}</small>
+						</div>
 					</a>
 				))
 			}
@@ -46,5 +51,18 @@ const { title, company, companyUrl, location, startDate, endDate, languages, des
 
 	h5 {
 		color: var(--txt-1);
+	}
+
+	.item {
+		color: var(--text-link);
+		text-decoration: none;
+		padding: 0.35rem 0.5rem;
+		font-size: var(--s-1);
+		border-radius: 0.5rem;
+	}
+
+	.logo {
+		width: 1rem;
+		height: 1rem;
 	}
 </style>

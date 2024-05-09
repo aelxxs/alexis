@@ -1,0 +1,141 @@
+---
+import MainLayout from "@lib/layout/MainLayout.astro";
+
+type UsesItem = {
+	name: string;
+	link: string;
+	icon: string;
+};
+
+type UsesCategory = {
+	title: string;
+	items: UsesItem[];
+};
+
+const categories: UsesCategory[] = [
+	{
+		title: "Hardware",
+		items: [
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+		],
+	},
+	{
+		title: "Software",
+		items: [
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+		],
+	},
+	{
+		title: "Productivity",
+		items: [
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+			{
+				name: 'MacBook Pro 14"',
+				link: "#",
+				icon: "/assets/icons/macbook.svg",
+			},
+		],
+	},
+];
+---
+
+<MainLayout title="Uses">
+	<p>
+		Here's a list of the hardware and software I use on a daily basis.
+		<br />
+		Inspired by <a href="https://uses.tech/">uses.tech</a>.
+	</p>
+	<br />
+	{
+		categories.map(({ title, items }, i) => (
+			<>
+				<div class="sidebar">
+					<p class="txt:main fw:bold ff:mono">{title}</p>
+					<div class="cluster gap:-1">
+						{items.map(({ link, name, icon }) => (
+							<a href={link} class="box item">
+								<img src={icon} alt="" />
+								{name}
+							</a>
+						))}
+					</div>
+				</div>
+				{i !== categories.length - 1 && <hr />}
+			</>
+		))
+	}
+</MainLayout>
+
+<style>
+	hr {
+		border: 0;
+		width: 100%;
+		height: 1px;
+		background: var(--bg-border);
+	}
+
+	.item {
+		color: var(--text-link);
+		text-decoration: none;
+		padding: 0.35rem 0.5rem;
+		font-size: var(--s-1);
+		border-radius: 0.35rem;
+	}
+</style>

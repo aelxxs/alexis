@@ -1,5 +1,7 @@
 /* Font */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+/* Mono font */
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
 
 * {
 	font-family: "Inter", sans-serif;
@@ -29,36 +31,32 @@
 :root[data-theme="dark"] {
 	color-scheme: dark;
 
-	--bg-main: hsl(230, 10%, 15%);
-	--bg-main-hover: hsl(230, 10%, 15%, 0.55);
-	--bg-mute: hsl(230, 10%, 10%);
-	--bg-border: hsl(230, 10%, 20%);
+	--bg-main: hsl(230, 20%, 9%);
+	--bg-main-hover: hsl(230, 20%, 17%, 0.35);
+	--bg-mute: hsl(230, 20%, 12%);
+	--bg-border: hsl(230, 20%, 20%);
 
-	--txt-1: hsl(230, 10%, 85%);
-	--txt-2: hsl(230, 10%, 75%);
+	--txt-1: hsl(230, 20%, 100%);
+	--txt-2: hsl(230, 20%, 75%);
 }
 
-/*
 @media (prefers-color-scheme: dark) {
 	:root {
 		color-scheme: dark;
 
-		--bg-main: hsl(229, 27%, 8%);
-		--bg-main-hover: hsl(229, 27%, 08%, 0.35);
-		--bg-mute: hsl(229, 27%, 12%);
-		--bg-border: hsl(229, 27%, 20%);
+		--bg-main: hsl(230, 10%, 15%);
+		--bg-main-hover: hsl(230, 10%, 15%, 0.55);
+		--bg-mute: hsl(230, 10%, 10%);
+		--bg-border: hsl(230, 10%, 20%);
 
-		--txt-1: hsl(229, 15%, 85%);
-		--txt-2: hsl(229, 10%, 65%);
+		--txt-1: hsl(230, 10%, 95%);
+		--txt-2: hsl(230, 10%, 75%);
 	}
-} */
+}
 
 body {
 	background-color: var(--bg-main);
-	transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out,
-		border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out,
-		fill 0.25s ease-in-out, stroke 0.25s ease-in-out,
-		opacity 0.25s ease-in-out;
+	transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Modular Scale */
@@ -66,12 +64,11 @@ body {
 :root {
 	--ratio: 1.25;
 	--s-1: calc(var(--s0) / var(--ratio));
-	--s0: 0.95rem;
+	--s0: 0.968rem;
 	--s1: calc(var(--s0) * var(--ratio));
 	--s2: calc(var(--s1) * var(--ratio));
 	--s3: calc(var(--s2) * var(--ratio));
 	--s4: calc(var(--s3) * var(--ratio));
-	--s5: calc(var(--s4) * var(--ratio));
 }
 
 /* Border Radius */
@@ -114,23 +111,11 @@ body {
 	--space: var(--s3);
 }
 
-.gap\:4 {
-	--space: var(--s4);
-}
-
-.gap\:5 {
-	--space: var(--s5);
-}
-
-.gap\:6 {
-	--space: var(--s6);
-}
-
 /* Typography */
 
 h1,
 .fs\:xxl {
-	font-size: var(--s5);
+	font-size: var(--s4);
 }
 
 h2,
@@ -154,9 +139,16 @@ h5 {
 
 h5,
 p,
+s,
+a,
 .fs\:sm {
 	font-size: var(--s0);
 	color: var(--txt-2);
+}
+
+s {
+	color: var(--txt-2);
+	opacity: 0.5;
 }
 
 small,
@@ -195,6 +187,10 @@ strong,
 	font-weight: 500;
 }
 
+.ff\:mono {
+	font-family: "Inconsolata", monospace;
+}
+
 /* Basic Layout */
 
 .box {
@@ -206,7 +202,7 @@ strong,
 	color: var(--color-dark);
 	transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
 		transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-	background-color: var(--bg-main-hover);
+	background-color: var(--bg-main-hovere);
 	backdrop-filter: blur(1rem);
 }
 
@@ -314,4 +310,8 @@ strong,
 
 .ai\:center {
 	align-items: center;
+}
+
+a {
+	color: var(--txt-1) !important;
 }
