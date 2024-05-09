@@ -26,10 +26,6 @@
 
 	onMount(async () => {
 		fetchData();
-		fetchData();
-
-		fetchData();
-
 		setInterval(fetchData, 10000);
 	});
 </script>

@@ -5,6 +5,7 @@ import Logo from "./icons/Logo.astro";
 const links = [
 	{ label: "home", url: "/" },
 	{ label: "blog", url: "/blog" },
+	// { label: "uses", url: "/uses" },
 ];
 ---
 
@@ -19,7 +20,14 @@ const links = [
 				{
 					links.map(({ label, url }) => (
 						<li>
-							<a href={url}>{label}</a>
+							<a
+								href={url}
+								aria-current={url === Astro.url.pathname ? "page" : undefined}
+								aria-label={label}
+								role="listitem"
+							>
+								{label}
+							</a>
 						</li>
 					))
 				}
@@ -53,14 +61,18 @@ const links = [
 
 	nav li a {
 		color: var(--color-text);
-		text-decoration: none;
+		text-decoration-color: transparent;
+		text-decoration-style: none;
+		transition: text-decoration-color 0.15s;
 	}
 
 	nav li a:hover {
 		text-decoration: underline;
+		text-decoration-color: var(--clr-400);
 	}
 
-	.active {
-		color: red !important;
+	nav li a[aria-current="page"] {
+		text-decoration: wavy underline;
+		text-decoration-color: var(--clr-500);
 	}
 </style>
