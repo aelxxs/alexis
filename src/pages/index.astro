@@ -6,15 +6,16 @@ import MainLayout from "@layout/MainLayout.astro";
 import CurrentlyPlaying from "@blocks/NowPlaying.svelte";
 
 const jobs = [
-	// {
-	// 	title: "Front End Engineer Intern",
-	// 	company: "Amazon",
-	// 	companyUrl: "https://amazon.com",
-	// 	startDate: "Summer 2024",
-	// 	location: "Seattle, WA",
-	// 	languages: [],
-	// 	description: "Incoming Summer 2024",
-	// },
+	{
+		title: "Front End Engineer Intern",
+		company: "Amazon",
+		companyUrl: "https://amazon.com",
+		startDate: "May 2024",
+		endDate: "Present",
+		location: "Seattle, WA",
+		languages: [],
+		description: "Working on the Amazon Home Innovation team.",
+	},
 	{
 		title: "Technology Director",
 		company: "KJHK 90.7 FM",
@@ -44,7 +45,7 @@ const jobs = [
 		company: "Lightbulb.ai",
 		companyUrl: "https://lightbulb.ai",
 		startDate: "May 2023",
-		endDate: "Present",
+		endDate: "May 2024",
 		location: "Remote",
 		languages: [
 			{
@@ -63,13 +64,19 @@ const jobs = [
 
 const awards = [
 	{
+		title: "Distinguished Engin",
+	},
+	{
 		title: "Best Phone App",
 		organization: "International Phone Awards",
 		date: "2023",
-		description: "Awarded for the best phone app of the year",
+		description: "Awarded for the best phone app of the year in",
 	},
 	{
-		title: "Best",
+		title: "2nd Place (General Track)",
+		organization: "HackKU",
+		date: "2023",
+		description: "Awarded for developing a ",
 	},
 ];
 
@@ -107,11 +114,10 @@ const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
 	</p>
 	<p>
 		Right now, I'm working at <a href="https://kjhk.org">KJHK 90.7 FM</a>, building apps, dashboards, and playing
-		around with cool analog hardware. I'm also an incoming Front End Engineer Intern at <a href="https://amazon.com"
-			>Amazon</a
+		around with cool analog hardware. I'm also a Front End Engineer Intern at <a href="https://amazon.com">Amazon</a
 		> for summer 2024.
 	</p>
-	<!-- <CurrentlyPlaying client:load /> -->
+	<!-- <CurrentlyPmlaying client:load /> -->
 	<br />
 	<h3 class="fs:sm txt:main">Experience</h3>
 	<div class="stack">
@@ -138,6 +144,7 @@ const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
 	</div>
 
 	<h3 class="fs:sm txt:main">Awards</h3>
+	<p>I will add this section later.</p>
 
 	<style>
 		h3 {
