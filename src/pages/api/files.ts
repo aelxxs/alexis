@@ -81,6 +81,15 @@ export const POST: APIRoute = async ({ request }) => {
 	const form = await request.formData();
 
 	const file = form.get("file") as File | null;
+	const pass = form.get("pass") as string | null;
+
+	const passcode = import.meta.env.PASSCODE;
+
+	console.log(pass, passcode);
+
+	if (!pass || pass !== passcode) {
+		return new Response("Invalid password", { status: 400 });
+	}
 
 	if (!file) {
 		return new Response("No file found", { status: 400 });

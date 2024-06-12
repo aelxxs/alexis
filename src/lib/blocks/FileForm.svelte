@@ -5,7 +5,7 @@
 	const PER_PAGE = 5;
 
 	let page = 0;
-	let to = "";
+	let pass = "";
 
 	interface TFile {
 		id: string;
@@ -29,6 +29,7 @@
 
 		const formData = new FormData();
 		formData.append("file", file);
+		formData.append("pass", pass);
 
 		try {
 			const response = await fetch("/api/files", {
@@ -101,6 +102,15 @@
 <div class="stack">
 	<form on:submit={onSubmit} class="cluster gap:1">
 		<input id="file" name="file" type="file" on:change={handleFileChange} />
+
+		<!-- passcode -->
+		<input
+			type="text"
+			id="passcode"
+			name="passcode"
+			placeholder="Passcode (required)"
+			bind:value={pass}
+		/>
 		<button type="submit">Upload</button>
 	</form>
 
