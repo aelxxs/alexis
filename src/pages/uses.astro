@@ -1,6 +1,6 @@
 ---
 import MainLayout from "@lib/layout/MainLayout.astro";
-
+import FileForm from "@lib/blocks/FileForm.svelte";
 type UsesItem = {
 	name: string;
 	link: string;
@@ -102,8 +102,9 @@ const categories: UsesCategory[] = [
 		<br />
 		Inspired by <a href="https://uses.tech/">uses.tech</a>.
 	</p>
+	<FileForm client:load />
 	<br />
-	{
+	<!-- {
 		categories.map(({ title, items }, i) => (
 			<>
 				<div class="sidebar">
@@ -120,7 +121,7 @@ const categories: UsesCategory[] = [
 				{i !== categories.length - 1 && <hr />}
 			</>
 		))
-	}
+	} -->
 </MainLayout>
 
 <style>

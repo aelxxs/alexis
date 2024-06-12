@@ -1,4 +1,4 @@
-import type { APIRoute } from "astro";
+import type { APIRoute } from "node_modules/astro/dist/@types/astro";
 
 export const GET: APIRoute = async () => {
 	const data = await fetch(

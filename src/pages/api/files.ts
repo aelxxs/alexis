@@ -1,3 +1,4 @@
+import { put } from "@vercel/blob";
 import { kv } from "@vercel/kv";
 import type { APIRoute } from "astro";
 import { z } from "zod";
@@ -7,7 +8,7 @@ type FixedString<N extends number> = {
 	length: N;
 } & string;
 
-export type Link = {
+export type file = {
 	to: string;
 	ex: number;
 	clicks: number;
@@ -34,10 +35,10 @@ const uid = <N extends number>(length: N): FixedString<N> => {
 };
 
 export const GET: APIRoute = async () => {
-	const links = await kv.hgetall<Record<string, Link>>("links");
+	const files = await kv.hgetall<Record<string, file>>("files");
 
-	if (!links) {
-		return new Response(JSON.stringify({ links: [] }), {
+	if (!files) {
+		return new Response(JSON.stringify({ files: [] }), {
 			status: 200,
 			headers: {
 				"Content-Type": "application/json",
@@ -45,12 +46,12 @@ export const GET: APIRoute = async () => {
 		});
 	}
 
-	const linkArray = Object.entries(links).map(([id, link]) => ({
+	const fileArray = Object.entries(files).map(([id, file]) => ({
 		id,
-		...link,
+		...file,
 	}));
 
-	return new Response(JSON.stringify({ links: linkArray }), {
+	return new Response(JSON.stringify({ files: fileArray }), {
 		status: 200,
 		headers: {
 			"Content-Type": "application/json",
@@ -58,7 +59,7 @@ export const GET: APIRoute = async () => {
 	});
 };
 
-const LinkDeleteSchema = z.object({
+const fileDeleteSchema = z.object({
 	id: z.string().length(6),
 });
 
@@ -66,9 +67,9 @@ export const DELETE: APIRoute = async ({ request }) => {
 	const body = await request.json();
 
 	try {
-		const { id } = LinkDeleteSchema.parse(body);
+		const { id } = fileDeleteSchema.parse(body);
 
-		await kv.hdel("links", id);
+		await kv.hdel("files", id);
 
 		return new Response(JSON.stringify({ id }), { status: 200 });
 	} catch (e) {
@@ -76,34 +77,39 @@ export const DELETE: APIRoute = async ({ request }) => {
 	}
 };
 
-const LinkCreateSchema = z.object({
-	to: z.string().url(),
-});
-
 export const POST: APIRoute = async ({ request }) => {
-	const body = await request.json();
+	const form = await request.formData();
+
+	const file = form.get("file") as File | null;
+
+	if (!file) {
+		return new Response("No file found", { status: 400 });
+	}
 
 	try {
-		const { to } = LinkCreateSchema.parse(body);
-
 		const now = Date.now();
 
 		const id = uid(6);
 		const ex = now + 1000 * 60 * 60 * 24 * 7;
 
-		const link = {
-			to,
+		const { url } = await put(id, file, {
+			access: "public",
+			addRandomSuffix: false,
+		});
+
+		const fileData = {
+			to: url,
 			ex,
 			clicks: 0,
 			createdAt: now,
 			updatedAt: now,
 		};
 
-		await kv.hset<Link>("links", {
-			[id]: { ...link },
+		await kv.hset<file>("files", {
+			[id]: { ...fileData },
 		});
 
-		return new Response(JSON.stringify({ id, ...link }), { status: 200 });
+		return new Response(JSON.stringify({ id, ...file }), { status: 200 });
 	} catch (e) {
 		return new Response("An error occured", { status: 400 });
 	}
