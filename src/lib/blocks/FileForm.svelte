@@ -2,7 +2,7 @@
 	import { onMount } from "svelte";
 
 	let file: File | null = null;
-	const PER_PAGE = 5;
+	const PER_PAGE = 6;
 
 	let page = 0;
 	let pass = "";
@@ -78,9 +78,10 @@
 			return array.slice(i * size, i * size + size);
 		});
 	};
+
 	onMount(async () => {
 		await fetchfiles();
-		setInterval(fetchfiles, 5000);
+		// setInterval(fetchfiles, 5000);
 	});
 
 	$: sorted = files.sort((a, b) => b.createdAt - a.createdAt);
@@ -97,120 +98,99 @@
 	$: x = page * PER_PAGE + 1;
 	$: y = page * PER_PAGE + chunks[page]?.length;
 	$: z = files.length;
+
+	const deleteFile = async (id: string) => {
+		const response = await fetch("/api/files", {
+			method: "DELETE",
+			body: JSON.stringify({ id }),
+		});
+
+		if (response.ok) {
+			files = files.filter((file) => file.id !== id);
+		}
+	};
+
+	const copyToClipboard = (file: TFile, text: string) => {
+		navigator.clipboard.writeText(text);
+
+		console.log({ file });
+		file.isCopied = true;
+
+		setTimeout(() => {
+			file.isCopied = false;
+		}, 2000);
+	};
 </script>
 
 <div class="stack">
-	<form on:submit={onSubmit} class="cluster gap:1">
-		<input id="file" name="file" type="file" on:change={handleFileChange} />
-
-		<!-- passcode -->
-		<input
-			type="text"
-			id="passcode"
-			name="passcode"
-			placeholder="Passcode (required)"
-			bind:value={pass}
-		/>
-		<button type="submit">Upload</button>
+	<form on:submit={onSubmit} class="stack gap:1">
+		<div class="cluster">
+			<input type="file" on:change={handleFileChange} />
+			<input
+				type="password"
+				placeholder="🔒"
+				autocomplete="off"
+				data-lpignore="true"
+				bind:value={pass}
+			/>
+			<button type="submit">Upload</button>
+		</div>
 	</form>
 
 	{#if files.length}
 		<div class="stack gap:1" style="margin-top: 1.75rem;">
-			<table>
-				<thead>
-					<tr>
-						<td> ID </td>
-						<td> To </td>
-						<td> Clicks </td>
-					</tr>
-				</thead>
+			<div class="grid">
 				{#each chunks[page] as file}
-					<tr>
-						<td
-							class="cluster"
-							style="--space: 0.5rem; width: 110px;"
-						>
-							<button
-								style="all: unset !important;"
-								on:click={() => {
-									navigator.clipboard.writeText(
-										`https://alexis.lol/f/${file.id}`,
-									);
-
-									file.isCopied = true;
-
-									setTimeout(() => {
-										file.isCopied = false;
-									}, 2000);
-								}}
-							>
-								{#if file.isCopied}
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										class="check"
-										viewBox="0 0 512 512"
-										><path
-											d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
-											fill="none"
-											stroke="currentColor"
-											stroke-miterlimit="10"
-											stroke-width="32"
-										/><path
-											fill="none"
-											stroke="currentColor"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="32"
-											d="M352 176L217.6 336 160 272"
-										/></svg
+					<div class="box no-hover">
+						<div class="stack">
+							<img
+								src={file.to}
+								alt={file.to}
+								class="file-preview"
+							/>
+							<div class="cluster" data-justify="space-between">
+								<div class="cluster gap:0">
+									<ion-icon name="eye-outline" />
+									<p>{file.clicks}</p>
+								</div>
+								<div class="cluster">
+									<button
+										class="unset"
+										on:click={() =>
+											copyToClipboard(file, file.to)}
 									>
-								{:else}
-									<abbr title="Copy file">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											class="copy"
-											viewBox="0 0 512 512"
-											><rect
-												x="128"
-												y="128"
-												width="336"
-												height="336"
-												rx="57"
-												ry="57"
-												fill="none"
-												stroke="currentColor"
-												stroke-linejoin="round"
-												stroke-width="32"
-											/><path
-												d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24"
-												fill="none"
-												stroke="currentColor"
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												stroke-width="32"
-											/></svg
-										>
-									</abbr>
-								{/if}
-							</button>
-							<a
-								target="_blank"
-								href={`/f/${file.id}`}
-								class="ff:mono"
-							>
-								{file.isCopied ? "Copied!" : file.id}
-							</a>
-						</td>
-						<td style="min-width: 100%;">
-							<abbr title={file.to}>
-								{file.to}
-							</abbr>
-						</td>
-						<td style="text-align: center;">{file.clicks}</td>
-					</tr>
-				{/each}
-			</table>
+										{#if file.isCopied}
+											<ion-icon name="checkbox-outline" />
+										{:else}
+											<ion-icon
+												name="clipboard-outline"
+											/>
+										{/if}
+									</button>
 
+									<a
+										href={`${file.to}?download=1`}
+										target="_blank"
+										><ion-icon
+											name="cloud-download-outline"
+										/></a
+									>
+									<span class="vertical-sep"></span>
+									<button
+										class="unset"
+										on:click={() => deleteFile(file.id)}
+									>
+										<ion-icon
+											name="trash-outline"
+											style="color: #e05d5d;"
+										/>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				{/each}
+			</div>
 			<div class="box invert" style="--padding: 0.75rem;">
 				<div class="cluster" data-justify="space-between">
 					<div class="cluster gap:-1">
@@ -263,15 +243,10 @@
 							on:click={back}
 							disabled={page === 0}
 						>
-							<svg
+							<ion-icon
+								name="caret-back-outline"
 								style="margin-right: 0.1rem;"
-								xmlns="http://www.w3.org/2000/svg"
-								class="ionicon"
-								viewBox="0 0 512 512"
-								><path
-									d="M321.94 98L158.82 237.78a24 24 0 000 36.44L321.94 414c15.57 13.34 39.62 2.28 39.62-18.22v-279.6c0-20.5-24.05-31.56-39.62-18.18z"
-								/></svg
-							>
+							/>
 						</button>
 						<span> {page + 1} of {chunks.length}</span>
 						<button
@@ -279,15 +254,10 @@
 							on:click={next}
 							disabled={page === chunks.length - 1}
 						>
-							<svg
+							<ion-icon
+								name="caret-forward-outline"
 								style="margin-left: 0.1rem;"
-								xmlns="http://www.w3.org/2000/svg"
-								class="ionicon"
-								viewBox="0 0 512 512"
-								><path
-									d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z"
-								/></svg
-							>
+							/>
 						</button>
 					</div>
 				</div>
@@ -299,35 +269,43 @@
 </div>
 
 <style>
+	.vertical-sep {
+		width: 1px;
+		height: 1.25rem;
+		background-color: var(--bg-border);
+	}
+
+	.unset {
+		all: unset !important;
+	}
+
+	input[type="password"] {
+		max-width: 6rem;
+	}
+
+	.file-preview {
+		object-fit: cover;
+		width: 100%;
+		max-height: 100%;
+		height: 200px;
+		object-fit: cover;
+		border-radius: 0.45rem;
+	}
+
 	@media (max-width: 429px) {
 		.hide\:sm {
 			display: none;
 		}
 	}
 
-	.ionicon {
-		display: block;
-		width: 1rem;
-		fill: var(--txt-1);
-	}
-
-	.copy,
-	.check {
-		display: block;
-		width: 1rem;
+	ion-icon {
 		transition: transform 0.2s ease-in-out;
-		fill: red !important;
 	}
 
-	.check {
-		width: 1.15rem;
-		fill: red;
-	}
-
-	.copy:hover,
-	.copy:focus {
+	ion-icon:hover,
+	ion-icon:focus {
 		cursor: pointer;
-		transform: scale(1.2) rotate(5deg);
+		transform: scale(1.2) rotate(2.5deg);
 	}
 
 	.pagination-button {
@@ -350,7 +328,6 @@
 	}
 
 	input {
-		width: 50%;
 		padding: 0.5rem 0.75rem;
 		border: 1px solid var(--bg-border);
 		background-color: var(--bg-mute);
@@ -363,7 +340,6 @@
 		border: 1px transparent;
 		background-color: var(--bg-mute);
 		border-radius: 0.5rem;
-
 		transition: all 0.2s ease-in-out;
 	}
 
@@ -380,37 +356,5 @@
 	button:disabled {
 		cursor: not-allowed;
 		opacity: 0.5;
-	}
-
-	table {
-		width: 100%;
-		border-spacing: 0;
-		border: 1px solid var(--bg-border);
-		overflow: hidden;
-		overflow-x: auto;
-		border-radius: 0.75rem;
-		outline: var(--border-thin) transparent;
-		outline-offset: calc(var(--border-thin) * -1);
-	}
-
-	table thead td {
-		font-weight: bold;
-	}
-
-	table td {
-		border-bottom: 1px solid var(--bg-border);
-		padding: 0.85rem;
-		max-width: 110px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	table tr:last-child > td {
-		border-bottom: none;
-	}
-
-	table tr:nth-child(even) {
-		background-color: var(--bg-mute);
 	}
 </style>

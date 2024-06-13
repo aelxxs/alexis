@@ -1,0 +1,28 @@
+---
+import Layout from "@lib/layout/MainLayout.astro";
+import FileForm from "@lib/blocks/FileForm.svelte";
+---
+
+<Layout title="Files">
+	<p>
+		⚠️ <b>Hey There</b>! You probably shouldn't be here. This is a private page (best security ever).
+	</p>
+	<FileForm client:load />
+</Layout>
+
+<style>
+	hr {
+		border: 0;
+		width: 100%;
+		height: 1px;
+		background: var(--bg-border);
+	}
+
+	.item {
+		color: var(--text-link);
+		text-decoration: none;
+		padding: 0.35rem 0.5rem;
+		font-size: var(--s-1);
+		border-radius: 0.35rem;
+	}
+</style>
