@@ -81,7 +81,7 @@
 
 	onMount(async () => {
 		await fetchfiles();
-		// setInterval(fetchfiles, 5000);
+		setInterval(fetchfiles, 5000);
 	});
 
 	$: sorted = files.sort((a, b) => b.createdAt - a.createdAt);
