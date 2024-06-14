@@ -472,6 +472,7 @@ code.hljs {
 	font-weight: 400;
 	line-height: 1.2;
 	font-size: 13px;
+	padding: 0 0.5rem;
 }
 
 [class^="hljs-"] {
@@ -479,4 +480,10 @@ code.hljs {
 	font-weight: 400;
 	line-height: 1.2;
 	font-size: 13px;
+}
+
+.highlighted {
+	width: 100%;
+	box-shadow: inset 2px 0 0 orange;
+	background: rgba(187, 128, 9, 0.098);
 }

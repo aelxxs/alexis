@@ -4,11 +4,14 @@
 	const URL_REGEX = /\/([\w]*)\.?(\w*)?\#?(L[\d]*[\-?L[\d]*]?)?/;
 	const SPAN_REGEX = /(<span [^>]+>)|(<\/span>)|(\n)/g;
 
+	let editor: HTMLTextAreaElement;
 	export let id: string;
+
 	let hash: {
-		l1: number;
-		l2: number;
-	};
+		l1: number | null;
+		l2: number | null;
+	} = { l1: null, l2: null };
+
 	let html: HTMLElement;
 
 	$: code = "";
@@ -31,7 +34,7 @@
 
 		const { id } = await response.json();
 
-		window.location.href = `/p/${id}`;
+		window.location.replace(`/p/${id}`);
 	};
 
 	const transform = (text: string) => {
@@ -62,6 +65,35 @@
 		return html;
 	};
 
+	const select = (event: any, ln: any) => {
+		if (!html.innerHTML.length) return;
+
+		console.log({ event });
+
+		if (event.shiftKey) {
+			if (hash.l1 && ln > hash.l1) {
+				hash.l2 = ln;
+				window.history.pushState({}, "", `#L${hash.l1}-L${ln}`);
+			} else if (hash.l1 && ln < hash.l1) {
+				hash.l2 = hash.l1;
+				hash.l1 = ln;
+				window.history.pushState({}, "", `#L${ln}-L${hash.l2}`);
+			} else {
+				hash.l1 = ln;
+				window.history.pushState({}, "", `#L${ln}`);
+			}
+		} else {
+			hash.l1 = ln;
+			hash.l2 = null;
+			window.history.pushState({}, "", `#L${ln}`);
+		}
+
+		test.hljs.highlightLines(html, {
+			start: hash.l1,
+			end: hash.l2 || hash.l1,
+		});
+	};
+
 	onMount(() => {
 		if (id) {
 			(async () => {
@@ -79,19 +111,53 @@
 				const { value } = test.hljs.highlightAuto(content);
 
 				html.innerHTML = transform(value);
+
+				if (window.location.hash) {
+					const HASH_REGEX = /#?(L[\d]*[\-?L[\d]*]?)?/;
+
+					const [_, hashStr] = window.location.hash.match(HASH_REGEX);
+
+					const [l1, l2] = hashStr
+						.replace("L", "")
+						.split("-")
+						.map((l) => l.replace("L", ""));
+
+					console.log({ l1, l2 });
+
+					console.log({ l1, l2 });
+
+					hash.l1 = l1 ? parseInt(l1) : null;
+					hash.l2 = l2 ? parseInt(l2) : null;
+
+					console.log({ hash });
+
+					test.hljs.highlightLines(html, {
+						start: l1,
+						end: l2 || l1,
+					});
+				}
 			})();
 		}
 	});
 </script>
 
-<form class="box no-hover" style="position: relative; height: 45rem;">
+<form
+	class="box no-hover"
+	style="position: relative; max-height: 45rem;"
+	class:set-height={hide}
+>
 	{#if mode === "edit"}
 		<button on:click={save}>Test</button>
 	{/if}
 	<div class="wrapper">
 		<div class="lines">
 			{#each code.split("\n") as _, i}
-				<span class="line txt:mute ff:mono">{i + 1}</span>
+				<span
+					role="button"
+					class="line txt:mute ff:mono"
+					on:click={(event) => select(event, i + 1)}
+					>{i + 1}
+				</span>
 			{/each}
 		</div>
 		<pre class:hide={hide !== false}><code bind:this={html} /></pre>
@@ -103,7 +169,23 @@
 				autocorrect="off"
 				spellcheck="false"
 				bind:value={code}
+				bind:this={editor}
 				class="ff:mono"
+				on:keydown={(event) => {
+					if (event.key === "Tab") {
+						event.preventDefault();
+
+						let start = editor.selectionStart,
+							end = editor.selectionEnd;
+
+						code =
+							code.substring(0, start) +
+							"\t" +
+							code.substring(end);
+
+						editor.selectionStart = editor.selectionEnd = start + 1;
+					}
+				}}
 			></textarea>
 		</div>
 	</div>
@@ -112,6 +194,9 @@
 <style>
 	@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
 
+	.set-height {
+		min-height: 25rem;
+	}
 	form {
 		margin-top: 1rem;
 	}
@@ -140,7 +225,6 @@
 		display: flex;
 		flex-direction: column;
 		position: relative;
-		padding-right: 0.5em;
 		margin-top: 0.06rem;
 		text-align: end;
 		user-select: none;
