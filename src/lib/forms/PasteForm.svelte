@@ -4,18 +4,37 @@
 	const URL_REGEX = /\/([\w]*)\.?(\w*)?\#?(L[\d]*[\-?L[\d]*]?)?/;
 	const SPAN_REGEX = /(<span [^>]+>)|(<\/span>)|(\n)/g;
 
-	$: code = "";
+	export let id: string;
+	let hash: {
+		l1: number;
+		l2: number;
+	};
 	let html: HTMLElement;
-	$: showInput = html?.innerHTML.length === 0;
 
-	const save = async () => {
-		const { value } = test.hljs.highlightAuto(code);
+	$: code = "";
+	$: hide = html?.innerHTML.length === 0;
+	$: mode = id ? "view" : "edit";
 
-		console.log({ html });
-		html.innerHTML = transform(value);
+	const save = async (e) => {
+		e.preventDefault();
+		if (!code.trim().length) return;
+
+		const response = await fetch("/api/pastes", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				content: code,
+			}),
+		});
+
+		const { id } = await response.json();
+
+		window.location.href = `/p/${id}`;
 	};
 
-	function transform(text: string) {
+	const transform = (text: string) => {
 		const openTags: string[] = [];
 
 		const lines = text.replace(SPAN_REGEX, (match) => {
@@ -41,23 +60,42 @@
 		}
 
 		return html;
-	}
+	};
 
 	onMount(() => {
-		console.log({ html });
+		if (id) {
+			(async () => {
+				const response = await fetch(`/api/pastes/${id}`, {
+					headers: {
+						"Content-Type": "application/json",
+					},
+				});
+				const { content } = await response.json();
+
+				console.log({ content });
+
+				code = content;
+
+				const { value } = test.hljs.highlightAuto(content);
+
+				html.innerHTML = transform(value);
+			})();
+		}
 	});
 </script>
 
-<button on:click={save}>Test</button>
 <form class="box no-hover" style="position: relative; height: 45rem;">
+	{#if mode === "edit"}
+		<button on:click={save}>Test</button>
+	{/if}
 	<div class="wrapper">
 		<div class="lines">
 			{#each code.split("\n") as _, i}
 				<span class="line txt:mute ff:mono">{i + 1}</span>
 			{/each}
 		</div>
-		<pre class:hide={showInput}><code bind:this={html}></code></pre>
-		<div class:hide={!showInput} class="editor">
+		<pre class:hide={hide !== false}><code bind:this={html} /></pre>
+		<div class:hide={hide === false} class="editor">
 			<div contenteditable bind:innerText={code}></div>
 			<textarea
 				autocomplete="off"

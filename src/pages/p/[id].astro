@@ -1,8 +1,10 @@
 ---
 import Template from "@layout/PasteLayout.astro";
 import PasteForm from "@lib/forms/PasteForm.svelte";
+
+const { id } = Astro.params;
 ---
 
 <Template title="" showFooter={true}>
-	<PasteForm client:load />
+	<PasteForm client:load {id} />
 </Template>

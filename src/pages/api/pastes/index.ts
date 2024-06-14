@@ -33,7 +33,7 @@ const uid = <N extends number>(length: N): FixedString<N> => {
 	return id as FixedString<N>;
 };
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async (req) => {
 	const pastes = await kv.hgetall<Record<string, Paste>>("pastes");
 
 	if (!pastes) {
@@ -77,7 +77,7 @@ export const DELETE: APIRoute = async ({ request }) => {
 };
 
 const PasteCreateSchema = z.object({
-	content: z.string().url(),
+	content: z.string(),
 });
 
 export const POST: APIRoute = async ({ request }) => {
@@ -105,6 +105,7 @@ export const POST: APIRoute = async ({ request }) => {
 
 		return new Response(JSON.stringify({ id, ...paste }), { status: 200 });
 	} catch (e) {
+		console.log(e);
 		return new Response("An error occured", { status: 400 });
 	}
 };
