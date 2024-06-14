@@ -1,11 +1,11 @@
 ---
 import Template from "@layout/MainLayout.astro";
-import LinkForm from "@lib/forms/LinkForm.svelte";
+import PasteForm from "@lib/forms/PasteForm.svelte";
 ---
 
-<Template title="Links" showFooter={true}>
+<Template title="Paste" showFooter={true}>
 	<p>
 		⚠️ <b>Hey There</b>! You probably shouldn't be here. This is a private page (best security ever).
 	</p>
-	<LinkForm client:load />
+	<PasteForm client:only />
 </Template>
