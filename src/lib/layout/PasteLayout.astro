@@ -6,7 +6,6 @@ import "../styling/code.css";
 import Header from "@blocks/Header.astro";
 import Footer from "@blocks/Footer.astro";
 import Breadcrumbs from "@lib/blocks/Breadcrumbs.astro";
-import { ViewTransitions } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -23,7 +22,6 @@ import { ViewTransitions } from "astro:transitions";
 
 			document.documentElement.setAttribute("data-theme", theme ?? "dark");
 		</script>
-		<ViewTransitions />
 	</head>
 	<body>
 		<main class="stack gap:2">
