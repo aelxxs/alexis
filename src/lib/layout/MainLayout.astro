@@ -1,6 +1,7 @@
 ---
 import "../styling/style.css";
 import "../styling/reset.css";
+import "../styling/code.css";
 
 import Header from "@blocks/Header.astro";
 import Footer from "@blocks/Footer.astro";
@@ -63,137 +64,138 @@ const { title, showTitle = true, showFooter = true, showHeader = true, overwrite
 		<TimeWasted client:load />
 		<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 		<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-	</body><style>
-		html[data-theme="dark"] body .blur {
-			position: absolute;
-			top: 0rem;
-			width: 100%;
-			height: 100vh;
-			filter: blur(1rem);
-			z-index: -1;
-			background: radial-gradient(circle at 50% 0%, rgb(29 78 216 / 40%), rgba(255, 255, 255, 0) 40%);
-		}
-
-		body {
-			position: relative;
-		}
-
-		.corner-container {
-			position: fixed;
-			bottom: 0;
-			right: 0;
-			z-index: -1;
-		}
-
-		.corner {
-			width: 3rem;
-			position: fixed;
-			bottom: -0.25rem;
-			right: -0.25rem;
-		}
-
-		body {
-			max-width: 53rem;
-			padding: 1.5rem 1.25rem;
-			margin-inline: auto;
-			margin-bottom: 1.25rem;
-		}
-
-		main {
-			padding: 1.25rem;
-			margin-inline: auto;
-		}
-
-		.emote {
-			width: 3.5rem;
-			height: 3.5rem;
-		}
-
-		.hero-img {
-			display: block;
-			width: 100%;
-			height: 12rem;
-			object-fit: cover;
-		}
-
-		@media (max-width: 768px) {
-			main {
-				padding: 1.25rem 0.75rem;
+		<style>
+			html[data-theme="dark"] body .blur {
+				position: absolute;
+				top: 0rem;
+				width: 100%;
+				height: 100vh;
+				filter: blur(1rem);
+				z-index: -1;
+				background: radial-gradient(circle at 50% 0%, rgb(29 78 216 / 40%), rgba(255, 255, 255, 0) 40%);
 			}
-		}
 
-		html[data-theme="dark"] body {
-			z-index: 100;
-		}
+			body {
+				position: relative;
+			}
 
-		html[data-theme="dark"] body .circle {
-			position: fixed;
-			inset: 0;
-			z-index: -1;
-		}
+			.corner-container {
+				position: fixed;
+				bottom: 0;
+				right: 0;
+				z-index: -1;
+			}
 
-		html[data-theme="dark"] body .circle::before {
-			filter: blur(5rem);
-			content: "";
-			z-index: -100;
-			display: block;
-			width: 35rem;
-			height: 35rem;
-			border-radius: 50%;
-			opacity: 0.65;
-			filter: blur(3.5rem);
-			background: radial-gradient(circle, rgb(29 78 216 / 40%), rgba(255, 255, 255, 0), transparent);
-			transform: translate(-50%, -50%);
-		}
-	</style>
+			.corner {
+				width: 3rem;
+				position: fixed;
+				bottom: -0.25rem;
+				right: -0.25rem;
+			}
 
-	<script>
-		let inputX = 0;
-		let inputY = 0;
-		let posX = 0;
-		let posY = 0;
-		let alpha = 1;
+			body {
+				max-width: 53rem;
+				padding: 1.5rem 1.25rem;
+				margin-inline: auto;
+				margin-bottom: 1.25rem;
+			}
 
-		const circle = document.querySelector<HTMLSpanElement>(".circle");
+			main {
+				padding: 1.25rem;
+				margin-inline: auto;
+			}
 
-		if (circle !== null) {
-			addEventListener("mousemove", (event) => {
-				inputX = event.clientX;
-				inputY = event.clientY;
+			.emote {
+				width: 3.5rem;
+				height: 3.5rem;
+			}
 
-				alpha = 25;
-			});
+			.hero-img {
+				display: block;
+				width: 100%;
+				height: 12rem;
+				object-fit: cover;
+			}
 
-			addEventListener("touchmove", (event) => {
-				if (event.touches.length > 0) {
-					event.preventDefault();
-
-					inputX = event.touches[0].clientX;
-					inputY = event.touches[0].clientY;
+			@media (max-width: 768px) {
+				main {
+					padding: 1.25rem 0.75rem;
 				}
+			}
 
-				alpha = 25;
-			});
+			html[data-theme="dark"] body {
+				z-index: 100;
+			}
 
-			let prev = 0;
+			html[data-theme="dark"] body .circle {
+				position: fixed;
+				inset: 0;
+				z-index: -1;
+			}
 
-			requestAnimationFrame(function render(now) {
-				requestAnimationFrame(render);
+			html[data-theme="dark"] body .circle::before {
+				filter: blur(5rem);
+				content: "";
+				z-index: -100;
+				display: block;
+				width: 35rem;
+				height: 35rem;
+				border-radius: 50%;
+				opacity: 0.65;
+				filter: blur(3.5rem);
+				background: radial-gradient(circle, rgb(29 78 216 / 40%), rgba(255, 255, 255, 0), transparent);
+				transform: translate(-50%, -50%);
+			}
+		</style>
 
-				const factor = (now - prev) / 16;
-				prev = now;
+		<script>
+			let inputX = 0;
+			let inputY = 0;
+			let posX = 0;
+			let posY = 0;
+			let alpha = 1;
 
-				const speed = 0.125;
+			const circle = document.querySelector<HTMLSpanElement>(".circle");
 
-				posX += factor * speed * (inputX - posX);
-				posY += factor * speed * (inputY - posY);
+			if (circle !== null) {
+				addEventListener("mousemove", (event) => {
+					inputX = event.clientX;
+					inputY = event.clientY;
 
-				alpha *= Math.pow(0.95, factor);
-				const opacity = Math.min(1, alpha);
+					alpha = 25;
+				});
 
-				circle.style.transform = `translate3d(${~~posX}px, ${~~posY}px, 0)`;
-				circle.style.opacity = (Math.round(opacity * 255) / 255).toString();
-			});
-		}
-	</script>
+				addEventListener("touchmove", (event) => {
+					if (event.touches.length > 0) {
+						event.preventDefault();
+
+						inputX = event.touches[0].clientX;
+						inputY = event.touches[0].clientY;
+					}
+
+					alpha = 25;
+				});
+
+				let prev = 0;
+
+				requestAnimationFrame(function render(now) {
+					requestAnimationFrame(render);
+
+					const factor = (now - prev) / 16;
+					prev = now;
+
+					const speed = 0.125;
+
+					posX += factor * speed * (inputX - posX);
+					posY += factor * speed * (inputY - posY);
+
+					alpha *= Math.pow(0.95, factor);
+					const opacity = Math.min(1, alpha);
+
+					circle.style.transform = `translate3d(${~~posX}px, ${~~posY}px, 0)`;
+					circle.style.opacity = (Math.round(opacity * 255) / 255).toString();
+				});
+			}
+		</script>
+	</body>
 </html>
