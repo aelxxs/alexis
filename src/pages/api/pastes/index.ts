@@ -109,3 +109,36 @@ export const POST: APIRoute = async ({ request }) => {
 		return new Response("An error occured", { status: 400 });
 	}
 };
+
+const PasteUpdateSchema = z.object({
+	id: z.string().length(6),
+	content: z.string(),
+});
+
+export const PUT: APIRoute = async ({ request }) => {
+	const body = await request.json();
+
+	try {
+		const { id, content } = PasteUpdateSchema.parse(body);
+
+		const paste = await kv.hget<Paste>("pastes", id);
+
+		if (!paste) {
+			return new Response("Paste not found", { status: 404 });
+		}
+
+		const now = Date.now();
+
+		await kv.hset<Paste>("pastes", {
+			[id]: {
+				...paste,
+				content,
+				updatedAt: now,
+			},
+		});
+
+		return new Response(JSON.stringify({ id, ...paste }), { status: 200 });
+	} catch (e) {
+		return new Response("An error occured", { status: 400 });
+	}
+};
