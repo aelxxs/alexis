@@ -21,8 +21,6 @@ const getTracks = async () => {};
 const getAlbums = async () => {};
 
 export const GET: APIRoute = async () => {
-	console.log(LASTFM_API_KEY);
-
 	const [artists, tracks, albums] = await Promise.all([
 		request(TOP_ARTISTS),
 		request(TOP_TRACKS),

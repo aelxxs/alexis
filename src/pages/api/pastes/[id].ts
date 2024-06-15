@@ -13,7 +13,14 @@ export const GET: APIRoute = async (req) => {
 		});
 	}
 
-	console.log(paste);
+	const id = req.params.id as string;
+
+	await kv.hset("pastes", {
+		[id]: {
+			...paste,
+			clicks: paste.clicks + 1,
+		},
+	});
 
 	return new Response(JSON.stringify(paste), {
 		status: 200,

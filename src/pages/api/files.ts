@@ -85,8 +85,6 @@ export const POST: APIRoute = async ({ request }) => {
 
 	const passcode = import.meta.env.PASSCODE;
 
-	console.log(pass, passcode);
-
 	if (!pass || pass !== passcode) {
 		return new Response("Invalid password", { status: 400 });
 	}
