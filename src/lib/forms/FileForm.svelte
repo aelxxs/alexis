@@ -81,7 +81,7 @@
 
 	onMount(async () => {
 		await fetchfiles();
-		// setInterval(fetchfiles, 5000);
+		setInterval(fetchfiles, 5000);
 	});
 
 	$: sorted = files.sort((a, b) => b.createdAt - a.createdAt);
@@ -113,7 +113,6 @@
 	const copyToClipboard = (file: TFile, text: string) => {
 		navigator.clipboard.writeText(text);
 
-		console.log({ file });
 		file.isCopied = true;
 
 		setTimeout(() => {
@@ -124,37 +123,11 @@
 	const formatDate = (date: number) => {
 		const d = new Date(date);
 
-		// Relative Time eg. 5 minutes ago, Today, Yesterday
-		// const rtf = new Intl.RelativeTimeFormat("en", {
-		// 	localeMatcher: "best fit",
-		// 	numeric: "auto",
-		// 	style: "long",
-		// });
-
-		// const diff = Date.now() - d.getTime();
-
-		// if (diff < 60 * 1000) {
-		// 	return "Just now";
-		// }
-
-		// if (diff < 60 * 60 * 1000) {
-		// 	return rtf.format(-Math.floor(diff / 60 / 1000), "minutes");
-		// }
-
-		// if (diff < 24 * 60 * 60 * 1000) {
-		// 	return rtf.format(-Math.floor(diff / 60 / 60 / 1000), "hours");
-		// }
-
-		// if (diff < 48 * 60 * 60 * 1000) {
-		// 	return "Yesterday";
-		// }
-
 		return d.toLocaleDateString("en-US", {
 			month: "short",
 			day: "numeric",
 			year: "numeric",
 			hour: "numeric",
-			// 24 hour format
 			minute: "numeric",
 		});
 	};
