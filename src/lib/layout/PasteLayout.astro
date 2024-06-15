@@ -6,13 +6,15 @@ import "../styling/code.css";
 import Header from "@blocks/Header.astro";
 import Footer from "@blocks/Footer.astro";
 import Breadcrumbs from "@lib/blocks/Breadcrumbs.astro";
+
+const { description } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content={description ?? "Personal Paste Bin"} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
