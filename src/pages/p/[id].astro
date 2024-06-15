@@ -3,8 +3,17 @@ import Template from "@layout/PasteLayout.astro";
 import PasteForm from "@lib/forms/PasteForm.svelte";
 
 const { id } = Astro.params;
+
+const data = await fetch(new URL(`/api/pastes/${id}`, Astro.url), {
+	method: "GET",
+	headers: {
+		"Content-Type": "application/json",
+	},
+});
+
+const paste = await data.json();
 ---
 
 <Template title="" showFooter={true}>
-	<PasteForm client:load {id} />
+	<PasteForm client:load {paste} />
 </Template>
