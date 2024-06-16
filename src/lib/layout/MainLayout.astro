@@ -27,9 +27,28 @@ const { title, showTitle = true, showFooter = true, showHeader = true, overwrite
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>
-			{overwritePageTitle ? title : `${title} — Alexis Vielma`}
-		</title>
+
+		<!-- HTML Meta Tags -->
+		<title>{overwritePageTitle ? title : `${title} — Alexis Vielma`}</title>
+		<meta name="description" content="My little corner of the internet" />
+		<meta name="theme-color" content="#00a189" />
+
+		<!-- Facebook Meta Tags -->
+		<meta property="og:url" content="https://alexis.lol" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={overwritePageTitle ? title : `${title} — Alexis Vielma`} />
+		<meta property="og:image" content="" />
+		<meta property="og:description" content="My little corner of the internet" />
+		<meta property="og:site_name" content="alexis.lol" />
+
+		<!-- Twitter Meta Tags -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta property="twitter:domain" content="alexis.lol" />
+		<meta property="twitter:url" content="https://alexis.lol" />
+		<meta name="twitter:title" content={overwritePageTitle ? title : `${title} — Alexis Vielma`} />
+		<meta name="twitter:description" content="My little corner of the internet" />
+		<meta name="twitter:image" content="" />
+
 		<script is:inline>
 			const theme = localStorage.getItem("theme");
 
