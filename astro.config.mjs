@@ -11,4 +11,7 @@ export default defineConfig({
 	experimental: {
 		rewriting: true,
 	},
+	redirects: {
+		"/p": "/paste",
+	},
 });
