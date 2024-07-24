@@ -1,0 +1,42 @@
+---
+let paths = Astro.url.pathname.split("/").filter(Boolean);
+
+if (!paths.length) {
+	paths.push("");
+}
+---
+
+<div class="repel">
+	<div class="cluster gap:0">
+		<div class="cluster" style={{ "--space": "0.25rem" }}>
+			{
+				paths.map((path, index) => (
+					<Fragment>
+						{index <= 0 && <p class="ff:mono fw:medium op">./</p>}
+						{index >= 1 && <p class="ff:mono fw:medium op"> /</p>}
+
+						{index === paths.length - 1 ? (
+							<p class="ff:mono fw:medium ">{path}</p>
+						) : (
+							<a href={`/${paths.slice(0, index + 1).join("/")}`}>
+								<p class="ff:mono fw:medium op">{path}</p>
+							</a>
+						)}
+					</Fragment>
+				))
+			}
+		</div>
+	</div>
+	<!-- <p>🍙</p> -->
+	<ion-icon name="time-outline"></ion-icon>
+</div>
+
+<style>
+	.op {
+		opacity: 0.65;
+		transition: opacity 0.2s;
+	}
+	.op:hover {
+		opacity: 1;
+	}
+</style>

@@ -3,9 +3,11 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"@lib/*": ["src/lib/*"],
-			"@blocks/*": ["src/lib/blocks/*"],
-			"@layout/*": ["src/lib/layout/*"]
+			"@lib/*": ["src/library/*"],
+			"@blocks/*": ["src/library/blocks/*"],
+			"@layout/*": ["src/library/layout/*"],
+			"@forms/*": ["src/library/forms/*"],
+			"layout/*": ["src/library/layout/*"]
 		}
 	},
 	"exclude": ["node_modules"]

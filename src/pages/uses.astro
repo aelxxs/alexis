@@ -1,9 +1,8 @@
 ---
 import MainLayout from "@lib/layout/MainLayout.astro";
-import FileForm from "@lib/forms/FileForm.svelte";
+
 type UsesItem = {
 	name: string;
-	link: string;
 	icon: string;
 };
 
@@ -17,33 +16,15 @@ const categories: UsesCategory[] = [
 		title: "Hardware",
 		items: [
 			{
-				name: 'MacBook Pro 14"',
-				link: "#",
+				name: "MacBook Pro M1",
 				icon: "/assets/icons/macbook.svg",
 			},
 			{
-				name: 'MacBook Pro 14"',
-				link: "#",
+				name: "iPad Air 5",
 				icon: "/assets/icons/macbook.svg",
 			},
 			{
-				name: 'MacBook Pro 14"',
-				link: "#",
-				icon: "/assets/icons/macbook.svg",
-			},
-			{
-				name: 'MacBook Pro 14"',
-				link: "#",
-				icon: "/assets/icons/macbook.svg",
-			},
-			{
-				name: 'MacBook Pro 14"',
-				link: "#",
-				icon: "/assets/icons/macbook.svg",
-			},
-			{
-				name: 'MacBook Pro 14"',
-				link: "#",
+				name: "iPhone 15 Pro Max",
 				icon: "/assets/icons/macbook.svg",
 			},
 		],
@@ -53,27 +34,14 @@ const categories: UsesCategory[] = [
 		items: [
 			{
 				name: 'MacBook Pro 14"',
-				link: "#",
 				icon: "/assets/icons/macbook.svg",
 			},
 			{
 				name: 'MacBook Pro 14"',
-				link: "#",
 				icon: "/assets/icons/macbook.svg",
 			},
 			{
 				name: 'MacBook Pro 14"',
-				link: "#",
-				icon: "/assets/icons/macbook.svg",
-			},
-			{
-				name: 'MacBook Pro 14"',
-				link: "#",
-				icon: "/assets/icons/macbook.svg",
-			},
-			{
-				name: 'MacBook Pro 14"',
-				link: "#",
 				icon: "/assets/icons/macbook.svg",
 			},
 		],
@@ -83,59 +51,58 @@ const categories: UsesCategory[] = [
 		items: [
 			{
 				name: 'MacBook Pro 14"',
-				link: "#",
 				icon: "/assets/icons/macbook.svg",
 			},
 			{
 				name: 'MacBook Pro 14"',
-				link: "#",
 				icon: "/assets/icons/macbook.svg",
 			},
 		],
 	},
 ];
+
+const title = "Uses";
+const subtitle = "What's in my toolbox? 🧰";
 ---
 
-<MainLayout title="Uses">
+<MainLayout {title} {subtitle}>
 	<p>
 		Here's a list of the hardware and software I use on a daily basis.
 		<br />
-		Inspired by <a href="https://uses.tech/">uses.tech</a>.
+		Inspired by <a href="https://uses.tech/">uses.tech</a>. This list is not exhaustive and will be updated
+		regularly.
 	</p>
-	<br />
-	{
-		categories.map(({ title, items }, i) => (
-			<>
-				<div class="sidebar">
-					<p class="txt:main fw:bold ff:mono">{title}</p>
-					<div class="cluster gap:-1">
-						{items.map(({ link, name, icon }) => (
-							<a href={link} class="box item">
+	<hr />
+	<div class="stack gap:2">
+		{
+			categories.map(({ title, items }, i) => (
+				<article>
+					<h2>{title}</h2>
+					<div class="cluster mt:3 gap:0">
+						{items.map(({ name, icon }) => (
+							<div class="box item">
 								<img src={icon} alt="" />
-								{name}
-							</a>
+								<p class="fs:sm">{name}</p>
+							</div>
 						))}
 					</div>
-				</div>
-				{i !== categories.length - 1 && <hr />}
-			</>
-		))
-	}
+				</article>
+			))
+		}
+	</div>
 </MainLayout>
 
 <style>
 	hr {
-		border: 0;
-		width: 100%;
-		height: 1px;
-		background: var(--bg-border);
+		margin-block: var(--space-xl);
 	}
 
 	.item {
-		color: var(--text-link);
-		text-decoration: none;
-		padding: 0.35rem 0.5rem;
-		font-size: var(--s-1);
-		border-radius: 0.35rem;
+		--padding: var(--space-xs);
+		--radius: var(--radius-xs);
+	}
+
+	.item p {
+		line-height: 1.1;
 	}
 </style>

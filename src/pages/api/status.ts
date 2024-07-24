@@ -16,40 +16,22 @@ export const GET: APIRoute = async () => {
 	}
 
 	if (!recenttracks.track.length) {
-		return new Response(JSON.stringify({ track: null, lastTrack: null }), {
+		return new Response(JSON.stringify({ track: null }), {
 			headers: { "Content-Type": "application/json" },
 		});
 	}
 
-	const [track, actualLastTrack] = recenttracks.track;
+	const [track] = recenttracks.track;
 
 	if (!track) {
-		return new Response(JSON.stringify({ track: null, lastTrack: null }), {
+		return new Response(JSON.stringify({ track: null }), {
 			headers: { "Content-Type": "application/json" },
 		});
 	}
 
-	if (track["@attr"]?.nowplaying !== "true") {
-		return new Response(
-			JSON.stringify({ track: null, lastTrack: normalizeData(track) }),
-			{
-				headers: { "Content-Type": "application/json" },
-			}
-		);
-	}
-
-	return new Response(
-		JSON.stringify({
-			lastTrack: normalizeData(actualLastTrack),
-			track: normalizeData(track),
-		}),
-		{
-			status: 200,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}
-	);
+	return new Response(JSON.stringify({ track: normalizeData(track) }), {
+		headers: { "Content-Type": "application/json" },
+	});
 };
 
 function normalizeData(data: any) {

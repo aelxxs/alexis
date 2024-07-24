@@ -1,0 +1,35 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+import Header from "@blocks/Header.astro";
+import Footer from "@blocks/Footer.astro";
+import Breadcrumbs from "@lib/blocks/Breadcrumbs.astro";
+---
+
+<BaseLayout title="Alexis — Paste">
+	<Header />
+	<main class="stack gap:2">
+		<Breadcrumbs />
+		<slot />
+	</main>
+	<Footer />
+	<style>
+		body {
+			max-width: 53rem;
+			padding: 1.5rem 1.25rem;
+			margin-inline: auto;
+			margin-bottom: 1.25rem;
+		}
+
+		main {
+			padding: 1.25rem;
+			margin-inline: auto;
+		}
+
+		@media (max-width: 768px) {
+			main {
+				padding: 1.25rem 0.75rem;
+			}
+		}
+	</style>
+</BaseLayout>

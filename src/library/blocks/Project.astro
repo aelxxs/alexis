@@ -1,0 +1,53 @@
+---
+type Props = {
+	name: string;
+	description: string;
+	stargazerCount: number;
+	forkCount: number;
+	primaryLanguage: {
+		name: string;
+		color: string;
+	};
+	pushedAt: string;
+	url: string;
+};
+
+const { name, description, primaryLanguage, url } = Astro.props;
+---
+
+<a href={url} target="_blank" class="box stack" style="--space: 0.65rem;">
+	<div class="repel">
+		<strong>{name}</strong>
+		<ion-icon name="open-outline"></ion-icon>
+	</div>
+	<p data-description class="txt:mute">{description}</p>
+	<div class="cluster">
+		<span
+			class="language"
+			style={{
+				"--language-color": primaryLanguage.color,
+			}}></span>
+		<small>{primaryLanguage?.name}</small>
+	</div>
+</a>
+
+<style>
+	p[data-description] {
+		width: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	a {
+		display: block;
+		text-decoration: none;
+	}
+
+	.language {
+		width: 0.65rem;
+		height: 0.65rem;
+		background-color: var(--language-color, red);
+		border-radius: 50%;
+	}
+</style>

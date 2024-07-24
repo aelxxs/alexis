@@ -3,8 +3,6 @@ import Project from "@blocks/Project.astro";
 import JobExperience from "@blocks/WorkExperience.astro";
 import MainLayout from "@layout/MainLayout.astro";
 
-import CurrentlyPlaying from "@blocks/NowPlaying.svelte";
-
 const jobs = [
 	{
 		title: "Front End Engineer Intern",
@@ -62,24 +60,6 @@ const jobs = [
 	},
 ];
 
-const awards = [
-	{
-		title: "Distinguished Engin",
-	},
-	{
-		title: "Best Phone App",
-		organization: "International Phone Awards",
-		date: "2023",
-		description: "Awarded for the best phone app of the year in",
-	},
-	{
-		title: "2nd Place (General Track)",
-		organization: "HackKU",
-		date: "2023",
-		description: "Awarded for developing a ",
-	},
-];
-
 type Repo = {
 	name: string;
 	description: string;
@@ -96,64 +76,64 @@ type Repo = {
 const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
 	.then((res) => res.json())
 	.then((res) => res.data);
+
+const title = "Alexis Vielma";
+const subtitle = "Front End Engineer Intern at Amazon";
 ---
 
-<MainLayout title="Alexis Vielma" overwritePageTitle>
-	<br />
-	<h3 class="fs:sm txt:main">About Me</h3>
-	<p>
-		Hello, I'm <strong>Alexis Vielma</strong>. I'm a <s>straight-C</s> Computer Science student at the
-		<a href="https://ku.edu" target="_blank">University of Kansas</a>.
-	</p>
-	<p>
-		I design and build accessible and inclusive experiences for the web. On my free time, I enjoy collecting and
-		spinning vinyl records, learning languages, watching k-dramas, and playing <a
-			href="https://stardewvalley.net"
-			target="_blank">Stardew Valley</a
-		>.
-	</p>
-	<p>
-		Right now, I'm working at <a href="https://kjhk.org">KJHK 90.7 FM</a>, building apps, dashboards, and playing
-		around with cool analog hardware. I'm also a Front End Engineer Intern at <a href="https://amazon.com">Amazon</a
-		> for summer 2024.
-	</p>
-	<!-- <CurrentlyPmlaying client:load /> -->
-	<br />
-	<h3 class="fs:sm txt:main">Experience</h3>
-	<div class="stack">
-		{
-			jobs.map((job, i) => (
-				<>
-					<JobExperience {...job} />
-					{i !== jobs.length - 1 && <br />}
-				</>
-			))
-		}
-	</div>
-	<p style="text-align: right;">
-		<a href="../../resume.pdf" class="wavy-underline">View Resume</a>
-		<span style="font-size: 0.725rem;">&ThinSpace;➤</span>
-	</p>
-	<br />
-	<h3 class="fs:sm txt:main">Projects</h3>
+<MainLayout {title} {subtitle} overwritePageTitle>
+	<article class="flow">
+		<h2>About Me</h2>
+		<p>
+			Hello, I'm <strong>Alexis Vielma</strong>. I'm a <s>straight-C</s> Computer Science student at the
+			<a href="https://ku.edu" target="_blank" data-no-tooltip>University of Kansas</a>.
+		</p>
+		<p>
+			I design and build accessible and inclusive experiences for the web. On my free time, I enjoy collecting and
+			spinning vinyl records, learning languages, watching k-dramas, and playing <a
+				href="https://stardewvalley.net"
+				target="_blank">Stardew Valley</a
+			>.
+		</p>
+		<p>
+			Right now, I'm working at <a href="https://kjhk.org">KJHK 90.7 FM</a>, building apps, dashboards, and
+			playing around with cool analog hardware. I'm also a Front End Engineer Intern at <a
+				href="https://amazon.com">Amazon</a
+			> for summer 2024.
+		</p>
+	</article>
+	<article class="flow">
+		<h2>Experience</h2>
+		<div class="stack gap:2 mt:2">
+			{
+				jobs.map((job, i) => (
+					<>
+						<JobExperience {...job} />
+					</>
+				))
+			}
+		</div>
+		<p style="text-align: right;">
+			<a href="../../resume.pdf">View Resume</a>
+		</p>
+	</article>
+	<h2>Projects</h2>
 	<p>
 		Here are some of the projects I've worked on (from my <a href="https://github.com/aelxxs">GitHub</a>)
 	</p>
-	<div class="grid">
-		{repos.map((repo) => <Project {...repo} />)}
-	</div>
-
-	<h3 class="fs:sm txt:main">Awards</h3>
-	<p>I will add this section later.</p>
+	<article class="flow breakout">
+		<div class="grid">
+			{repos.map((repo) => <Project {...repo} />)}
+		</div>
+	</article>
 
 	<style>
-		h3 {
-			text-transform: uppercase;
+		.wavy-underline {
+			text-decoration: underline wavy var(--clr-500);
 		}
 
-		.wavy-underline {
-			font-size: 0.875rem;
-			text-decoration: underline wavy var(--clr-500);
+		.hero {
+			border-radius: var(--radius-m);
 		}
 	</style>
 </MainLayout>
