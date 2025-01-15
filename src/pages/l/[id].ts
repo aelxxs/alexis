@@ -16,11 +16,11 @@ export const GET: APIRoute = async (request) => {
 	const id = params.id as string;
 	const link = await kv.hget<Link>("links", id);
 
-	if (!link || link.ex < Date.now()) {
-		await kv.hdel("links", id);
+	// if (!link || link.ex < Date.now()) {
+	//	await kv.hdel("links", id);
 
-		return request.redirect("/");
-	}
+	//	return request.redirect("/");
+	// }
 
 	link.clicks++;
 
