@@ -2,7 +2,7 @@
 	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
 
-	const FETCH_INTERVAL = 5000;
+	const FETCH_INTERVAL = 10000;
 
 	type Song = {
 		url: string;
@@ -24,9 +24,13 @@
 		}
 	}
 
-	onMount(async () => {
+	onMount(() => {
 		fetchData();
-		setInterval(fetchData, FETCH_INTERVAL);
+		const interval = setInterval(fetchData, FETCH_INTERVAL);
+
+		return () => {
+			clearInterval(interval);
+		};
 	});
 </script>
 
@@ -34,14 +38,18 @@
 	<div class="cluster gap:-1" transition:fade>
 		<img src={data.track.image} alt="" />
 		<div>
-			<p class="fs:xs">
+			<p class="fs:xs mb:-1">
 				<span class="fw:bold">Latest Track</span>: (from Last.fm)
 			</p>
 			<a class="link" href={data.track.url} target="_blank">
 				{data.track.name}
 			</a>
 			by
-			<a class="link" href={data.track.url} target="_blank">
+			<a
+				class="link"
+				href={`https://www.last.fm/music/${data.track.artist}`}
+				target="_blank"
+			>
 				{data.track.artist}
 			</a>
 		</div>

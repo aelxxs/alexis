@@ -13,7 +13,7 @@ type Props = {
 	description: string | string[];
 };
 
-const { title, company, companyUrl, startDate, endDate, languages, description } = Astro.props;
+const { title, company, companyUrl, startDate, endDate, languages, description, location } = Astro.props;
 ---
 
 <article class="sidebar">
@@ -24,7 +24,7 @@ const { title, company, companyUrl, startDate, endDate, languages, description }
 			<a href={companyUrl} target="_blank">{company}</a>
 		</p>
 		<p>{Array.isArray(description) ? description.map((paragraph) => <p>{paragraph}</p>) : description}</p>
-		<div class="cluster">
+		<!-- <div class="cluster">
 			{
 				languages.map((language) => (
 					<div class="box item">
@@ -32,7 +32,7 @@ const { title, company, companyUrl, startDate, endDate, languages, description }
 					</div>
 				))
 			}
-		</div>
+		</div> -->
 	</div>
 </article>
 

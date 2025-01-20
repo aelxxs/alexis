@@ -237,7 +237,7 @@
 </script>
 
 <form class="box no-hover">
-	<div class="wrapper">
+	<div class="wrap">
 		{#if mode === "edit" || mode === "make"}
 			<div class="controls">
 				<div class="cluster gap:0">
@@ -439,7 +439,7 @@
 		max-height: 45rem;
 	}
 
-	.wrapper {
+	.wrap {
 		display: flex;
 		position: relative;
 		min-width: 100%;

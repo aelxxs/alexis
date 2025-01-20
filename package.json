@@ -6,20 +6,20 @@
 		"build": "astro build"
 	},
 	"dependencies": {
-		"@astrojs/svelte": "^5.6.0",
-		"@astrojs/vercel": "^7.7.2",
-		"@vercel/blob": "^0.23.4",
-		"@vercel/edge": "^1.1.1",
-		"@vercel/kv": "^2.0.0",
-		"astro": "^4.11.5",
-		"astro-loading-indicator": "^0.5.0",
+		"@astrojs/svelte": "^7.0.1",
+		"@astrojs/vercel": "^8.0.0",
+		"@vercel/blob": "^0.27.0",
+		"@vercel/edge": "^1.1.3",
+		"@vercel/kv": "^3.0.0",
+		"astro": "^5.0.4",
+		"astro-loading-indicator": "^0.7.0",
 		"highlight.js": "^11.10.0",
-		"sass": "^1.77.8",
-		"svelte": "^4.2.18",
+		"sass": "^1.82.0",
+		"svelte": "^5.10.1",
 		"tippy.js": "^6.3.7",
-		"zod": "^3.23.8"
+		"zod": "^3.24.1"
 	},
 	"devDependencies": {
-		"@types/node": "^20.14.10"
+		"@types/node": "^22.10.1"
 	}
 }

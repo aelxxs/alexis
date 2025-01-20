@@ -9,9 +9,10 @@ export default defineConfig({
 	output: "server",
 	adapter: vercel(),
 	integrations: [svelte()],
-	experimental: {
-		rewriting: true,
-	},
+	rewriting: true,
+	// experimental: {
+	// 	rewriting: true,
+	// },
 	redirects: {
 		"/p": "/paste",
 	},

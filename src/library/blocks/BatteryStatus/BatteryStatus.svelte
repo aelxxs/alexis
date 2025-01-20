@@ -15,7 +15,7 @@
 		return () => socket.close();
 	});
 
-	$: message = `Laptop Battery: ${percentage}% ${isCharging ? "(charging)" : ""}`;
+	$: message = `${percentage}% ${isCharging ? "(charging)" : ""}`;
 </script>
 
-<p class="fs:xs">{message}</p>
+<p class="fs:xs"><strong>Laptop Status: </strong> {message}</p>

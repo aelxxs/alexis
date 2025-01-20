@@ -63,15 +63,16 @@ const viewTransition = {
 
 <BaseLayout {title} {overwritePageTitle}>
 	<!-- <span class="blur"></span> -->
-	<!-- <br />
-	<div class="box" style="--padding: var(--s1)">
-		<div class="cluster" data-justify="center" data-wrap="nowrap">
-			<img class="emote" src="/emote.gif" alt="" />
-			<p>
-				I'm currently open for new-grad roles for fall 2025
-				<br />
-				– <a href="mailto:alexis@alexis.lol">contact me</a>... or don't.
-			</p>
+	<!-- <div class="wrapper mt:4">
+		<div class="box" style="--padding: var(--s1)">
+			<div class="cluster" data-justify="center" data-wrap="nowrap">
+				<img class="emote" src="/emote.gif" alt="" />
+				<p>
+					I'm currently open for new-grad roles for fall 2025
+					<br />
+					– <a href="mailto:alexis@alexis.lol">contact me</a>... or don't.
+				</p>
+			</div>
 		</div>
 	</div> -->
 	{showHeader && <Header />}
@@ -79,10 +80,11 @@ const viewTransition = {
 	<div transition:animate={viewTransition}>
 		<main class="wrapper flow">
 			<Breadcrumbs />
+			<img class="hero-img rounded:lg mb:5" src="/hero.gif" alt="" />
 			<article>
 				<header class="stack gap:-1 mb:4 mt:2">
 					{showTitle && title && <h1>{title}</h1>}
-					{subtitle && <p class="fs:lg">{subtitle}</p>}
+					{subtitle && <p class="fs:lg fw:normal">{subtitle}</p>}
 				</header>
 				<section class="flow">
 					<slot />
@@ -124,8 +126,9 @@ const viewTransition = {
 	}
 
 	main {
+		padding-inline: var(--space-2xl);
 		padding-block: var(--space-l);
-		max-width: 70ch;
+		/* max-width: 75ch; */
 		margin-inline: auto;
 	}
 
@@ -170,6 +173,12 @@ const viewTransition = {
 		filter: blur(3.5rem);
 		background: radial-gradient(circle, rgb(29 78 216 / 40%), rgba(255, 255, 255, 0), transparent);
 		transform: translate(-50%, -50%);
+	}
+	.hero-img {
+		display: block;
+		width: 100%;
+		height: 12rem;
+		object-fit: cover;
 	}
 </style>
 
