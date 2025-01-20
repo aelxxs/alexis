@@ -1,0 +1,233 @@
+---
+import Footer from "@blocks/Footer.astro";
+import Header from "@blocks/Header.astro";
+import Breadcrumbs from "@lib/blocks/Breadcrumbs.astro";
+import type { TransitionAnimationPair } from "astro";
+import BaseLayout from "./BaseLayout.astro";
+
+export interface Props {
+	title: string;
+	subtitle?: string;
+	showTitle?: boolean;
+	showHeader?: boolean;
+	showFooter?: boolean;
+	overwritePageTitle?: boolean;
+}
+
+const {
+	title,
+	subtitle,
+	showTitle = true,
+	showFooter = true,
+	showHeader = true,
+	overwritePageTitle = false,
+} = Astro.props;
+
+const forwards: TransitionAnimationPair = {
+	old: {
+		name: "fadeOutUp",
+		duration: "0.2s",
+		easing: "ease-in",
+		fillMode: "forwards",
+	},
+	new: {
+		name: "fadeInUp",
+		duration: "0.3s",
+		delay: "0.2s",
+		easing: "ease-out",
+		fillMode: "backwards",
+	},
+};
+
+const backwards: TransitionAnimationPair = {
+	old: {
+		name: "fadeOutDown",
+		duration: "0.2s",
+		easing: "ease-in",
+		fillMode: "forwards",
+	},
+	new: {
+		name: "fadeInDown",
+		duration: "0.3s",
+		delay: "0.2s",
+		easing: "ease-out",
+		fillMode: "backwards",
+	},
+};
+
+const viewTransition = {
+	forwards,
+	backwards,
+};
+---
+
+<BaseLayout {title} {overwritePageTitle}>
+	<!-- <span class="blur"></span> -->
+	<!-- <div class="wrapper mt:4">
+		<div class="box" style="--padding: var(--s1)">
+			<div class="cluster" data-justify="center" data-wrap="nowrap">
+				<img class="emote" src="/emote.gif" alt="" />
+				<p>
+					I'm currently open for new-grad roles for fall 2025
+					<br />
+					– <a href="mailto:alexis@alexis.lol">contact me</a>... or don't.
+				</p>
+			</div>
+		</div>
+	</div> -->
+	{showHeader && <Header />}
+	<!-- <span class="circle"></span> -->
+	<div transition:animate={viewTransition}>
+		<main class="wrapper flow">
+			<Breadcrumbs />
+			<img class="hero-img rounded:lg mb:5" src="/hero.gif" alt="" />
+			<article>
+				<header class="stack gap:-1 mb:4 mt:2">
+					{showTitle && title && <h1>{title}</h1>}
+					{subtitle && <p class="fs:lg fw:normal">{subtitle}</p>}
+				</header>
+				<section class="flow">
+					<slot />
+				</section>
+			</article>
+		</main>
+		{showFooter && <Footer />}
+	</div>
+
+	<!-- <TimeWasted client:load /> -->
+</BaseLayout>
+<style>
+	html[data-theme="dark"] body .blur {
+		position: absolute;
+		top: 0rem;
+		width: 100%;
+		height: 100vh;
+		filter: blur(1rem);
+		z-index: -1;
+		background: radial-gradient(circle at 50% 0%, rgb(29 78 216 / 40%), rgba(255, 255, 255, 0) 40%);
+	}
+
+	body {
+		position: relative;
+	}
+
+	.corner-container {
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		z-index: -1;
+	}
+
+	.corner {
+		width: 3rem;
+		position: fixed;
+		bottom: -0.25rem;
+		right: -0.25rem;
+	}
+
+	main {
+		padding-inline: var(--space-2xl);
+		padding-block: var(--space-l);
+		/* max-width: 75ch; */
+		margin-inline: auto;
+	}
+
+	.emote {
+		width: 3.5rem;
+		height: 3.5rem;
+	}
+
+	.hero-img {
+		display: block;
+		width: 100%;
+		/* height: 12rem; */
+		object-fit: cover;
+		border-radius: var(--radius-m);
+	}
+
+	@media (max-width: 768px) {
+		main {
+			padding-inline: 2rem;
+		}
+	}
+
+	html[data-theme="dark"] body {
+		z-index: 100;
+	}
+
+	html[data-theme="dark"] body .circle {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+	}
+
+	html[data-theme="dark"] body .circle::before {
+		filter: blur(5rem);
+		content: "";
+		z-index: -100;
+		display: block;
+		width: 35rem;
+		height: 35rem;
+		border-radius: 50%;
+		opacity: 0.65;
+		filter: blur(3.5rem);
+		background: radial-gradient(circle, rgb(29 78 216 / 40%), rgba(255, 255, 255, 0), transparent);
+		transform: translate(-50%, -50%);
+	}
+	.hero-img {
+		display: block;
+		width: 100%;
+		height: 12rem;
+		object-fit: cover;
+	}
+</style>
+
+<script>
+	let inputX = 0;
+	let inputY = 0;
+	let posX = 0;
+	let posY = 0;
+	let alpha = 1;
+
+	const circle = document.querySelector<HTMLSpanElement>(".circle");
+
+	if (circle !== null) {
+		addEventListener("mousemove", (event) => {
+			inputX = event.clientX;
+			inputY = event.clientY;
+
+			alpha = 25;
+		});
+
+		addEventListener("touchmove", (event) => {
+			if (event.touches.length > 0) {
+				event.preventDefault();
+
+				inputX = event.touches[0].clientX;
+				inputY = event.touches[0].clientY;
+			}
+
+			alpha = 25;
+		});
+
+		let prev = 0;
+
+		requestAnimationFrame(function render(now) {
+			requestAnimationFrame(render);
+
+			const factor = (now - prev) / 16;
+			prev = now;
+
+			const speed = 0.125;
+
+			posX += factor * speed * (inputX - posX);
+			posY += factor * speed * (inputY - posY);
+
+			alpha *= Math.pow(0.95, factor);
+			const opacity = Math.min(1, alpha);
+
+			circle.style.transform = `translate3d(${~~posX}px, ${~~posY}px, 0)`;
+			circle.style.opacity = (Math.round(opacity * 255) / 255).toString();
+		});
+	}
+</script>

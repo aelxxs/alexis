@@ -1,0 +1,111 @@
+---
+import "../styling/style.css";
+import "../styling/reset.css";
+import "../styling/code.css";
+
+import { ViewTransitions } from "astro:transitions";
+import LoadingIndicator from "astro-loading-indicator/component";
+
+export interface Props {
+	title: string;
+	showTitle?: boolean;
+	showHeader?: boolean;
+	showFooter?: boolean;
+	overwritePageTitle?: boolean;
+}
+
+const { title, overwritePageTitle = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<!-- <meta name="description" content="" /> -->
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- HTML Meta Tags -->
+		<title>{overwritePageTitle ? title : `${title} — Alexis Vielma`}</title>
+		<meta name="description" content="My little corner of the internet" />
+		<meta name="theme-color" content="#00a189" />
+
+		<!-- Facebook Meta Tags -->
+		<meta property="og:url" content="https://alexis.lol" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={overwritePageTitle ? title : `${title} — Alexis Vielma`} />
+		<meta property="og:image" content="" />
+		<meta property="og:description" content="My little corner of the internet" />
+		<meta property="og:site_name" content="alexis.lol" />
+
+		<!-- Twitter Meta Tags -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta property="twitter:domain" content="alexis.lol" />
+		<meta property="twitter:url" content="https://alexis.lol" />
+		<meta name="twitter:title" content={overwritePageTitle ? title : `${title} — Alexis Vielma`} />
+		<meta name="twitter:description" content="My little corner of the internet" />
+		<meta name="twitter:image" content="" />
+		<ViewTransitions />
+		<LoadingIndicator color="var(--clr-500)" height="3px" threshold={600} />
+		<script is:inline>
+			const theme = localStorage.getItem("theme");
+
+			document.documentElement.setAttribute("data-theme", theme ?? "dark");
+		</script>
+	</head>
+	<body>
+		<slot />
+		<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+		<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+		<style>
+			@keyframes fadeOutUp {
+				from {
+					opacity: 1;
+					transform: translateY(0);
+				}
+
+				to {
+					opacity: 0;
+					transform: translateY(-8px);
+				}
+			}
+
+			@keyframes fadeInUp {
+				from {
+					opacity: 0;
+					transform: translateY(16px);
+				}
+
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes fadeOutDown {
+				from {
+					opacity: 1;
+					transform: translateY(0);
+				}
+
+				to {
+					opacity: 0;
+					transform: translateY(8px);
+				}
+			}
+
+			@keyframes fadeInDown {
+				from {
+					opacity: 0;
+					transform: translateY(-16px);
+				}
+
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+		</style>
+	</body>
+</html>

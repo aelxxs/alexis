@@ -1,0 +1,54 @@
+---
+type Props = {
+	title: string;
+	company: string;
+	companyUrl: string;
+	location: string;
+	startDate: string;
+	endDate?: string;
+	languages: {
+		url: string;
+		name: string;
+	}[];
+	description: string | string[];
+};
+
+const { title, company, companyUrl, startDate, endDate, languages, description, location } = Astro.props;
+---
+
+<article class="sidebar">
+	<p class="fs:xs fw:medium">{startDate} {endDate && `– ${endDate}`}</p>
+	<div class="stack gap:0">
+		<p class="fs:md fw:medium">
+			{title},
+			<a href={companyUrl} target="_blank">{company}</a>
+		</p>
+		<p>{Array.isArray(description) ? description.map((paragraph) => <p>{paragraph}</p>) : description}</p>
+		<!-- <div class="cluster">
+			{
+				languages.map((language) => (
+					<div class="box item">
+						<p class="fs:xs">{language.name}</p>
+					</div>
+				))
+			}
+		</div> -->
+	</div>
+</article>
+
+<style>
+	.item {
+		--padding: var(--size-2xs) var(--size-xs);
+		border-radius: var(--radius-s);
+	}
+
+	.item p {
+		line-height: 0.85 !important;
+		padding-bottom: 0.15rem;
+	}
+
+	.logo {
+		width: 1rem;
+		height: 1rem;
+	}
+</style>

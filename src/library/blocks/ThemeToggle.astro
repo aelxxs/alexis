@@ -1,0 +1,59 @@
+---
+
+---
+
+<button class="unset" transition:persist>
+	<ion-icon data-hidden="true" name="moon"></ion-icon>
+	<ion-icon data-hidden="true" name="sunny"></ion-icon>
+</button>
+
+<style>
+	ion-icon {
+		cursor: pointer;
+		font-size: 1rem;
+	}
+
+	ion-icon[data-hidden="true"] {
+		display: none;
+	}
+
+	ion-icon[data-hidden="false"] {
+		display: block;
+	}
+
+	.unset {
+		all: unset !important;
+	}
+</style>
+
+<script>
+	const [sun, moon] = document.querySelectorAll("ion-icon");
+
+	const button = document.querySelector("button")!;
+
+	button.addEventListener("click", () => {
+		const theme = localStorage.getItem("theme");
+
+		if (theme === "dark") {
+			sun.setAttribute("data-hidden", "false");
+			moon.setAttribute("data-hidden", "true");
+			localStorage.setItem("theme", "light");
+			document.documentElement.setAttribute("data-theme", "light");
+		} else {
+			sun.setAttribute("data-hidden", "true");
+			moon.setAttribute("data-hidden", "false");
+			localStorage.setItem("theme", "dark");
+			document.documentElement.setAttribute("data-theme", "dark");
+		}
+	});
+
+	const theme = localStorage.getItem("theme");
+
+	if (theme === "dark") {
+		sun.setAttribute("data-hidden", "true");
+		moon.setAttribute("data-hidden", "false");
+	} else {
+		sun.setAttribute("data-hidden", "false");
+		moon.setAttribute("data-hidden", "true");
+	}
+</script>
