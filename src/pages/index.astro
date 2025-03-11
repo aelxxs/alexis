@@ -88,8 +88,8 @@ const subtitle = "Incoming FEE @ AWS 🌧️";
 			Hello, I'm <strong>Alexis Vielma</strong>. I'm a <s>straight-C</s> Computer Science student at the
 			<a href="https://ku.edu" target="_blank" data-no-tooltip>University of Kansas</a> with an anticipated graduation
 			date of
-			<span class="txt:main">May 2025</span>. I will be joining <a href="https://aws.amazon.com/">AWS</a> as a Front
-			End Engineer in August 2025.
+			<strong class="txt:main">May 2025</strong>. I will be joining <a href="https://aws.amazon.com/">AWS</a> as a
+			Front End Engineer in August 2025.
 		</p>
 		<p>
 			I design and build accessible and inclusive experiences for the web. On my free time, I enjoy collecting and
@@ -103,13 +103,7 @@ const subtitle = "Incoming FEE @ AWS 🌧️";
 	<article class="flow mb:5">
 		<h2 class="fs:xs txt:main">Experience</h2>
 		<div class="stack gap:2 mt:2">
-			{
-				jobs.map((job, i) => (
-					<>
-						<JobExperience {...job} />
-					</>
-				))
-			}
+			{jobs.map((job) => <JobExperience {...job} />)}
 		</div>
 		<p style="text-align: right;">
 			<a href="../../resume.pdf">View Resume</a>
