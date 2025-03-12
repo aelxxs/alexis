@@ -445,7 +445,7 @@ a.box:not(.invert):hover {
 	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: var(--repel-vertical-alignment, center);
-	gap: var(--gutter, var(--space-s-l));
+	gap: var(--gutter, var(--space-m));
 }
 
 .repel[data-nowrap] {
