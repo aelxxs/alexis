@@ -39,12 +39,33 @@ const links = [
 	</div>
 </header>
 
+<script is:inline>
+	const initScrollHandler = () => {
+		const header = document.querySelector("header");
+
+		window.addEventListener("scroll", () => {
+			if (window.scrollY > 0) {
+				header.style.backgroundColor = "var(--bg-main-trasnlucent)";
+				header.style.backdropFilter = "saturate(180%) blur(0.5rem)";
+				header.style.zIndex = "1";
+			} else {
+				header.style.backgroundColor = "transparent";
+				header.style.backdropFilter = "none";
+				header.style.zIndex = "0";
+			}
+		});
+	};
+
+	initScrollHandler();
+	document.addEventListener("astro:after-swap", () => {
+		initScrollHandler();
+	});
+</script>
+
 <style>
 	header {
 		position: sticky;
 		top: 0;
-		background-color: var(--bg-main);
-		z-index: 1;
 		padding-block: 1.25rem;
 		transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 	}
@@ -65,6 +86,7 @@ const links = [
 		text-decoration: none transparent;
 		transition: text-decoration 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 		text-underline-offset: 7px;
+		z-index: 4;
 	}
 
 	.nav-link:hover {

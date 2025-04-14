@@ -16,4 +16,10 @@ export default defineConfig({
 	redirects: {
 		"/p": "/paste",
 	},
+
+	markdown: {
+		shikiConfig: {
+			theme: "material-theme-ocean",
+		},
+	},
 });

@@ -22,6 +22,7 @@ body {
 	color-scheme: light;
 
 	--bg-main: hsl(0, 0%, 98%);
+	--bg-main-trasnlucent: hsl(0, 0%, 98%, 0.75);
 	--bg-main-hover: hsl(0, 0%, 98%, 0.35);
 	--bg-mute: hsl(0, 0%, 94%);
 	--bg-border: hsl(0, 0%, 90%);
@@ -34,6 +35,7 @@ body {
 	color-scheme: dark;
 
 	--bg-main: hsl(230, 20%, 9%);
+	--bg-main-trasnlucent: hsl(230, 20%, 9%, 0.75);
 	--bg-main-hover: hsl(230, 20%, 17%, 0.35);
 	--bg-mute: hsl(230, 20%, 12%);
 	--bg-border: hsl(230, 20%, 20%);
@@ -47,6 +49,7 @@ body {
 		color-scheme: dark;
 
 		--bg-main: hsl(230, 10%, 15%);
+		--bg-main-trasnlucent: hsl(230, 10%, 15%, 0.75);
 		--bg-main-hover: hsl(230, 10%, 15%, 0.55);
 		--bg-mute: hsl(230, 10%, 10%);
 		--bg-border: hsl(230, 10%, 20%);
@@ -59,6 +62,11 @@ body {
 body {
 	background-color: var(--bg-main);
 	transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.astro-code {
+	border-radius: var(--radius-m);
+	padding: var(--space-s);
 }
 
 hr {
