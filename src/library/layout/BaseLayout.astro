@@ -3,7 +3,7 @@ import "../styling/style.css";
 import "../styling/reset.css";
 import "../styling/code.css";
 
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import LoadingIndicator from "astro-loading-indicator/component";
 
 export interface Props {
@@ -46,12 +46,18 @@ const { title, overwritePageTitle = false } = Astro.props;
 		<meta name="twitter:title" content={overwritePageTitle ? title : `${title} — Alexis Vielma`} />
 		<meta name="twitter:description" content="My little corner of the internet" />
 		<meta name="twitter:image" content="" />
-		<ViewTransitions />
+
+		<ClientRouter />
 		<LoadingIndicator color="var(--clr-500)" height="3px" threshold={600} />
+
 		<script is:inline>
 			const theme = localStorage.getItem("theme");
 
 			document.documentElement.setAttribute("data-theme", theme ?? "dark");
+
+			document.addEventListener("astro:after-swap", () =>
+				document.documentElement.setAttribute("data-theme", localStorage.getItem("theme") ?? "dark")
+			);
 		</script>
 	</head>
 	<body>

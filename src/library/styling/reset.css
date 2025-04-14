@@ -70,6 +70,7 @@ img,
 picture {
 	max-width: 100%;
 	display: block;
+	border-radius: var(--radius-m);
 }
 
 /* Inherit fonts for inputs and buttons */
@@ -134,4 +135,42 @@ abbr {
 
 abbr:hover {
 	border-color: hsl(0, 0%, 20%);
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	border-radius: var(--radius-m);
+}
+
+/* Set default table border spacing */
+
+/* Set default table border color */
+table:not([border]) {
+	border-color: var(--bg-border);
+}
+
+/* Set default table border width */
+table:not([border]) th,
+table:not([border]) td {
+	border-width: 1px;
+	border-radius: var(--radius-m);
+}
+
+/* Set default table border style */
+table:not([border]) th,
+table:not([border]) td {
+	border-style: solid;
+	border-radius: var(--radius-m);
+}
+
+table th,
+table td {
+	border-color: var(--bg-border);
+}
+
+/* Set default table padding */
+table th,
+table td {
+	padding: 0.5em 1em;
 }

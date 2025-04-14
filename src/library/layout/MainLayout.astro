@@ -62,7 +62,7 @@ const viewTransition = {
 ---
 
 <BaseLayout {title} {overwritePageTitle}>
-	<!-- <span class="blur"></span> -->
+	<span class="blur"></span>
 	<!-- <div class="wrapper mt:4">
 		<div class="box" style="--padding: var(--s1)">
 			<div class="cluster" data-justify="center" data-wrap="nowrap">
@@ -75,8 +75,8 @@ const viewTransition = {
 			</div>
 		</div>
 	</div> -->
-	{showHeader && <Header />}
-	<!-- <span class="circle"></span> -->
+	{showHeader && <Header transition:persist />}
+	<span class="circle"></span>
 	<div transition:animate={viewTransition}>
 		<main class="wrapper flow">
 			<Breadcrumbs />
@@ -103,7 +103,7 @@ const viewTransition = {
 		width: 100%;
 		height: 100vh;
 		filter: blur(1rem);
-		z-index: -1;
+		opacity: 0.5;
 		background: radial-gradient(circle at 50% 0%, rgb(29 78 216 / 40%), rgba(255, 255, 255, 0) 40%);
 	}
 
@@ -189,45 +189,52 @@ const viewTransition = {
 	let posY = 0;
 	let alpha = 1;
 
-	const circle = document.querySelector<HTMLSpanElement>(".circle");
+	const initCircleHandler = () => {
+		const circle = document.querySelector<HTMLSpanElement>(".circle");
 
-	if (circle !== null) {
-		addEventListener("mousemove", (event) => {
-			inputX = event.clientX;
-			inputY = event.clientY;
+		if (circle !== null) {
+			addEventListener("mousemove", (event) => {
+				inputX = event.clientX;
+				inputY = event.clientY;
 
-			alpha = 25;
-		});
+				alpha = 25;
+			});
 
-		addEventListener("touchmove", (event) => {
-			if (event.touches.length > 0) {
-				event.preventDefault();
+			addEventListener("touchmove", (event) => {
+				if (event.touches.length > 0) {
+					event.preventDefault();
 
-				inputX = event.touches[0].clientX;
-				inputY = event.touches[0].clientY;
-			}
+					inputX = event.touches[0].clientX;
+					inputY = event.touches[0].clientY;
+				}
 
-			alpha = 25;
-		});
+				alpha = 25;
+			});
 
-		let prev = 0;
+			let prev = 0;
 
-		requestAnimationFrame(function render(now) {
-			requestAnimationFrame(render);
+			requestAnimationFrame(function render(now) {
+				requestAnimationFrame(render);
 
-			const factor = (now - prev) / 16;
-			prev = now;
+				const factor = (now - prev) / 16;
+				prev = now;
 
-			const speed = 0.125;
+				const speed = 0.125;
 
-			posX += factor * speed * (inputX - posX);
-			posY += factor * speed * (inputY - posY);
+				posX += factor * speed * (inputX - posX);
+				posY += factor * speed * (inputY - posY);
 
-			alpha *= Math.pow(0.95, factor);
-			const opacity = Math.min(1, alpha);
+				alpha *= Math.pow(0.95, factor);
+				const opacity = Math.min(1, alpha);
 
-			circle.style.transform = `translate3d(${~~posX}px, ${~~posY}px, 0)`;
-			circle.style.opacity = (Math.round(opacity * 255) / 255).toString();
-		});
-	}
+				circle.style.transform = `translate3d(${~~posX}px, ${~~posY}px, 0)`;
+				circle.style.opacity = (Math.round(opacity * 255) / 255).toString();
+			});
+		}
+	};
+
+	initCircleHandler();
+	document.addEventListener("astro:after-swap", () => {
+		initCircleHandler();
+	});
 </script>
