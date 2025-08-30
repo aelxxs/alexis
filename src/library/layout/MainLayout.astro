@@ -80,11 +80,11 @@ const viewTransition = {
 	<div transition:animate={viewTransition}>
 		<main class="wrapper flow">
 			<Breadcrumbs />
-			<img class="hero-img rounded:lg mb:5" src="/hero.gif" alt="" />
+			<!-- <img class="hero-img rounded:lg mb:5" src="/hero.gif" alt="" /> -->
 			<article>
-				<header class="stack gap:-1 mb:4 mt:2">
-					{showTitle && title && <h1>{title}</h1>}
-					{subtitle && <p class="fs:lg fw:normal">{subtitle}</p>}
+				<header class="mb:4 mt:2">
+					{showTitle && title && <h1 class="fs:xl fw:medium">{title}</h1>}
+					{subtitle && <p class="fs:md fw:normal">{subtitle}</p>}
 				</header>
 				<section class="flow">
 					<slot />
@@ -126,8 +126,8 @@ const viewTransition = {
 	}
 
 	main {
-		padding-inline: var(--space-2xl);
-		padding-block: var(--space-l);
+		padding-inline: var(--space-xl);
+		padding-block: var(--space-m);
 		/* max-width: 75ch; */
 		margin-inline: auto;
 	}

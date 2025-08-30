@@ -17,9 +17,9 @@ const { title, company, companyUrl, startDate, endDate, languages, description, 
 ---
 
 <article class="sidebar">
-	<p class="fs:xs fw:medium">{startDate} {endDate && `– ${endDate}`}</p>
-	<div class="stack gap:0">
-		<p class="fs:md fw:medium">
+	<p class="fs:xs txt:mute">{startDate} {endDate && `– ${endDate}`}</p>
+	<div class="flow">
+		<p class="fs:sm fw:medium">
 			{title},
 			<a href={companyUrl} target="_blank">{company}</a>
 		</p>
@@ -44,7 +44,7 @@ const { title, company, companyUrl, startDate, endDate, languages, description, 
 
 	.item p {
 		line-height: 0.85 !important;
-		padding-bottom: 0.15rem;
+		padding-bottom: 15rem;
 	}
 
 	.logo {

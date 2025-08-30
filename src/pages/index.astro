@@ -5,11 +5,21 @@ import MainLayout from "@layout/MainLayout.astro";
 
 const jobs = [
 	{
+		title: "Front End Engineer",
+		company: "Amazon Web Services (AWS)",
+		companyUrl: "https://aws.com",
+		description: "AWS — SMGS Ops DP&I",
+		startDate: "Aug 2025",
+		endDate: "Present",
+		location: "Seattle, WA",
+		languages: [],
+	},
+	{
 		title: "Technology Director",
 		company: "KJHK 90.7 FM",
 		companyUrl: "https://kjhk.org",
 		startDate: "Mar 2023",
-		endDate: "Present",
+		endDate: "May 2025",
 		location: "Hyrbrid – Lawrence, KS",
 		languages: [
 			{
@@ -25,8 +35,7 @@ const jobs = [
 				name: "WordPress",
 			},
 		],
-		description:
-			"Led technology system development, fixed WordPress plugin issues for faster page loads, built an event-driven API gateway, redesigned a mobile app with React Native and TypeScript, and improved technical problem resolution and documentation at the radio station.",
+		description: "Mobile Development, RDS Encoding, Metadata Transmission",
 	},
 	{
 		title: "Front End Engineer Intern",
@@ -36,7 +45,7 @@ const jobs = [
 		endDate: "Aug 2024",
 		location: "Seattle, WA",
 		languages: [],
-		description: "Organization: Stores – Home Innovation Team",
+		description: "Stores — Home Innovation Team",
 	},
 	{
 		title: "Software Engineer",
@@ -55,8 +64,7 @@ const jobs = [
 				name: "React",
 			},
 		],
-		description:
-			"Created a backend API with Nest.js and TypeScript for multiple Natural Language Processors, built an MVP web dashboard with React and Vite, and researched serverless architecture for future scalability.",
+		description: "Call performance, measured by sentiment",
 	},
 ];
 
@@ -78,62 +86,56 @@ const repos: Repo[] = await fetch("https://ghapi.dstn.to/aelxxs/pinned")
 	.then((res) => res.data);
 
 const title = "Alexis Vielma";
-const subtitle = "Incoming FEE @ AWS 🌧️";
+const subtitle = "Front End Engineer @ AWS 🌧️";
 ---
 
 <MainLayout {title} {subtitle} overwritePageTitle>
 	<article class="flow mb:5">
 		<h2 class="fs:xs txt:main">About Me</h2>
 		<p>
-			Hello, I'm <strong>Alexis Vielma</strong>. I'm a <s>straight-C</s> Computer Science student at the
-			<a href="https://ku.edu" target="_blank" data-no-tooltip>University of Kansas</a> with an anticipated graduation
-			date of
-			<strong class="txt:main">May 2025</strong>. I will be joining <a href="https://aws.amazon.com/">AWS</a> as a
-			Front End Engineer in August 2025.
+			Hello, I'm <strong>Alexis Vielma</strong>. I'm a recent Computer Science graduate from the
+			<a href="https://ku.edu" target="_blank" data-no-tooltip>University of Kansas</a>.
+			<p>
+				I design and build accessible and inclusive experiences for the web. On my free time, I enjoy collecting
+				and spinning vinyl records, learning languages, watching k-dramas, and playing <a
+					href="https://stardewvalley.net"
+					target="_blank">Stardew Valley</a
+				>.
+			</p>
 		</p>
-		<p>
-			I design and build accessible and inclusive experiences for the web. On my free time, I enjoy collecting and
-			spinning vinyl records, learning languages, watching k-dramas, and playing <a
-				href="https://stardewvalley.net"
-				target="_blank">Stardew Valley</a
-			>.
-		</p>
+
+		<article class="flow mb:5">
+			<h2 class="fs:xs txt:main">Experience</h2>
+			<div class="stack gap:2 mt:2">
+				{jobs.map((job) => <JobExperience {...job} />)}
+			</div>
+			<p style="text-align: right;">
+				<a href="../../resume.pdf">View Resume</a>
+			</p>
+		</article>
+
+		<article class="flow">
+			<h2 class="fs:xs txt:main">Projects</h2>
+			<div class="grid">
+				{repos.map((repo) => <Project {...repo} />)}
+			</div>
+		</article>
+
+		<style>
+			h2 {
+				text-transform: uppercase;
+				position: relative;
+			}
+
+			h2::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 1rem;
+				height: 0.25rem;
+				background-color: var(--color-primary);
+			}
+		</style>
 	</article>
-
-	<article class="flow mb:5">
-		<h2 class="fs:xs txt:main">Experience</h2>
-		<div class="stack gap:2 mt:2">
-			{jobs.map((job) => <JobExperience {...job} />)}
-		</div>
-		<p style="text-align: right;">
-			<a href="../../resume.pdf">View Resume</a>
-		</p>
-	</article>
-
-	<article class="flow">
-		<h2 class="fs:xs txt:main">Projects</h2>
-		<p>
-			Here are some of the projects I've worked on (from my <a href="https://github.com/aelxxs">GitHub</a>)
-		</p>
-		<div class="grid">
-			{repos.map((repo) => <Project {...repo} />)}
-		</div>
-	</article>
-
-	<style>
-		h2 {
-			text-transform: uppercase;
-			position: relative;
-		}
-
-		h2::before {
-			content: "";
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 1rem;
-			height: 0.25rem;
-			background-color: var(--color-primary);
-		}
-	</style>
 </MainLayout>

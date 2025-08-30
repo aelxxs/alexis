@@ -3,10 +3,10 @@
 /* Mono font */
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Piazzolla:ital,opsz,wght@0,8..30,100..900;1,8..30,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 body {
-	font-family: Inter, Georgia, serif;
+	font-family: Poppins, Georgia, serif;
 }
 
 /* Theme */
@@ -79,16 +79,15 @@ hr {
 
 /* testing */
 :root {
-	/* @link https://utopia.fyi/type/calculator?c=320,13,1.125,700,14.75,1.2,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
-
-	--step--2: clamp(0.6402rem, 0.6435rem + -0.0075vw, 0.642rem);
-	--step--1: clamp(0.7222rem, 0.6835rem + 0.1937vw, 0.7682rem);
-	--step-0: clamp(0.8125rem, 0.7204rem + 0.4605vw, 0.9219rem);
-	--step-1: clamp(0.9141rem, 0.7522rem + 0.8092vw, 1.1063rem);
-	--step-2: clamp(1.0283rem, 0.7764rem + 1.2597vw, 1.3275rem);
-	--step-3: clamp(1.1569rem, 0.7896rem + 1.8364vw, 1.593rem);
-	--step-4: clamp(1.3015rem, 0.7877rem + 2.569vw, 1.9116rem);
-	--step-5: clamp(1.4642rem, 0.7654rem + 3.4938vw, 2.2939rem);
+	/* @link https://utopia.fyi/type/calculator?c=320,14,1.125,700,14,1.2,5,2,&s=0.75,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+	--step--2: clamp(0.6076rem, 0.7619rem + -0.3525vw, 0.6914rem);
+	--step--1: clamp(0.7292rem, 0.8187rem + -0.2047vw, 0.7778rem);
+	--step-0: clamp(0.875rem, 0.875rem + 0vw, 0.875rem);
+	--step-1: clamp(0.9844rem, 0.9291rem + 0.2763vw, 1.05rem);
+	--step-2: clamp(1.1074rem, 0.9789rem + 0.6424vw, 1.26rem);
+	--step-3: clamp(1.2458rem, 1.0217rem + 1.1206vw, 1.512rem);
+	--step-4: clamp(1.4016rem, 1.0539rem + 1.7382vw, 1.8144rem);
+	--step-5: clamp(1.5768rem, 1.0711rem + 2.5284vw, 2.1773rem);
 
 	/* @link https://utopia.fyi/space/calculator?c=320,8,1.2,1240,12,1.333,6,2,&s=0.75|0.5,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 	--space-2xs: clamp(0.25rem, 0.2065rem + 0.2174vw, 0.375rem);
@@ -455,10 +454,10 @@ a.box:not(.invert):hover {
 .sidebar {
 	display: flex;
 	flex-wrap: wrap;
-	gap: var(--gutter, var(--space-m));
+	gap: var(--gutter, var(--space-2xs));
 }
 .sidebar > :first-child {
-	flex-basis: 10rem;
+	flex-basis: 9.5rem;
 	flex-grow: 1;
 }
 .sidebar > :last-child {
@@ -517,7 +516,7 @@ a.box:not(.invert):hover {
 }
 
 .flow > * + * {
-	margin-top: var(--flow-space, var(--space-l));
+	margin-top: var(--flow-space, var(--space-m));
 }
 
 /* Utilities */
@@ -531,8 +530,8 @@ a.box:not(.invert):hover {
 }
 
 .wrapper {
-	max-width: 53rem;
-	padding-inline: 1.25rem;
+	max-width: 48rem;
+	padding-inline: var(--space-l);
 	margin-inline: auto;
 }
 

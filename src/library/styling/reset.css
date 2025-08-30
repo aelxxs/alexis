@@ -123,9 +123,9 @@ a:not([class]) {
 
 .link:hover,
 a:not([class]):hover {
-	text-decoration: 2px underline var(--txt-1);
-	text-underline-offset: 7px;
-	/* transform: scale(0.95); */
+	text-decoration: 1.75px underline var(--txt-1);
+	text-underline-offset: 5px;
+	/* transform: scale(0.98); */
 }
 
 abbr {
