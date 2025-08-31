@@ -1,9 +1,11 @@
+import { Redis } from "@upstash/redis";
 import { rewrite } from "@vercel/edge";
-import { kv } from "@vercel/kv";
 
 export const config = {
 	matcher: "/f/:path*",
 };
+
+const redis = Redis.fromEnv();
 
 /**
  *
@@ -14,7 +16,7 @@ export default async function middleware(request) {
 	const url = new URL(request.url);
 	const id = url.pathname.split("/").pop();
 
-	const file = await kv.hget("files", id);
+	const file = await redis.hget("files", id);
 
 	if (!file) {
 		return Response.redirect(new URL("/", request.url));
@@ -22,7 +24,7 @@ export default async function middleware(request) {
 
 	file.clicks++;
 
-	await kv.hset("files", {
+	await redis.hset("files", {
 		[id]: file,
 	});
 

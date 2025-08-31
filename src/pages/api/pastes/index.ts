@@ -1,4 +1,4 @@
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
 import type { APIRoute } from "astro";
 import { z } from "zod";
 
@@ -33,8 +33,10 @@ const uid = <N extends number>(length: N): FixedString<N> => {
 	return id as FixedString<N>;
 };
 
+const redis = Redis.fromEnv();
+
 export const GET: APIRoute = async (req) => {
-	const pastes = await kv.hgetall<Record<string, Paste>>("pastes");
+	const pastes = await redis.hgetall<Record<string, Paste>>("pastes");
 
 	if (!pastes) {
 		return new Response(JSON.stringify({ pastes: [] }), {
@@ -68,7 +70,7 @@ export const DELETE: APIRoute = async ({ request }) => {
 	try {
 		const { id } = LinkDeleteSchema.parse(body);
 
-		await kv.hdel("pastes", id);
+		await redis.hdel("pastes", id);
 
 		return new Response(JSON.stringify({ id }), { status: 200 });
 	} catch (e) {
@@ -99,7 +101,7 @@ export const POST: APIRoute = async ({ request }) => {
 			updatedAt: now,
 		};
 
-		await kv.hset<Paste>("pastes", {
+		await redis.hset<Paste>("pastes", {
 			[id]: { ...paste },
 		});
 
@@ -121,7 +123,7 @@ export const PUT: APIRoute = async ({ request }) => {
 	try {
 		const { id, content } = PasteUpdateSchema.parse(body);
 
-		const paste = await kv.hget<Paste>("pastes", id);
+		const paste = await redis.hget<Paste>("pastes", id);
 
 		if (!paste) {
 			return new Response("Paste not found", { status: 404 });
@@ -129,7 +131,7 @@ export const PUT: APIRoute = async ({ request }) => {
 
 		const now = Date.now();
 
-		await kv.hset<Paste>("pastes", {
+		await redis.hset<Paste>("pastes", {
 			[id]: {
 				...paste,
 				content,

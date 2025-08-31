@@ -1,8 +1,10 @@
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
 import type { APIRoute } from "astro";
 
+const redis = Redis.fromEnv();
+
 export const GET: APIRoute = async (req) => {
-	const paste = await kv.hget("pastes", req.params.id as string);
+	const paste = await redis.hget("pastes", req.params.id as string);
 
 	if (!paste) {
 		return new Response(JSON.stringify({ pastes: [] }), {
@@ -15,7 +17,7 @@ export const GET: APIRoute = async (req) => {
 
 	const id = req.params.id as string;
 
-	await kv.hset("pastes", {
+	await redis.hset("pastes", {
 		[id]: {
 			...paste,
 			clicks: paste.clicks + 1,

@@ -1,5 +1,5 @@
+import { Redis } from "@upstash/redis";
 import { put } from "@vercel/blob";
-import { kv } from "@vercel/kv";
 import type { APIRoute } from "astro";
 import { z } from "zod";
 
@@ -34,8 +34,10 @@ const uid = <N extends number>(length: N): FixedString<N> => {
 	return id as FixedString<N>;
 };
 
+const redis = Redis.fromEnv();
+
 export const GET: APIRoute = async () => {
-	const files = await kv.hgetall<Record<string, file>>("files");
+	const files = await redis.hgetall<Record<string, file>>("files");
 
 	if (!files) {
 		return new Response(JSON.stringify({ files: [] }), {
@@ -69,7 +71,7 @@ export const DELETE: APIRoute = async ({ request }) => {
 	try {
 		const { id } = fileDeleteSchema.parse(body);
 
-		await kv.hdel("files", id);
+		await redis.hdel("files", id);
 
 		return new Response(JSON.stringify({ id }), { status: 200 });
 	} catch (e) {
@@ -112,7 +114,7 @@ export const POST: APIRoute = async ({ request }) => {
 			updatedAt: now,
 		};
 
-		await kv.hset<file>("files", {
+		await redis.hset<file>("files", {
 			[id]: { ...fileData },
 		});
 

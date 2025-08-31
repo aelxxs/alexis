@@ -1,4 +1,4 @@
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
 import type { APIRoute } from "astro";
 import { z } from "zod";
 
@@ -33,8 +33,10 @@ const uid = <N extends number>(length: N): FixedString<N> => {
 	return id as FixedString<N>;
 };
 
+const redis = Redis.fromEnv();
+
 export const GET: APIRoute = async () => {
-	const links = await kv.hgetall<Record<string, Link>>("links");
+	const links = await redis.hgetall<Record<string, Link>>("links");
 
 	if (!links) {
 		return new Response(JSON.stringify({ links: [] }), {
@@ -68,7 +70,7 @@ export const DELETE: APIRoute = async ({ request }) => {
 	try {
 		const { id } = LinkDeleteSchema.parse(body);
 
-		await kv.hdel("links", id);
+		await redis.hdel("links", id);
 
 		return new Response(JSON.stringify({ id }), { status: 200 });
 	} catch (e) {
@@ -99,7 +101,7 @@ export const POST: APIRoute = async ({ request }) => {
 			updatedAt: now,
 		};
 
-		await kv.hset<Link>("links", {
+		await redis.hset<Link>("links", {
 			[id]: { ...link },
 		});
 

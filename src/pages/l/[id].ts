@@ -1,4 +1,4 @@
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
 
 import type { APIRoute } from "astro";
 
@@ -10,11 +10,13 @@ export type Link = {
 	updatedAt: number;
 };
 
+const redis = Redis.fromEnv();
+
 export const GET: APIRoute = async (request) => {
 	const { params } = request;
 
 	const id = params.id as string;
-	const link = await kv.hget<Link>("links", id);
+	const link = await redis.hget<Link>("links", id);
 
 	// if (!link || link.ex < Date.now()) {
 	//	await kv.hdel("links", id);
@@ -24,7 +26,7 @@ export const GET: APIRoute = async (request) => {
 
 	link.clicks++;
 
-	await kv.hset("links", {
+	await redis.hset("links", {
 		[id]: link,
 	});
 
