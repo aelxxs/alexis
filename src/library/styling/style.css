@@ -77,12 +77,7 @@ body {
 	background-color: var(--bg-main);
 	background-image:
 		radial-gradient(
-			36rem 20rem at 2% -8%,
-			color-mix(in srgb, var(--clr-500) 10%, transparent),
-			transparent 72%
-		),
-		radial-gradient(
-			60rem 34rem at 8% 108%,
+			60rem 34rem at 8% -8%,
 			var(--bg-glow-1),
 			transparent 65%
 		),
