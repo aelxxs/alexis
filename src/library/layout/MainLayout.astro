@@ -215,27 +215,12 @@ const viewTransition = {
 			if (circle.dataset.initialized === "true") return;
 			circle.dataset.initialized = "true";
 
-			addEventListener("mousemove", (event) => {
+			addEventListener("pointermove", (event) => {
 				inputX = event.clientX;
 				inputY = event.clientY;
 
 				targetAlpha = 1;
 			});
-
-			addEventListener(
-				"touchmove",
-				(event) => {
-					if (event.touches.length > 0) {
-						event.preventDefault();
-
-						inputX = event.touches[0].clientX;
-						inputY = event.touches[0].clientY;
-					}
-
-					targetAlpha = 1;
-				},
-				{ passive: false },
-			);
 
 			let prev = 0;
 
