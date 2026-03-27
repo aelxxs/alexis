@@ -1,11 +1,11 @@
 ---
-import ThemeToggle from "./ThemeToggle.astro";
 import Logo from "./icons/Logo.astro";
+import ActionLink from "./ActionLink.astro";
 
 const links = [
 	{ label: "home", url: "/" },
 	{ label: "writing", url: "/writing" },
-	{ label: "tools", url: "/tools" },
+	// { label: "tools", url: "/tools" },
 ];
 ---
 
@@ -35,7 +35,13 @@ const links = [
 				</ul>
 			</nav>
 		</div>
-		<ThemeToggle />
+		<ActionLink
+			href="mailto:work@alexis.lol"
+			label="contact"
+			icon="mail-outline"
+			variant="soft"
+			ariaLabel="contact by email"
+		/>
 	</div>
 </header>
 

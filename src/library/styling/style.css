@@ -12,8 +12,8 @@ body {
 /* Theme */
 
 :root {
-	--clr-400: hsl(186, 100%, 24%);
-	--clr-500: hsl(171, 100%, 32%);
+	--clr-400: hsl(350, 45%, 30%);
+	--clr-500: hsl(344, 72%, 74%);
 	--clr-600: hsla(0, 0%, 48%, 1);
 }
 
@@ -22,13 +22,16 @@ body {
 	color-scheme: light;
 
 	--bg-main: hsl(0, 0%, 98%);
-	--bg-main-trasnlucent: hsl(0, 0%, 98%, 0.75);
+	--bg-main-trasnlucent: hsl(0, 0%, 98%, 0.15);
 	--bg-main-hover: hsl(0, 0%, 98%, 0.35);
 	--bg-mute: hsl(0, 0%, 94%);
 	--bg-border: hsl(0, 0%, 90%);
 
 	--txt-1: hsl(0, 0%, 15%);
-	--txt-2: hsl(0, 0%, 25%);
+	--txt-2: hsl(0, 0%, 35%);
+
+	--bg-glow-1: color-mix(in srgb, var(--clr-500) 24%, transparent);
+	--bg-glow-2: color-mix(in srgb, var(--clr-400) 12%, transparent);
 }
 
 :root[data-theme="dark"] {
@@ -42,6 +45,9 @@ body {
 
 	--txt-1: hsl(230, 10%, 100%);
 	--txt-2: hsl(230, 10%, 90%);
+
+	--bg-glow-1: color-mix(in srgb, var(--clr-500) 12%, transparent);
+	--bg-glow-2: color-mix(in srgb, var(--clr-400) 16%, transparent);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,11 +62,26 @@ body {
 
 		--txt-1: hsl(230, 10%, 100%);
 		--txt-2: hsl(230, 10%, 90%);
+
+		--bg-glow-1: color-mix(in srgb, var(--clr-500) 12%, transparent);
+		--bg-glow-2: color-mix(in srgb, var(--clr-400) 16%, transparent);
 	}
 }
 
 body {
 	background-color: var(--bg-main);
+	background-image:
+		radial-gradient(
+			60rem 34rem at 8% -8%,
+			var(--bg-glow-1),
+			transparent 65%
+		),
+		radial-gradient(
+			54rem 30rem at 100% 0%,
+			var(--bg-glow-2),
+			transparent 70%
+		);
+	background-attachment: fixed;
 	transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -125,14 +146,17 @@ hr {
 
 	/* Shadows */
 	--shadow-color: 0deg 0% 0%;
-	--shadow-s: 0px 0.6px 0.6px hsl(var(--shadow-color) / 17%),
+	--shadow-s:
+		0px 0.6px 0.6px hsl(var(--shadow-color) / 17%),
 		0px 0.9px 0.9px -1.7px hsl(var(--shadow-color) / 14%),
 		0px 2.5px 2.4px -3.5px hsl(var(--shadow-color) / 11%);
-	--shadow-m: 0px 0.6px 0.6px hsl(var(--shadow-color) / 12%),
+	--shadow-m:
+		0px 0.6px 0.6px hsl(var(--shadow-color) / 12%),
 		0px 1.6px 1.6px -1.2px hsl(var(--shadow-color) / 10%),
 		0px 4.7px 4.6px -2.3px hsl(var(--shadow-color) / 7%),
 		0px 12.5px 12.2px -3.5px hsl(var(--shadow-color) / 4%);
-	--shadow-l: 0px 0.6px 0.6px hsl(var(--shadow-color) / 17%),
+	--shadow-l:
+		0px 0.6px 0.6px hsl(var(--shadow-color) / 17%),
 		0px 2.6px 2.5px -0.5px hsl(var(--shadow-color) / 16%),
 		0px 5.3px 5.2px -1px hsl(var(--shadow-color) / 15%),
 		0px 9.7px 9.5px -1.5px hsl(var(--shadow-color) / 13%),
@@ -419,7 +443,8 @@ a {
 	outline: var(--border-thin) transparent;
 	outline-offset: calc(var(--border-thin) * -1);
 	color: var(--color-dark);
-	transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+	transition:
+		background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
 		transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 	background-color: var(--bg-main-hovere);
 	backdrop-filter: blur(1rem);

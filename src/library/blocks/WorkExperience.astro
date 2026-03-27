@@ -18,8 +18,8 @@ const { title, company, companyUrl, startDate, endDate, languages, description, 
 
 <article class="sidebar">
 	<p class="fs:xs txt:mute">{startDate} {endDate && `– ${endDate}`}</p>
-	<div class="flow">
-		<p class="fs:sm fw:medium">
+	<div class="stack gap:-1">
+		<p class="fs:sm txt:main fw:medium">
 			{title},
 			<a href={companyUrl} target="_blank">{company}</a>
 		</p>

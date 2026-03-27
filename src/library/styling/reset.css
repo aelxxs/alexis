@@ -99,7 +99,8 @@ a:not([class]) {
 	display: inline-block;
 	text-decoration-skip-ink: auto;
 	color: var(--clr-400);
-	transition: transform 0.5s cubic-bezier(0.2, 1, 0.8, 1),
+	transition:
+		transform 0.5s cubic-bezier(0.2, 1, 0.8, 1),
 		text-underline-offset 0.3s cubic-bezier(0.2, 1, 0.8, 1),
 		text-decoration 0.3s cubic-bezier(0.2, 1, 0.8, 1);
 	text-underline-offset: 5px;

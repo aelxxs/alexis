@@ -1,6 +1,7 @@
 ---
 import Footer from "@blocks/Footer.astro";
 import Header from "@blocks/Header.astro";
+import TimeWasted from "@blocks/TimeWasted.svelte";
 import Breadcrumbs from "@lib/blocks/Breadcrumbs.astro";
 import type { TransitionAnimationPair } from "astro";
 import BaseLayout from "./BaseLayout.astro";
@@ -94,17 +95,30 @@ const viewTransition = {
 		{showFooter && <Footer />}
 	</div>
 
-	<!-- <TimeWasted client:load /> -->
+	<TimeWasted client:load />
 </BaseLayout>
 <style>
-	html[data-theme="dark"] body .blur {
+	body .blur {
 		position: absolute;
 		top: 0rem;
 		width: 100%;
 		height: 100vh;
 		filter: blur(1rem);
-		opacity: 0.5;
-		background: radial-gradient(circle at 50% 0%, rgb(29 78 216 / 40%), rgba(255, 255, 255, 0) 40%);
+		opacity: 0.24;
+		background: radial-gradient(
+			circle at 50% 0%,
+			color-mix(in srgb, var(--clr-500) 20%, transparent),
+			transparent 46%
+		);
+	}
+
+	html[data-theme="dark"] body .blur {
+		opacity: 0.2;
+		background: radial-gradient(
+			circle at 50% 0%,
+			color-mix(in srgb, var(--clr-500) 14%, transparent),
+			transparent 48%
+		);
 	}
 
 	body {
@@ -151,28 +165,32 @@ const viewTransition = {
 		}
 	}
 
-	html[data-theme="dark"] body {
+	body {
 		z-index: 100;
 	}
 
-	html[data-theme="dark"] body .circle {
+	body .circle {
 		position: fixed;
 		inset: 0;
 		z-index: -1;
 	}
 
-	html[data-theme="dark"] body .circle::before {
-		filter: blur(5rem);
+	body .circle::before {
 		content: "";
 		z-index: -100;
 		display: block;
 		width: 35rem;
 		height: 35rem;
 		border-radius: 50%;
-		opacity: 0.65;
+		opacity: 0.48;
 		filter: blur(3.5rem);
-		background: radial-gradient(circle, rgb(29 78 216 / 40%), rgba(255, 255, 255, 0), transparent);
+		background: radial-gradient(circle, color-mix(in srgb, var(--clr-500) 26%, transparent), transparent 70%);
 		transform: translate(-50%, -50%);
+	}
+
+	html[data-theme="dark"] body .circle::before {
+		opacity: 0.4;
+		background: radial-gradient(circle, color-mix(in srgb, var(--clr-400) 26%, transparent), transparent 72%);
 	}
 	.hero-img {
 		display: block;
@@ -187,29 +205,37 @@ const viewTransition = {
 	let inputY = 0;
 	let posX = 0;
 	let posY = 0;
-	let alpha = 1;
+	let alpha = 0;
+	let targetAlpha = 0;
 
 	const initCircleHandler = () => {
 		const circle = document.querySelector<HTMLSpanElement>(".circle");
 
 		if (circle !== null) {
+			if (circle.dataset.initialized === "true") return;
+			circle.dataset.initialized = "true";
+
 			addEventListener("mousemove", (event) => {
 				inputX = event.clientX;
 				inputY = event.clientY;
 
-				alpha = 25;
+				targetAlpha = 1;
 			});
 
-			addEventListener("touchmove", (event) => {
-				if (event.touches.length > 0) {
-					event.preventDefault();
+			addEventListener(
+				"touchmove",
+				(event) => {
+					if (event.touches.length > 0) {
+						event.preventDefault();
 
-					inputX = event.touches[0].clientX;
-					inputY = event.touches[0].clientY;
-				}
+						inputX = event.touches[0].clientX;
+						inputY = event.touches[0].clientY;
+					}
 
-				alpha = 25;
-			});
+					targetAlpha = 1;
+				},
+				{ passive: false },
+			);
 
 			let prev = 0;
 
@@ -220,12 +246,14 @@ const viewTransition = {
 				prev = now;
 
 				const speed = 0.125;
+				const fadeSpeed = 0.14;
 
 				posX += factor * speed * (inputX - posX);
 				posY += factor * speed * (inputY - posY);
 
-				alpha *= Math.pow(0.95, factor);
-				const opacity = Math.min(1, alpha);
+				targetAlpha *= Math.pow(0.97, factor);
+				alpha += factor * fadeSpeed * (targetAlpha - alpha);
+				const opacity = Math.max(0, Math.min(1, alpha));
 
 				circle.style.transform = `translate3d(${~~posX}px, ${~~posY}px, 0)`;
 				circle.style.opacity = (Math.round(opacity * 255) / 255).toString();

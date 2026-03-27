@@ -12,13 +12,13 @@ type Props = {
 const { name, description, primaryLanguage, url } = Astro.props;
 ---
 
-<a href={url} target="_blank" class="box stack" style="--space: 0.65rem;">
+<a href={url} target="_blank" class="box stack" style="--space: 0.5rem;">
 	<div class="repel">
 		<strong>{name}</strong>
 		<ion-icon name="open-outline"></ion-icon>
 	</div>
 	<p data-description class="txt:mute">{description}</p>
-	<div class="cluster">
+	<div class="cluster gap:-2" style="--gutter: 0.5rem;">
 		<span
 			class="language"
 			style={{

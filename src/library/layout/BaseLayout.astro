@@ -53,10 +53,10 @@ const { title, overwritePageTitle = false } = Astro.props;
 		<script is:inline>
 			const theme = localStorage.getItem("theme");
 
-			document.documentElement.setAttribute("data-theme", theme ?? "dark");
+			document.documentElement.setAttribute("data-theme", theme ?? "light");
 
 			document.addEventListener("astro:after-swap", () =>
-				document.documentElement.setAttribute("data-theme", localStorage.getItem("theme") ?? "dark")
+				document.documentElement.setAttribute("data-theme", localStorage.getItem("theme") ?? "light"),
 			);
 		</script>
 	</head>
