@@ -9,6 +9,11 @@ body {
 	font-family: Poppins, Georgia, serif;
 }
 
+html,
+body {
+	background-color: var(--bg-main);
+}
+
 /* Theme */
 
 :root {
